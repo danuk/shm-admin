@@ -1,0 +1,44 @@
+// Extrabar
+// --------------------------------------------------
+
+body.extrabar-show {
+	overflow: hidden;
+	background: #e0e0e0;
+	#wrapper {.scale(0.9);}
+	.extrabar {
+		transform: translateY(0);
+		transition: transform 0.3s 0s;
+	}
+	.extrabar-underlay {display: block;}
+}
+
+.extrabar {
+	padding: 20px;
+	position: fixed;
+	z-index: 9999;
+	top: 0px;
+	right: 0;
+	left: 0;
+	height: 100%;
+	overflow-y: auto;
+	background-color: rgba(0,0,0,0.9);
+	transform: translateY(-100%);
+	transition: transform 0.3s 0s;
+	height: auto;
+	.backface-visibility(~"hidden");
+
+	@media (min-width: 992px) {
+		.info-tile {margin-bottom: auto;}
+	}
+}
+
+.extrabar-underlay {
+	position: fixed;
+	top: 0;
+	bottom:0;
+	left: 0;
+	right: 0;
+	z-index: 9998;
+	background: rgba(0,0,0,0.3);
+	display: none;
+}

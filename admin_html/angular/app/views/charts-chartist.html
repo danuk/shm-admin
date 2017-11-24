@@ -1,0 +1,197 @@
+<ol class="breadcrumb">
+    <li><a href="#/">Dashboard</a></li>
+    <li>Charts</li>
+    <li class="active">Chartist</li>
+</ol>
+<div class="container-fluid" ng-controller="ChartistChartsController">
+<div data-widget-group="group1">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Simple Line Chart</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-line'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-line'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-line'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Holes in Data</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-holes'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-holes'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-holes'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Line Chart with Area</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-area'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-area'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-area'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Bipolar Line Chart with Area Only</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-bipolar'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-bipolar'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-bipolar'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Multiline Labels</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-multiline'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-multiline'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-multiline'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Stacked Charts</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-stacked'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-stacked'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-stacked'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Stacked Charts</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-horiz'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-horiz'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-horiz'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Distributed Charts</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-distributed'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-distributed'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-distributed'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Simple Pie Charts</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-pie'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-pie'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-pie'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Pie Charts with Labels</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-pie-labels'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-pie-labels'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-pie-labels'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+                <div class="panel-heading">
+                    <h2>Gauge Charts</h2>
+                    <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+                </div>
+                <div class="panel-body">
+                    <div class="ct-chart ct-golden-section"
+                    chartist
+                    chartist-data="chartDefs['ct-chart-gauge'].chartData"
+                    chartist-chart-type="{{chartDefs['ct-chart-gauge'].chartType}}"
+                    chartist-chart-options="chartDefs['ct-chart-gauge'].chartOptions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div> <!-- container-fluid -->

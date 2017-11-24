@@ -1,0 +1,13 @@
+Changelog
+---------
+
+v1.0
+- Initial Release
+
+v1.1
+- Fixed some validation bugs
+- Added a new Dashboard Style - Lines!
+
+v1.2
+- Pines notification css bug fixed
+- Lines Dashboard Style now in Angular

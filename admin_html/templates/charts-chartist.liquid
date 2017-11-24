@@ -1,0 +1,166 @@
+{% layout 'layout' %}
+{% block title %}Chartist{% endblock %}
+
+{% block breadcrumb %}
+<li><a href="index.html">Home</a></li>
+<li><a href="#">Charts</a></li>
+<li class="active"><a href="charts-chartist.html">Chartist</a></li>
+{% endblock %}
+
+{% block styles %}
+    {{ "plugins/charts-chartistjs/chartist.min.css" | asset_url | stylesheet_tag }}        <!-- Chartist -->
+{% endblock %}
+
+{% block scripts %}
+    {{ "plugins/charts-chartistjs/chartist.min.js" | asset_url | script_tag }}        <!-- Chartist -->
+    {{ "demo/demo-chartist.js" | asset_url | script_tag }}
+{% endblock %}
+
+{% block content %}
+<div data-widget-group="group1">
+    <div class="row">
+    	<div class="col-md-4">
+		    <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+	            <div class="panel-heading">
+	                <h2>Simple Line Chart</h2>
+	                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+	            </div>
+	            <div class="panel-body">
+	            	<div class="ct-chart-line ct-chart ct-golden-section"></div>
+	            </div>
+	        </div>
+	    </div>
+
+	    <div class="col-md-4">
+	        <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+	            <div class="panel-heading">
+	                <h2>Holes in Data</h2>
+	                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+	            </div>
+	            <div class="panel-body">
+	            	<div class="ct-chart-holes ct-chart ct-golden-section"></div>
+	            </div>
+	        </div>
+        </div>
+
+	    <div class="col-md-4">
+	        <div class="panel panel-default" data-widget='{"draggable": "false"}'>
+	            <div class="panel-heading">
+	                <h2>Line Chart with Area</h2>
+	                <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+	            </div>
+	            <div class="panel-body">
+	            	<div class="ct-chart-area ct-chart ct-golden-section"></div>
+	            </div>
+	        </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Bipolar Line Chart with Area Only</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-bipolar ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+        </div>
+
+
+        <div class="col-md-6">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Multiline Labels</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-multiline ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+        </div>
+
+    </div>
+
+    <div class="row">
+    	<div class="col-md-4">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Stacked Charts</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-stacked ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+    	</div>
+
+    	<div class="col-md-4">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Stacked Charts</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-horiz ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+    	</div>
+
+    	<div class="col-md-4">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Distributed Charts</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-distributed ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+    	</div>
+
+    </div>
+
+    <div class="row">
+    	<div class="col-md-4">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Simple Pie Charts</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-pie ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+    	</div>
+
+		<div class="col-md-4">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Pie Charts with Labels</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-pie-labels ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+		</div>
+
+
+		<div class="col-md-4">
+        	<div class="panel panel-default" data-widget='{"draggable": "false"}'>
+        	    <div class="panel-heading">
+        	        <h2>Gauge Charts</h2>
+        	        <div class="panel-ctrls" data-actions-container="" data-action-collapse='{"target": ".panel-body"}'></div>
+        	    </div>
+        	    <div class="panel-body">
+        	    	<div class="ct-chart-gauge ct-chart ct-golden-section"></div>
+        	    </div>
+        	</div>
+		</div>
+    </div>
+</div>
+{% endblock %}

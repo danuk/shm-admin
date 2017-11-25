@@ -1,6 +1,17 @@
-angular.module('theme.core.main_controller', ['theme.core.services'])
-  .controller('MainController', ['$scope', '$theme', '$timeout', 'progressLoader', 'wijetsService', '$location',
-    function($scope, $theme, $timeout, progressLoader, wijetsService, $location) {
+angular.module('theme.core.main_controller', ['theme.core.services','ngCookies'])
+  .controller('MainController', [
+    '$scope',
+    '$theme',
+    '$timeout',
+    'progressLoader',
+    'wijetsService',
+    '$location',
+    '$route',
+    '$http',
+    '$cookieStore',
+    '$q',
+    'pinesNotifications',
+    function($scope, $theme, $timeout, progressLoader, wijetsService, $location, $route, $http, $cookieStore, $q, pinesNotifications) {
     'use strict';
     $scope.layoutFixedHeader = $theme.get('fixedHeader');
     $scope.layoutPageTransitionStyle = $theme.get('pageTransitionStyle');
@@ -136,23 +147,95 @@ angular.module('theme.core.main_controller', ['theme.core.services'])
       $theme.set('extraBarShown', !$theme.get('extraBarShown'));
     };
 
-    // there are better ways to do this, e.g. using a dedicated service
-    // but for the purposes of this demo this will do
-    $scope.isLoggedIn = true;
-    $scope.logOut = function() {
-      $scope.isLoggedIn = false;
+    $scope.isLoggedIn = false;
+
+    $scope.http_request = function( $method, $url, $data ) {
+      var deferred = $q.defer();
+      var $args = {
+        method: $method,
+        url: 'http://shm.local/' + $url,
+        withCredentials: true,
+      };
+      if ( $data ) {
+        if ( $method == 'GET' ) {
+            $args['params'] = $data;
+        } else {
+            $args['data'] = $.param( $data );
+            $args['headers'] = {'Content-Type': 'application/x-www-form-urlencoded'};
+        }
+      }
+	  $http( $args ).then(
+		function successCallback(response) {
+			deferred.resolve( response.data, response.status );
+		}, function errorCallback(response) {
+			if ( response.status == 401 ) {
+				$scope.logOut();
+			}
+            $scope.alert = { type: 'success', msg: 'Well done! You successfully read this important alert message.' };
+			deferred.reject( response );
+		}
+	  );
+      return deferred.promise;
     };
+
+    $scope.test = function() {
+      pinesNotifications.notify({
+        title: 'Uh Oh!',
+        text: 'Something really terrible happened. You really need to read this, so I won\'t close automatically.',
+        type: 'error',
+        hide: false
+      });
+
+	  $scope.http_request('POST', 'nop.cgi').then( function() {
+        console.log('NOP');
+      });
+    };
+
+    $scope.logOut = function() {
+      progressLoader.start();
+      progressLoader.set(50);
+	  $scope.http_request('POST', 'user/logout.cgi').then( function() {
+          $scope.session_id = {};
+          $cookieStore.remove('session_id');
+          $scope.isLoggedIn = false;
+          progressLoader.end();
+          $location.path('/');
+          $route.reload();
+	  });
+    };
+
     $scope.logIn = function() {
-      $scope.isLoggedIn = true;
+      progressLoader.start();
+      progressLoader.set(50);
+	  $scope.http_request('POST', 'user/auth.cgi', { login: 'danuk', password: 'hardik' } ).then( function(response) {
+        if ( response.session_id ) {
+            $scope.session_id = response.session_id;
+            $cookieStore.put('session_id', $scope.session_id);
+            $scope.isLoggedIn = true;
+            $location.path('/');
+            $route.reload();
+        }
+        progressLoader.end();
+	  });
+	};
+
+    $scope.sessionCheck = function() {
+      $scope.session_id = $cookieStore.get('session_id');
+      if ($scope.session_id) {
+        $scope.isLoggedIn = true;
+        return 1;
+      }
+      return 0;
     };
 
     $scope.$on('$routeChangeStart', function() {
-      if ($location.path() === '') {
-        return $location.path('/');
-      }
+      if ( !$scope.sessionCheck() ) return $location.path( '/extras-login' );
+      if ($location.path() === '') return $location.path('/');
+
       progressLoader.start();
       progressLoader.set(50);
     });
+
     $scope.$on('$routeChangeSuccess', function() {
       progressLoader.end();
       if ($scope.layoutLoading) {

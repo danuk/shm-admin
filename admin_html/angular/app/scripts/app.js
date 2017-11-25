@@ -28,7 +28,7 @@ angular
         redirectTo: '/'
       });
   }])
-  .directive('demoOptions', function () {
+  /*.directive('demoOptions', function () {
     return {
       restrict: 'C',
       link: function (scope, element, attr) {
@@ -37,4 +37,4 @@ angular
         });
       }
     };
-  })
+  })*/

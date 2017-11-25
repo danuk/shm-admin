@@ -1,5 +1,5 @@
 {
-  "name": "outline",
+  "name": "SHM Admin",
   "version": "1.0.0",
   "dependencies": {
     "underscore": "~1.5.2",

@@ -9,4 +9,11 @@ angular
     $scope.$on('$destroy', function() {
       $theme.set('fullscreen', false);
     });
-  }]);
+
+    $scope.logIn = function() {
+        $scope.$parent.logIn( $scope.login, $scope.password );
+    }
+
+  }]
+
+);

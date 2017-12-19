@@ -10,8 +10,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
     '$http',
     '$cookieStore',
     '$q',
-    'pinesNotifications',
-    function($scope, $theme, $timeout, progressLoader, wijetsService, $location, $route, $http, $cookieStore, $q, pinesNotifications) {
+    function($scope, $theme, $timeout, progressLoader, wijetsService, $location, $route, $http, $cookieStore, $q ) {
     'use strict';
     $scope.layoutFixedHeader = $theme.get('fixedHeader');
     $scope.layoutPageTransitionStyle = $theme.get('pageTransitionStyle');
@@ -151,9 +150,10 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
 
     $scope.http_request = function( $method, $url, $data ) {
       var deferred = $q.defer();
+      var $request_url = 'http://shm.local/' + $url;
       var $args = {
         method: $method,
-        url: 'http://shm.local/' + $url,
+        url: $request_url,
         withCredentials: true,
       };
       if ( $data ) {
@@ -169,67 +169,63 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
 			deferred.resolve( response.data, response.status );
 		}, function errorCallback(response) {
 			if ( response.status == 401 ) {
-				$scope.logOut();
-			}
-            $scope.alert = { type: 'success', msg: 'Well done! You successfully read this important alert message.' };
+				if ( $scope.isLoggedIn ) $scope.logOut();
+			} else {
+                alert(
+                    "URL: " + $request_url + "\n" +
+                    "Status: " + response.status + " (" + response.statusText +  ")\n"
+                );
+            }
 			deferred.reject( response );
 		}
 	  );
       return deferred.promise;
     };
 
-    $scope.test = function() {
-      pinesNotifications.notify({
-        title: 'Uh Oh!',
-        text: 'Something really terrible happened. You really need to read this, so I won\'t close automatically.',
-        type: 'error',
-        hide: false
-      });
-
-	  $scope.http_request('POST', 'nop.cgi').then( function() {
-        console.log('NOP');
-      });
-    };
-
     $scope.logOut = function() {
       progressLoader.start();
       progressLoader.set(50);
+
+      $cookieStore.remove('session_id');
+      $scope.isLoggedIn = false;
+
 	  $scope.http_request('POST', 'user/logout.cgi').then( function() {
-          $scope.session_id = {};
-          $cookieStore.remove('session_id');
-          $scope.isLoggedIn = false;
-          progressLoader.end();
-          $location.path('/');
-          $route.reload();
-	  });
+        progressLoader.end();
+        $route.reload();
+      });
     };
 
-    $scope.logIn = function() {
+    $scope.logIn = function(login, password) {
       progressLoader.start();
       progressLoader.set(50);
-	  $scope.http_request('POST', 'user/auth.cgi', { login: 'danuk', password: 'hardik' } ).then( function(response) {
+	  $scope.http_request('POST', 'user/auth.cgi', { login: login, password: password } ).then( function(response) {
         if ( response.session_id ) {
-            $scope.session_id = response.session_id;
-            $cookieStore.put('session_id', $scope.session_id);
+            var $session_id = response.session_id;
+            $cookieStore.put('session_id', $session_id);
             $scope.isLoggedIn = true;
             $location.path('/');
             $route.reload();
         }
         progressLoader.end();
-	  });
+      }, function(error) {
+            alert('Login or password incorrect');
+            progressLoader.end();
+      });
 	};
 
     $scope.sessionCheck = function() {
-      $scope.session_id = $cookieStore.get('session_id');
-      if ($scope.session_id) {
-        $scope.isLoggedIn = true;
-        return 1;
-      }
-      return 0;
+        var $session_id = $cookieStore.get('session_id');
+        if ($session_id) {
+            $scope.isLoggedIn = true;
+            return 1;
+        }
+        return 0;
     };
 
     $scope.$on('$routeChangeStart', function() {
       if ( !$scope.sessionCheck() ) return $location.path( '/extras-login' );
+
+      if ($location.path() === '/extras-login') return $location.path('/');
       if ($location.path() === '') return $location.path('/');
 
       progressLoader.start();

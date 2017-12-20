@@ -2,154 +2,30 @@ angular
   .module('theme.core.navigation_controller', ['theme.core.services'])
   .controller('NavigationController', ['$scope', '$location', '$timeout', function($scope, $location, $timeout) {
     'use strict';
-    $scope.menu = [{
+    $scope.menu = [
+/*    {
       label: 'Explore',
       iconClasses: '',
       separator: true
-    }, {
-      label: 'Dashboard',
+    },*/
+    {
+      label: 'Главная',
       iconClasses: 'ti ti-home',
-      html: '<span class="badge badge-info">2</span>',
+      /*html: '<span class="badge badge-info">2</span>',*/
       url: '#/',
-    }, {
-      label: 'HTML Version',
-      iconClasses: 'ti ti-cup',
-      url: '../../',
-    }, {
-      label: 'Layouts',
-      iconClasses: 'ti ti-layout',
-      children: [{
-        label: 'Grid Scaffolding',
-        url: '#/layout-grid',
-      }, {
-        label: 'Boxed',
-        url: '#/layout-boxed'
-      }]
-    }, {
-      label: 'UI Kit',
+    },
+    {
+      label: 'Пользователи',
       iconClasses: 'ti ti-view-list-alt',
-      children: [{
-        label: 'Typography',
-        url: '#/ui-typography'
-      }, {
-        label: 'Buttons',
-        url: '#/ui-buttons'
-      }, {
-        label: 'Modals',
-        url: '#/ui-modals'
-      }, {
-        label: 'Progress',
-        url: '#/ui-progressbars'
-      }, {
-        label: 'Pagination',
-        url: '#/ui-paginations'
-      }, {
-        label: 'Breadcrumbs',
-        url: '#/ui-breadcrumbs'
-      }, {
-        label: 'Labels & Badges',
-        url: '#/ui-labelsbadges',
-      }, {
-        label: 'Alerts',
-        url: '#/ui-alerts',
-      }, {
-        label: 'Tabs',
-        url: '#/ui-tabs',
-      }, {
-        label: 'FontAwesome Icons',
-        url: '#/ui-icons-fontawesome',
-      }, {
-        label: 'Themify Icons',
-        url: '#/ui-icons-themify',
-      }, {
-        label: 'Wells',
-        url: '#/ui-wells'
-      }, {
-        label: 'Images & Carousel',
-        url: '#/ui-imagecarousel'
-      }]
-    }, {
-      label: 'Components',
-      iconClasses: 'ti ti-control-shuffle',
-      children: [{
-        label: 'Tiles',
-        url: '#/ui-tiles'
-      }, {
-        label: 'Bootbox',
-        url: '#/components-bootbox'
-      }, {
-        label: 'Pines Notifications',
-        url: '#/components-notifications'
-      }, {
-        label: 'Sliders & Ranges',
-        url: '#/ui-sliders',
-      }, {
-        label: 'Pulsating Elements',
-        url: '#/components-pulsate'
-      }, {
-        label: 'jQuery Knob',
-        url: '#/components-knob'
-      }]
-    }, {
-      label: 'Forms',
-      iconClasses: 'ti ti-pencil',
-      children: [{
-        label: 'Form Layout',
-        url: '#/form-layout',
-      }, {
-        label: 'Components',
-        url: '#/form-components',
-      }, {
-        label: 'Pickers',
-        url: '#/form-pickers'
-      }, {
-        label: 'Form Wizard',
-        url: '#/form-wizard'
-      }, {
-        label: 'Validation',
-        url: '#/form-validation',
-      }, {
-        label: 'Form Masks',
-        url: '#/form-masks'
-      }, {
-        label: 'Advanced Uploaders',
-        url: '#/form-fileupload',
-      }, {
-        label: 'WYSIWYG Editor',
-        url: '#/form-wysiwyg',
-      }, {
-        label: 'Inline Editor',
-        url: '#/form-xeditable',
-      }]
-    }, {
-      label: 'Panels',
-      iconClasses: 'ti ti-settings',
-      hideOnHorizontal: true,
-      children: [{
-        label: 'Panels',
-        url: '#/ui-panels',
-      }, {
-        label: 'Draggable Panels',
-        url: '#/ui-advancedpanels'
-      }]
-    }, {
-      label: 'Tables',
-      iconClasses: 'ti ti-layout-grid3',
-      children: [{
-        label: 'Tables',
-        url: '#/tables-basic'
-      }, {
-        label: 'ngGrid',
-        url: '#/tables-data',
-      }, {
-        label: 'Responsive Tables',
-        url: '#/tables-responsive'
-      }, {
-        label: 'Editable Tables',
-        url: '#/tables-editable',
-      }]
-    }, {
-      label: 'Analytics',
+      children: [
+          {
+            label: 'Список',
+            url: '#/tables-data',
+          },
+      ]
+    },
+    {
+      label: 'Аналитика',
       iconClasses: 'ti ti-stats-up',
       hideOnHorizontal: true,
       children: [{
@@ -168,18 +44,8 @@ angular
         label: 'Sparklines',
         url: '#/charts-sparklines',
       }]
-    }, {
-      label: 'Maps',
-      iconClasses: 'ti ti-map-alt',
-      hideOnHorizontal: true,
-      children: [{
-        label: 'Google Maps',
-        url: '#/maps-google'
-      }, {
-        label: 'Vector Maps',
-        url: '#/maps-vector',
-      }]
-    }, {
+    },
+    {
       label: 'Pages',
       iconClasses: 'ti ti-file',
       hideOnHorizontal: true,
@@ -208,7 +74,19 @@ angular
         label: '500 Page',
         url: '#/extras-500'
       }]
-    }, {
+    },
+    {
+      label: 'Настройки',
+      iconClasses: 'ti ti-settings',
+      children: [
+          {
+            label: 'Услуги',
+            url: '#/tables-data',
+          },
+      ]
+    },
+
+/*    }, {
       label: 'Functional Apps',
       hideOnHorizontal: true,
       separator: true
@@ -222,7 +100,9 @@ angular
       iconClasses: 'ti ti-calendar',
       url: '#/calendar',
       html: '<span class="badge badge-warning">1</span>'
-    }];
+    }
+*/
+    ];
 
     var setParent = function(children, parent) {
       angular.forEach(children, function(child) {

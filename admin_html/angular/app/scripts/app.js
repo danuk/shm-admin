@@ -2,6 +2,7 @@ angular
   .module('themesApp', [
     'theme',
     'theme.demos',
+    'shm_table',
     'shm_users',
     'shm_services',
   ])

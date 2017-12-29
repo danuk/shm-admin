@@ -1,65 +1,19 @@
 angular
   .module('shm_services', [
-    'ngGrid'
   ])
-  .controller('ShmServicesController', ['$scope', '$filter', '$http', function($scope, $filter, $http) {
+  .controller('ShmServicesController', ['$scope', function($scope) {
     'use strict';
-    $scope.filterOptions = {
-      filterText: '',
-      useExternalFilter: true
-    };
-    $scope.totalServerItems = 0;
-    $scope.pagingOptions = {
-      pageSizes: [25, 50, 100],
-      pageSize: 25,
-      currentPage: 1
-    };
-    $scope.setPagingData = function(data, page, pageSize) {
-      var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-      $scope.myData = pagedData;
-      $scope.totalServerItems = data.length;
-      if (!$scope.$$phase) {
-        $scope.$apply();
-      }
-    };
-    $scope.getPagedDataAsync = function(pageSize, page, searchText) {
-      setTimeout(function() {
-        var data;
-        if (searchText) {
-          var ft = searchText.toLowerCase();
-          $http.get('/admin/services.cgi').then(function(largeLoad) {
-            data = largeLoad.filter(function(item) {
-              return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
-            });
-            $scope.setPagingData(data, page, pageSize);
-          });
-        } else {
-          $scope.http_request('GET','/admin/services.cgi').then(function(largeLoad) {
-            $scope.setPagingData(largeLoad, page, pageSize);
-          });
-        }
-      }, 100);
-    };
 
-    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+    $scope.url = 'admin/services.cgi';
 
-    $scope.$watch('pagingOptions', function(newVal, oldVal) {
-      if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-      }
-    }, true);
-    $scope.$watch('filterOptions', function(newVal, oldVal) {
-      if (newVal !== oldVal) {
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-      }
-    }, true);
-
-    $scope.gridOptions = {
-      data: 'myData',
-      enablePaging: true,
-      showFooter: true,
-      totalServerItems: 'totalServerItems',
-      pagingOptions: $scope.pagingOptions,
-      filterOptions: $scope.filterOptions
-    };
+    $scope._columnDefs = [
+        {field: 'user_id', displayName: 'ID'},
+        {field: 'login', displayName: 'Логин' },
+        {field: 'password', displayName: 'Пароль', visible: false},
+        {field: 'full_name', displayName: 'Клиент'},
+        {field: 'balance', displayName: 'Баланс'},
+        {field: 'credit', displayName: 'Кредит'},
+        {name: 'block'},
+    ];
+   
   }]);

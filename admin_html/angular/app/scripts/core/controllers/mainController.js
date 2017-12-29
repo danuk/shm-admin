@@ -208,10 +208,14 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
         }
         progressLoader.end();
       }, function(error) {
-            alert('Login or password incorrect');
+            alert('Login or password incorrect!');
             progressLoader.end();
       });
 	};
+
+    $scope.nop = function() {
+        $scope.http_request('POST', 'nop.cgi' );
+    }
 
     $scope.sessionCheck = function() {
         var $session_id = $cookieStore.get('session_id');

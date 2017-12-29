@@ -1,0 +1,38 @@
+	<ol class="breadcrumb">
+		<li><a href="#/">Главная</a></li>
+		<li>Пользователи</li>
+		<li class="active">Список</li>
+	</ol>
+
+<div class="container-fluid" ng-controller="ShmUsersController">
+	<div class="row">
+	  <div class="col-md-12">
+			<div class="panel panel-transparent">
+				<div class="panel-heading">
+					<h2>Список пользователей</h2>
+				</div>
+				<div class="panel-body">
+					<div class="input mb-xl">
+						<input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Search filter...">
+					</div>
+
+					<div class="panel">
+						<div class="panel-body no-padding">
+							<div style="height: 512px;" 
+                                ui-grid="gridOptions"
+                                ui-grid-selection
+                                ui-grid-resize-columns
+                                ui-grid-auto-resize
+                                ui-grid-pagination
+                                ui-grid-move-columns
+                                ui-grid-pinning
+                            ></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div> <!-- container-fluid -->

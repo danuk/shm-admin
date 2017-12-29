@@ -20,7 +20,7 @@ angular
       children: [
           {
             label: 'Список',
-            url: '#/tables-data',
+            url: '#/users',
           },
       ]
     },
@@ -81,7 +81,7 @@ angular
       children: [
           {
             label: 'Услуги',
-            url: '#/tables-data',
+            url: '#/services',
           },
       ]
     },

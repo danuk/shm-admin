@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="bower_components/pnotify/pnotify.history.css" />
 	<link rel="stylesheet" href="bower_components/nanoscroller/bin/css/nanoscroller.css" />
 	<link rel="stylesheet" href="bower_components/textAngular/src/textAngular.css" />
-	<link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
+	<!--<link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />-->
 	<link rel="stylesheet" href="bower_components/switchery/dist/switchery.css" />
 	<link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
 	<link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
@@ -264,7 +264,7 @@
 		  <li class="dropdown toolbar-icon-bg" ng-show="isLoggedIn" dropdown>
 			<a href="#" class="dropdown-toggle" dropdown-toggle><span class="icon-bg"><i class="ti ti-user"></i></span></i></a>
 			<ul class="dropdown-menu animated userinfo arrow">
-				<li><a href="#/"><i class="ti ti-user"></i><span>Profile</span><span class="badge badge-info pull-right">80%</span></a></li>
+				<li><a ng-click="nop()" href="#/"><i class="ti ti-user"></i><span>Profile</span><span class="badge badge-info pull-right">80%</span></a></li>
 				<li><a href="#/"><i class="ti ti-panel"></i><span>Account</span></a></li>
 				<li><a href="#/"><i class="ti ti-settings"></i><span>Settings</span></a></li>
 				<li class="divider"></li>
@@ -512,7 +512,7 @@
 	<script src="bower_components/textAngular/src/textAngular-sanitize.js"></script>
 	<script src="bower_components/textAngular/src/textAngularSetup.js"></script>
 	<script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
-	<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+	<!--<script src="bower_components/angular-ui-grid/ui-grid.js"></script>-->
 	<script src="bower_components/transitionize/dist/transitionize.js"></script>
 	<script src="bower_components/fastclick/lib/fastclick.js"></script>
 	<script src="bower_components/switchery/dist/switchery.js"></script>
@@ -610,6 +610,11 @@
 	<script src="scripts/demos/modules/dashboard.js"></script>
 	<script src="scripts/demos/demos.js"></script>
 	<script src="scripts/app.js"></script>
+
+    <link rel="stylesheet" href="node_modules/angular-ui-grid/ui-grid.min.css" />
+    <script src="node_modules/angular-ui-grid/ui-grid.min.js"></script>
+    <script src="scripts/shm/users.js"></script>
+    <script src="scripts/shm/services.js"></script>
 	  <!-- endbuild -->
 </body>
 </html>

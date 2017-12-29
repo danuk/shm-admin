@@ -2,6 +2,8 @@ angular
   .module('themesApp', [
     'theme',
     'theme.demos',
+    'shm_users',
+    'shm_services',
   ])
   .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';

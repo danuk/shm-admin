@@ -25,56 +25,24 @@ angular
       ]
     },
     {
+      label: 'Инструменты',
+      iconClasses: 'ti ti-control-shuffle',
+      children: [
+          {
+            label: 'Spool',
+            url: '#/spool',
+          },
+      ]
+    },
+/*
+    {
       label: 'Аналитика',
       iconClasses: 'ti ti-stats-up',
       hideOnHorizontal: true,
-      children: [{
-        label: 'Flot',
-        url: '#/charts-flot',
-      }, {
-        label: 'Chartist',
-        url: '#/charts-chartist'
-      }, {
-        label: 'Morris.js',
-        url: '#/charts-morrisjs'
-      }, {
-        label: 'Easy Pie Chart',
-        url: '#/charts-easypiechart'
-      }, {
-        label: 'Sparklines',
-        url: '#/charts-sparklines',
-      }]
+      children: [
+      ]
     },
-    {
-      label: 'Pages',
-      iconClasses: 'ti ti-file',
-      hideOnHorizontal: true,
-      children: [{
-        label: 'Profile',
-        url: '#/extras-profile'
-      }, {
-        label: 'FAQ',
-        url: '#/extras-faq',
-      }, {
-        label: 'Invoice',
-        url: '#/extras-invoice'
-      }, {
-        label: 'Registration',
-        url: '#/extras-registration'
-      }, {
-        label: 'Password Reset',
-        url: '#/extras-forgotpassword'
-      }, {
-        label: 'Login',
-        url: '#/extras-login'
-      }, {
-        label: '404 Page',
-        url: '#/extras-404'
-      }, {
-        label: '500 Page',
-        url: '#/extras-500'
-      }]
-    },
+*/
     {
       label: 'Настройки',
       iconClasses: 'ti ti-settings',

@@ -22,6 +22,10 @@ angular
             label: 'Список',
             url: '#/users',
           },
+          {
+            label: 'Услуги пользователей',
+            url: '#/users',
+          },
       ]
     },
     {
@@ -50,6 +54,18 @@ angular
           {
             label: 'Услуги',
             url: '#/services',
+          },
+          {
+            label: 'Сервера',
+            url: '#/servers',
+          },
+          {
+            label: 'Домены',
+            url: '#/domains',
+          },
+          {
+            label: 'Конфигурация',
+            url: '#/config',
           },
       ]
     },

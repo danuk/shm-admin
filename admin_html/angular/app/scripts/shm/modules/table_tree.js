@@ -10,8 +10,8 @@ angular
         'ui.grid.cellNav',
         'ui.grid.treeView',
     ])
-    .controller('ShmTableTreeController', ['$scope', '$filter', '$http', 'uiGridTreeViewConstants', function(
-            $scope, $filter, $http, uiGridTreeViewConstants) {
+    .controller('ShmTableTreeController', ['$scope', '$filter', '$http', 'uiGridTreeViewConstants', 'shm_request', function(
+            $scope, $filter, $http, uiGridTreeViewConstants, shm_request) {
         'use strict';
 
         $scope.gridScope = $scope;
@@ -35,7 +35,7 @@ angular
                 console.log('ROW:', row );
                 if ( row.treeLevel ) { treeLevel = row.treeLevel + 1 }; 
                 if ( !row.treeNode.children.length ) {
-                    $scope.http_request('GET','/'+$scope.url, { parent: row.entity[$scope.parent_key_id] } ).then(function(data) {
+                    shm_request('GET','/'+$scope.url, { parent: row.entity[$scope.parent_key_id] } ).then(function(data) {
                         data.forEach(function(childRow) {
                             if ( $scope.maxDeepLevel > treeLevel ) { childRow.$$treeLevel = treeLevel };
                             $scope.gridOptions.data.splice(++index, 0, childRow);
@@ -51,7 +51,7 @@ angular
         }
 
         $scope.load_data = function(url) {
-            $scope.http_request('GET','/'+url).then(function(largeLoad) {
+            shm_request('GET','/'+url).then(function(largeLoad) {
 
                 if ( $scope.columnDefs ) {
                     var row = largeLoad[0];
@@ -97,14 +97,14 @@ angular
                 var data;
                 if (searchText) {
                     /*var ft = searchText.toLowerCase();
-                    $scope.http_request('GET','/'+url).then(function(largeLoad) {
+                    shm_request('GET','/'+url).then(function(largeLoad) {
                         data = largeLoad.filter(function(item) {
                                 return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
                             });
                         $scope.setPagingData(data, page, pageSize);
                     });*/
                 } else {
-                     $scope.http_request('GET','/'+url).then(function(largeLoad) {
+                     shm_request('GET','/'+url).then(function(largeLoad) {
                          $scope.setPagingData(largeLoad, page, pageSize);
                      });
                 }

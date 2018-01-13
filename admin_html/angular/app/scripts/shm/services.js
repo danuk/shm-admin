@@ -2,7 +2,7 @@ angular
   .module('shm_services', [
     'angular-jsoneditor',
   ])
-  .controller('ShmServicesController', ['$scope', '$modal', function($scope, $modal) {
+  .controller('ShmServicesController', ['$scope', '$modal','simpleService', 'shm_request', function($scope, $modal, simpleService, shm_request) {
     'use strict';
 
     $scope.url = 'admin/services.cgi';
@@ -23,9 +23,9 @@ angular
 				$scope.data = angular.copy(row);
                 
                 // Load childs
-                //$scope.http_request('GET','/'+$scope.url, { parent: row.service_id } ).then(function(data) {
-                //    $scope.data.children = data;
-                //});
+                shm_request('GET','/'+url, { parent: row.service_id } ).then(function(data) {
+                    $scope.data.children = data;
+                });
 
 				$scope.cancel = function () {
 					$modalInstance.dismiss('cancel');

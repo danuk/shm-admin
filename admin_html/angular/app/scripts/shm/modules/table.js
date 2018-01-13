@@ -9,7 +9,7 @@ angular
         'ui.grid.pinning',
         'ui.grid.cellNav',
     ])
-    .controller('ShmTableController', ['$scope', '$filter', '$http', function($scope, $filter, $http) {
+    .controller('ShmTableController', ['$scope', '$filter', 'shm_request', function($scope, $filter, shm_request) {
         'use strict';
 
         $scope.gridScope = $scope;
@@ -32,7 +32,7 @@ angular
         }
 
         $scope.load_data = function(url) {
-            $scope.http_request('GET','/'+url).then(function(largeLoad) {
+            shm_request('GET','/'+url).then(function(largeLoad) {
 
                 if ( $scope.columnDefs ) {
                     var row = largeLoad[0];
@@ -74,14 +74,14 @@ angular
                 var data;
                 if (searchText) {
                     /*var ft = searchText.toLowerCase();
-                    $scope.http_request('GET','/'+url).then(function(largeLoad) {
+                    shm_request('GET','/'+url).then(function(largeLoad) {
                         data = largeLoad.filter(function(item) {
                                 return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
                             });
                         $scope.setPagingData(data, page, pageSize);
                     });*/
                 } else {
-                     $scope.http_request('GET','/'+url).then(function(largeLoad) {
+                     shm_request('GET','/'+url).then(function(largeLoad) {
                          $scope.setPagingData(largeLoad, page, pageSize);
                      });
                 }

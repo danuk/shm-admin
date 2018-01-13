@@ -16,7 +16,7 @@ angular
     },
     {
       label: 'Пользователи',
-      iconClasses: 'ti ti-view-list-alt',
+      iconClasses: 'ti ti-user',
       children: [
           {
             label: 'Список',
@@ -24,17 +24,49 @@ angular
           },
           {
             label: 'Услуги пользователей',
-            url: '#/users',
+            url: '#/user_services',
           },
       ]
     },
     {
-      label: 'Инструменты',
-      iconClasses: 'ti ti-control-shuffle',
+      label: 'Услуги',
+      iconClasses: 'ti ti-menu-alt',
       children: [
           {
-            label: 'Spool',
+            label: 'Настройка',
+            url: '#/services',
+          },
+          {
+            label: 'Категории',
+            url: '#/categories',
+          },
+      ]
+    },
+    {
+      label: 'Сервера',
+      iconClasses: 'ti ti-server',
+      children: [
+          {
+            label: 'Список',
+            url: '#/servers',
+          },
+          {
+            label: 'Группы',
+            url: '#/servers_groups',
+          },
+      ]
+    },
+    {
+      label: 'Задачи',
+      iconClasses: 'ti ti-pulse',
+      children: [
+          {
+            label: 'Текущие задачи',
             url: '#/spool',
+          },
+          {
+            label: 'История',
+            url: '#/spool_history',
           },
       ]
     },
@@ -51,14 +83,6 @@ angular
       label: 'Настройки',
       iconClasses: 'ti ti-settings',
       children: [
-          {
-            label: 'Услуги',
-            url: '#/services',
-          },
-          {
-            label: 'Сервера',
-            url: '#/servers',
-          },
           {
             label: 'Домены',
             url: '#/domains',

@@ -12,5 +12,11 @@ angular
         {field: 'full_name', displayName: 'Клиент'},
         {field: 'balance', displayName: 'Баланс'},
     ];
-   
+
+    $scope.row_dbl_click = function(row) {
+        console.log('URA:', row );
+        row.balance = 10000;
+    }
+
   }]);
+

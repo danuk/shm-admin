@@ -22,23 +22,6 @@
 		</div>
 	</div>
 
-    <style>
-        div.jsoneditor-tree { height: 300px;}
-    </style>
-
-	<script type="text/ng-template" id="editJson.tmpl">
-		<div class="modal-header">
-			<h4 class="modal-title">Редактор JSON</h4>
-		</div>
-		<div class="modal-body" style="padding: 0px;">
-            <angular-jsoneditor ng-model="obj.data" options="obj.options" style="width: 100%;"></angular-jsoneditor>
-        </div>
-		<div class="modal-footer">
-			<button class="btn btn-primary" ng-click="save()">Save</button>
-			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-		</div>
-    </script>
-
 	<script type="text/ng-template" id="edit.tmpl">
 		<div class="modal-header">
 			<h4 class="modal-title">{{ title }}</h4>

@@ -3,7 +3,7 @@ angular
 .service('shm', [ '$modal', function( $modal ) {
     this.editJson = function(data) {
         return $modal.open({
-            templateUrl: 'editJson.tmpl',
+            templateUrl: 'views/jsonEditor.html',
             controller: function ($scope, $modalInstance) {
                 $scope.obj = {data: data, options: {mode: 'tree'}};
                 $scope.cancel = function () {

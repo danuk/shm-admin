@@ -2,7 +2,7 @@ angular
   .module('shm_services', [
     'angular-jsoneditor',
   ])
-  .controller('ShmServicesController', ['$scope', '$modal','simpleService', 'shm_request', function($scope, $modal, simpleService, shm_request) {
+  .controller('ShmServicesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
     $scope.url = 'admin/services.cgi';
@@ -32,23 +32,10 @@ angular
 				};
 
                 $scope.editJson = function(data) {
-                    var editJson = $modal.open({
-                        templateUrl: 'editJson.tmpl',
-			            controller: function ($scope, $modalInstance) {
-                            $scope.obj = {data: data, options: {mode: 'tree'}};
-                            $scope.cancel = function () {
-                                $modalInstance.dismiss('cancel');
-                            };
-                            $scope.save = function () {
-                                $modalInstance.close( $scope.obj.data );
-                            };
-                        },
-                        size: 'lg',
-                    });
-                    editJson.result.then(function(json) {
+                    shm.editJson(data).result.then(function(json) {
                         $scope.data.config = json;
-                    });
-                }
+                    })
+                };
 			},
 			size: size,
 		});

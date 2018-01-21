@@ -7,7 +7,7 @@ angular
       label: 'Главная',
       iconClasses: 'ti ti-home',
       /*html: '<span class="badge badge-info">2</span>',*/
-      url: '#/',
+      url: '#!/',
     },
     {
       label: 'Пользователи',
@@ -15,11 +15,11 @@ angular
       children: [
           {
             label: 'Список',
-            url: '#/users',
+            url: '#!/users',
           },
           {
             label: 'Услуги пользователей',
-            url: '#/user_services',
+            url: '#!/user_services',
           },
       ]
     },
@@ -29,11 +29,11 @@ angular
       children: [
           {
             label: 'Настройка',
-            url: '#/services',
+            url: '#!/services',
           },
           {
             label: 'Категории',
-            url: '#/categories',
+            url: '#!/categories',
           },
       ]
     },
@@ -43,11 +43,11 @@ angular
       children: [
           {
             label: 'Список',
-            url: '#/servers',
+            url: '#!/servers',
           },
           {
             label: 'Группы',
-            url: '#/servers_groups',
+            url: '#!/servers_groups',
           },
       ]
     },
@@ -57,11 +57,11 @@ angular
       children: [
           {
             label: 'Текущие задачи',
-            url: '#/spool',
+            url: '#!/spool',
           },
           {
             label: 'История',
-            url: '#/spool_history',
+            url: '#!/spool_history',
           },
       ]
     },
@@ -71,11 +71,11 @@ angular
       children: [
           {
             label: 'Домены',
-            url: '#/domains',
+            url: '#!/domains',
           },
           {
             label: 'Конфигурация',
-            url: '#/config',
+            url: '#!/config',
           },
       ]
     },

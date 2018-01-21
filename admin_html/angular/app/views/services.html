@@ -61,8 +61,11 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Следующая услуга</label>
 					<div class="col-sm-8">
-						<select class="form-control">
+						<select class="form-control" ng-model="data.next">
                             <option value="">Не изменять</option>
+                            <option ng-repeat="service in data.services" ng-value="service.service_id">
+                                {{ service.name }}
+                            </option>
 						</select>
 					</div>
 				</div>

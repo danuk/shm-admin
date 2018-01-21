@@ -25,6 +25,11 @@ angular
                 $scope.data = angular.copy(row);
                 $scope.data.children = [];
                 
+                // Load all services
+                shm_request('GET','/'+url).then(function(data) {
+                    $scope.data.services = data;
+                });
+
                 // Load childs
                 shm_request('GET','/'+url, { parent: row.service_id } ).then(function(data) {
                     $scope.data.children = data;
@@ -41,18 +46,15 @@ angular
                 };
 
                 $scope.editSubServices = function(service_id,children) {
-                    shm_request('GET','/'+url).then(function(data) {
-                        $scope.data.services = data;
-                        shm.list_choises({
-                            title: 'Управление дочерними услугами',
-                            list_caption_field: 'name',
-                            label_from: 'Услуги',
-                            list_from: $scope.data.services,
-                            label_to: 'Дочерние услуги',
-                            list_to: $scope.data.children,
-                        }).then(function(data){
-                            $scope.data.children = data;
-                        });
+                    shm.list_choises({
+                        title: 'Управление дочерними услугами',
+                        list_caption_field: 'name',
+                        label_from: 'Услуги',
+                        list_from: $scope.data.services,
+                        label_to: 'Дочерние услуги',
+                        list_to: $scope.data.children,
+                    }).then(function(data){
+                        $scope.data.children = data;
                     });
                 };
             },

@@ -3,11 +3,6 @@ angular
   .controller('NavigationController', ['$scope', '$location', '$timeout', function($scope, $location, $timeout) {
     'use strict';
     $scope.menu = [
-/*    {
-      label: 'Explore',
-      iconClasses: '',
-      separator: true
-    },*/
     {
       label: 'Главная',
       iconClasses: 'ti ti-home',
@@ -70,15 +65,6 @@ angular
           },
       ]
     },
-/*
-    {
-      label: 'Аналитика',
-      iconClasses: 'ti ti-stats-up',
-      hideOnHorizontal: true,
-      children: [
-      ]
-    },
-*/
     {
       label: 'Настройки',
       iconClasses: 'ti ti-settings',
@@ -94,22 +80,6 @@ angular
       ]
     },
 
-/*    }, {
-      label: 'Functional Apps',
-      hideOnHorizontal: true,
-      separator: true
-    }, {
-      label: 'Inbox',
-      iconClasses: 'ti ti-email',
-      url: '#/inbox',
-      html: '<span class="badge badge-danger">3</span>'
-    }, {
-      label: 'Calendar',
-      iconClasses: 'ti ti-calendar',
-      url: '#/calendar',
-      html: '<span class="badge badge-warning">1</span>'
-    }
-*/
     ];
 
     var setParent = function(children, parent) {

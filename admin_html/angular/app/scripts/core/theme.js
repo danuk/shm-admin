@@ -10,6 +10,7 @@ angular
     'sun.scrollable',
     'ui.bootstrap',
     'ui.select',
+    'theme.core.signupPage',
     'theme.core.templates',
     'theme.core.template_overrides',
     'theme.core.directives',

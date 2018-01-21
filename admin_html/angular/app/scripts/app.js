@@ -1,7 +1,6 @@
 angular
   .module('themesApp', [
     'theme',
-    'theme.demos',
     'shm_table',
     'shm_table_tree',
     'shm_users',
@@ -21,13 +20,6 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/index.html',
-        resolve: {
-          loadChartsJs: ['$ocLazyLoad', function($ocLazyLoad) {
-            return $ocLazyLoad.load([
-              'bower_components/Chart.js/Chart.min.js'
-            ]);
-          }]
-        }
       })
       .when('/:templateFile', {
         templateUrl: function(param) {

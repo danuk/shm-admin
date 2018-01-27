@@ -10,6 +10,9 @@
 			<div class="panel panel-transparent">
 				<div class="panel-heading">
 					<h2>Услуги</h2>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-primary" ng-click="add()">Add</button>
+                    </div>
 				</div>
 				<div class="panel-body">
 					<div class="panel">
@@ -20,50 +23,50 @@
 				</div>
 			</div>
 		</div>
-	</div>
+    </div>
 
 	<script type="text/ng-template" id="edit.tmpl">
 		<div class="modal-header">
 			<h4 class="modal-title">{{ title }}</h4>
 		</div>
 		<div class="modal-body">
-			<form action="" class="form-horizontal row-border">
+			<form name="userForm" class="form-horizontal row-border">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Номер услуги</label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" readonly="readonly" value="{{ data.service_id }}">
+						<input type="text" class="form-control" readonly="readonly" ng-model="data.service_id">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Название услуги</label>
 					<div class="col-sm-8">
-						<input type="text" value="{{ data.name }}" class="form-control">
+						<input type="text" ng-model="data.name" class="form-control" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Категория услуги</label>
 					<div class="col-sm-8">
-						<input type="text" value="{{ data.category }}" class="form-control">
+						<input type="text" ng-model="data.category" class="form-control" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Период услуги (мес.)</label>
 					<div class="col-sm-8">
-						<input type="text" value="{{ data.period_cost }}" class="form-control">
+						<input type="number" ng-model="data.period_cost" class="form-control" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Цена за период</label>
 					<div class="col-sm-8">
-						<input type="text" value="{{ data.cost }}" class="form-control">
+						<input type="number" ng-model="data.cost" class="form-control" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Следующая услуга</label>
 					<div class="col-sm-8">
 						<select class="form-control" ng-model="data.next">
-                            <option value="">Не изменять</option>
-                            <option ng-repeat="service in data.services" ng-value="service.service_id">
+                            <option ng-value="null">Не изменять</option>
+                            <option ng-value="service.service_id" ng-repeat="service in services">
                                 {{ service.name }}
                             </option>
 						</select>
@@ -73,8 +76,8 @@
 					<label class="col-sm-2 control-label">Дочерние услуги</label>
 					<div class="col-sm-8">
 						<select class="form-control" multiple>
-                            <option ng-repeat="(key, value) in data.children track by $index" value="key">
-                                {{ value.service_id}}# {{ value.name }}
+                            <option ng-repeat="sub_service in data.children">
+                                {{ sub_service.service_id}}# {{ sub_service.name }}
                             </option>
 						</select>
 					</div>
@@ -114,10 +117,14 @@
                     </div>
 				</div>
 
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-		</div>
+            </div> <!-- modal-body -->
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+
+        </form>
 	</script>
 
 </div> <!-- container-fluid -->

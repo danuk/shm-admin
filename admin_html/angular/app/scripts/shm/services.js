@@ -17,8 +17,8 @@ angular
         {field: 'cost', displayName: 'Цена'},
     ];
 
-    $scope.openModal = function (title, row, size) {
-        var modalInstance = $modal.open({
+    $scope.service_editor = function (title, row, size) {
+        return $modal.open({
             templateUrl: 'edit.tmpl',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title;
@@ -27,16 +27,22 @@ angular
                 
                 // Load all services
                 shm_request('GET','/'+url).then(function(data) {
-                    $scope.data.services = data;
+                    $scope.services = data;
                 });
 
                 // Load childs
-                shm_request('GET','/'+url, { parent: row.service_id } ).then(function(data) {
-                    $scope.data.children = data;
-                });
+                if ( row.service_id ) {
+                    shm_request('GET','/'+url, { parent: row.service_id } ).then(function(data) {
+                        $scope.data.children = data;
+                    });
+                };
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
+                };
+
+                $scope.save = function () {
+                    $modalInstance.close( $scope.data );
                 };
 
                 $scope.editJson = function(data) {
@@ -50,7 +56,7 @@ angular
                         title: 'Управление дочерними услугами',
                         list_caption_field: 'name',
                         label_from: 'Услуги',
-                        list_from: $scope.data.services,
+                        list_from: $scope.services,
                         label_to: 'Дочерние услуги',
                         list_to: $scope.data.children,
                     }).then(function(data){
@@ -61,9 +67,33 @@ angular
             size: size,
         });
     }
-  
+
+    var save_service = function( row, save_data ) {
+        delete save_data.$$treeLevel;
+        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
+            angular.extend( row, new_data );
+        });
+    };
+
+    $scope.add = function() {
+        var row = {
+            next: null,
+        };
+
+        $scope.service_editor('Создание услуги', row, 'lg').result.then(function(data){
+            shm_request('PUT_JSON','/'+url, data ).then(function(row) {
+                row.$$treeLevel = 0;
+                $scope.gridOptions.data.push( row );
+            });
+        }, function(cancel) {
+        });
+    };
+
     $scope.row_dbl_click = function(row) {
-        $scope.openModal('Редактирование услуги', row, 'lg');
+        $scope.service_editor('Редактирование услуги', row, 'lg').result.then(function(data){
+            save_service( row, data );
+        }, function(cancel) {
+        });
     }
 
   }]);

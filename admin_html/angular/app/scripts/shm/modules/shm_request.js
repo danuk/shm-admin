@@ -13,8 +13,15 @@ angular
         if ( $method == 'GET' ) {
             $args['params'] = $data;
         } else {
-            $args['data'] = $.param( $data );
-            $args['headers'] = {'Content-Type': 'application/x-www-form-urlencoded'};
+            var args = $method.split('_');
+            if ( args.length == 2 && args[1] === 'JSON' ) {
+                $args['method'] = args[0];
+                $args['data'] = angular.toJson( $data );
+                $args['headers'] = {'Content-Type': 'application/json'};
+            } else {
+                $args['data'] = $.param( $data );
+                $args['headers'] = {'Content-Type': 'application/x-www-form-urlencoded'};
+            }
         }
       }
       $http( $args ).then(

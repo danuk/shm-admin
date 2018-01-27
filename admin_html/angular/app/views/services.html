@@ -87,19 +87,23 @@
 				<div class="form-group">
                     <label class="col-sm-2 control-label">Биллинг</label>
                     <div class="col-sm-8">
-						<label class="checkbox icheck">
-                    		<input icheck type="checkbox" ng-checked="{{ data.pay_in_credit }}">Списывать всегда (даже в минус)
-						</label>
-						<label class="checkbox icheck">
-                    		<input icheck type="checkbox" ng-checked="{{ data.no_discount }}">Не применять скидки
-						</label>
-						<label class="checkbox icheck">
-                    		<input icheck type="checkbox" ng-checked="{{ data.pay_always }}">Всегда платная услуга
-						</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" toggle-int toggle-model="data.pay_in_credit">Списывать всегда (даже в минус)
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" toggle-int toggle-model="data.no_discount">Не применять скидки
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" toggle-int toggle-model="data.pay_always">Всегда платная услуга
+                            </label>
+                        </div>
                     </div>
 				</div>
-
-
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Settings</label>
 					<div class="col-sm-8">

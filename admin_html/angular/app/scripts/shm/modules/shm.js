@@ -17,9 +17,7 @@ angular
         });
     };
     this.list_choises = function(data) {
-        var deferred = $q.defer();
-
-        $modal.open({
+        return $modal.open({
             templateUrl: 'views/list_choises.html',
             controller: function ($scope, $modalInstance) {
                 $scope.data = angular.copy(data);
@@ -76,11 +74,7 @@ angular
                 };
             },
             size: 'lg',
-        }).result.then(function(data){
-            deferred.resolve( data.list_to );
         });
-
-        return deferred.promise;
     }
 
 }])

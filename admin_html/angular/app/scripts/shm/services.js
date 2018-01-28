@@ -59,8 +59,8 @@ angular
                         list_from: $scope.services,
                         label_to: 'Дочерние услуги',
                         list_to: $scope.data.children,
-                    }).then(function(data){
-                        $scope.data.children = data;
+                    }).result.then(function(data){
+                        $scope.data.children = data.list_to;
                     });
                 };
             },

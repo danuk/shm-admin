@@ -27,7 +27,7 @@ angular
                 $scope.btn_remove_disabled = 1;
 
                 $scope.add = function() {
-                    $scope.data.list_to.push( angular.copy( $scope.data.list_from[ $scope.data.from ] ) );
+                    $scope.data.list_to.push( angular.copy( $scope.data.from ) );
                 };
 
                 $scope.remove = function() {

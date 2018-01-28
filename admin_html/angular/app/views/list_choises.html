@@ -8,7 +8,7 @@
             <label class="col-sm-2 control-label">{{ data.label_from }}</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-model="data.from">
-                    <option ng-repeat="item in data.list_from track by $index" ng-value="$index">
+                    <option ng-repeat="item in data.list_from" ng-value="item">
                         {{ item[ data.list_caption_field ] }}
                     </option>
                 </select>

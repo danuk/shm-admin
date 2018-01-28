@@ -48,6 +48,7 @@ angular
                 $scope.editJson = function(data) {
                     shm.editJson(data).result.then(function(json) {
                         $scope.data.config = json;
+                    },function(cancel) {
                     })
                 };
 
@@ -61,6 +62,7 @@ angular
                         list_to: $scope.data.children,
                     }).result.then(function(data){
                         $scope.data.children = data.list_to;
+                    },function(cancel) {
                     });
                 };
             },

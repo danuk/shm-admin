@@ -45,6 +45,10 @@ angular
                     $modalInstance.close( $scope.data );
                 };
 
+                $scope.delete = function () {
+                    $modalInstance.dismiss('delete');
+                };
+
                 $scope.editJson = function(data) {
                     shm.editJson(data).result.then(function(json) {
                         $scope.data.config = json;
@@ -94,7 +98,15 @@ angular
     $scope.row_dbl_click = function(row) {
         $scope.service_editor('Редактирование услуги', row, 'lg').result.then(function(data){
             save_service( row, data );
-        }, function(cancel) {
+        }, function(resp) {
+            if ( resp === 'delete' ) {
+                shm_request('DELETE','/'+url+'?service_id='+row.service_id ).then(function() {
+                    $scope.gridOptions.data.splice(
+                        $scope.gridOptions.data.indexOf( row ),
+                        1
+                    );
+                })
+            }
         });
     }
 

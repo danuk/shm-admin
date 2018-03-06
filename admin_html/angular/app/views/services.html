@@ -120,6 +120,7 @@
             </div> <!-- modal-body -->
 
             <div class="modal-footer">
+                <button class="btn btn-danger pull-left" ng-show="data.service_id" ng-click="delete()">Delete</button>
                 <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>

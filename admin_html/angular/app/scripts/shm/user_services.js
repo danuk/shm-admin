@@ -11,7 +11,11 @@ angular
     $scope.columnDefs = [
         {field: 'user_service_id', width: 120},
         {field: 'name'},
-        {field: 'user_id',width: 100},
+        {
+            field: 'user_id',
+            width: 100,
+            filter: { term: $scope.user.user_id }
+        },
         {field: 'status', width: 100},
         {field: 'expired'},
         //{field: 'cost', displayName: 'Цена'},

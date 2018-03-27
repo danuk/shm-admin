@@ -17,6 +17,7 @@ angular
         $scope.gridScope = $scope;
 
         $scope.gridOptions = {
+            enableFiltering: true,
             enableRowSelection: true,
             enableRowHeaderSelection: false,
             multiSelect: false,

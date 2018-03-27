@@ -1,7 +1,8 @@
 angular
-  .module('shm_users', [
+  .module('shm_users_list', [
   ])
-  .controller('ShmUsersController', ['$scope', function($scope) {
+  .controller('ShmUsersListController',
+  ['$scope','$location','$route', function($scope, $location, $route) {
     'use strict';
 
     $scope.url = 'admin/users.cgi';
@@ -14,9 +15,8 @@ angular
     ];
 
     $scope.row_dbl_click = function(row) {
-        console.log('URA:', row );
-        row.balance = 10000;
+        angular.extend( $scope.user, row );
+        $location.path('/user');
     }
-
-  }]);
+}]);
 

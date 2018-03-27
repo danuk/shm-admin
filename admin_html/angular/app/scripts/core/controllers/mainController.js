@@ -157,7 +157,6 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
       shm_request('POST', 'user/logout.cgi');
 
       $location.path('/');
-      $route.reload();
     };
 
     $rootScope.$on('http_401', function (e, data) {
@@ -173,7 +172,6 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
             $cookieStore.put('session_id', $session_id);
             $scope.isLoggedIn = true;
             $location.path('/');
-            $route.reload();
         }
         progressLoader.end();
       }, function(error) {

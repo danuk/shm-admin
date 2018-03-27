@@ -82,11 +82,11 @@ angular
     function link ($scope, $element, attr) {
         $element.on('click', function () {
             $scope.$apply(function() {
-                $scope.toggleModel = +!$scope.toggleModel;
+                $scope.toggleModel = !$scope.toggleModel;
             });
         });
         $scope.$watch('toggleModel', function (value) {
-            $element.prop('checked', !!value);
+            //$element.prop('checked', !!value);
         });
     }
     return {

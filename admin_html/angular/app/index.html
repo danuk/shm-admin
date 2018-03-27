@@ -175,6 +175,30 @@
 		    </div>
 		</div>
 
+		<div class="yamm navbar-left navbar-collapse collapse in">
+			<ul class="nav navbar-nav">
+				<li class="dropdown" id="widget-classicmenu" ng-show="user.full_name.length">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        [{{ user.user_id }}] {{ user.full_name }}
+                        <span class="caret"></span>
+                    </a>
+				  <ul class="dropdown-menu" role="menu">
+					<li><a href="/#!/user">Профиль</a></li>
+					<li><a href="#">Принять платеж</a></li>
+					<li class="divider"></li>
+					<li><a href="/#!/user_services">Услуги</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Платежи</a></li>
+					<li><a href="#">Списания</a></li>
+					<li><a href="#">Акты</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Персональные данные</a></li>
+				  </ul>
+				</li>
+			</ul>
+		</div>
+
+
 		<ul class="nav navbar-nav pull-right toolbar">
 
 			<li class="dropdown toolbar-icon-bg" autocollapse>
@@ -303,19 +327,6 @@
 			<div class="static-sidebar-wrapper {{getLayoutOption('sidebarThemeClass')}}" ng-show="!layoutLoading">
 				<div class="static-sidebar" role="navigation">
 					<div class="sidebar">
-						<div class="widget" ng-cloak>
-					        <div class="widget-body">
-					            <div class="userinfo">
-					                <div class="avatar">
-					                    <img masked-image src="assets/demo/avatar/avatar_11.png" class="img-responsive img-circle">
-					                </div>
-					                <div class="info">
-					                    <span class="username">Jonathan Smith</span>
-					                    <span class="useremail">jon@admin.com</span>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
 						<div class="widget stay-on-collapse">
 							<nav class="widget-body">
 								<ul ng-controller="NavigationController" class="acc-menu" sticky-scroll="40">

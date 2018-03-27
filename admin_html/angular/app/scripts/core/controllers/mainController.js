@@ -48,6 +48,8 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
       'zoomInUp'
     ];
 
+    $scope.user = {};
+
     $scope.layoutLoading = true;
 
     $scope.getLayoutOption = function(key) {

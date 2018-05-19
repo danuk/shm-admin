@@ -86,7 +86,7 @@ angular
             });
         });
         $scope.$watch('toggleModel', function (value) {
-            //$element.prop('checked', !!value);
+            $element.prop('checked', !!value);
         });
     }
     return {

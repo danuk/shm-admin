@@ -15,6 +15,9 @@ angular
 
     $scope.save = function() {
         console.warn( $scope.data );
+        shm_request('POST_JSON','/admin/user.cgi', $scope.data ).then(function(row) {
+            $location.path('/users');
+        })
     }
 
 }]);

@@ -19,7 +19,7 @@ angular
 
     $scope.service_editor = function (title, row, size) {
         return $modal.open({
-            templateUrl: 'edit.tmpl',
+            templateUrl: 'views/service_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title;
                 $scope.data = angular.copy(row);

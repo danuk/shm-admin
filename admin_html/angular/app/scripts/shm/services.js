@@ -1,6 +1,5 @@
 angular
   .module('shm_services', [
-    'angular-jsoneditor',
   ])
   .controller('ShmServicesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
@@ -47,13 +46,6 @@ angular
 
                 $scope.delete = function () {
                     $modalInstance.dismiss('delete');
-                };
-
-                $scope.editJson = function(data) {
-                    shm.editJson(data).result.then(function(json) {
-                        $scope.data.config = json;
-                    },function(cancel) {
-                    })
                 };
 
                 $scope.editSubServices = function(service_id,children) {

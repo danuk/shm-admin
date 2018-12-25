@@ -1,6 +1,5 @@
 angular
   .module('shm_user_services', [
-    'angular-jsoneditor',
   ])
   .controller('ShmUserServicesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
@@ -42,12 +41,6 @@ angular
                     $modalInstance.dismiss('delete');
                 };
 
-                $scope.editJson = function(data) {
-                    shm.editJson(data).result.then(function(json) {
-                        $scope.data.settings = json;
-                    },function(cancel) {
-                    })
-                };
             },
             size: size,
         });

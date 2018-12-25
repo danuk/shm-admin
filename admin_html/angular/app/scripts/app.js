@@ -12,9 +12,9 @@ angular
     'shm_spool',
     'shm_spool_history',
     'shm_categories',
-    'angular-jsoneditor',
     'shm',
     'shm_request',
+    'shm_json_editor',
   ])
   .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';

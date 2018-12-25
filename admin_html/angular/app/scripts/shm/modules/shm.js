@@ -1,21 +1,6 @@
 angular
 .module('shm', [])
 .service('shm', [ '$modal', '$q', '$timeout', function( $modal, $q, $timeout ) {
-    this.editJson = function(data) {
-        return $modal.open({
-            templateUrl: 'views/jsonEditor.html',
-            controller: function ($scope, $modalInstance) {
-                $scope.obj = {data: data, options: {mode: 'tree'}};
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-                $scope.save = function () {
-                    $modalInstance.close( $scope.obj.data );
-                };
-            },
-            size: 'lg',
-        });
-    };
     this.list_choises = function(data) {
         return $modal.open({
             templateUrl: 'views/list_choises.html',

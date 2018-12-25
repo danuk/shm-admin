@@ -1,10 +1,10 @@
 angular
   .module('shm_user_services', [
-    'angular-jsoneditor',
   ])
-  .controller('ShmUserServicesController', ['$scope', '$modal', 'shm', function($scope, $modal, shm) {
+  .controller('ShmUserServicesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
+    var url = 'admin/u_s_object.cgi';
     $scope.url = 'admin/user_services.cgi';
     $scope.parent_key_id = 'user_service_id';
     $scope.maxDeepLevel = 2;
@@ -41,17 +41,16 @@ angular
                     $modalInstance.dismiss('delete');
                 };
 
-                $scope.editJson = function(data) {
-                    shm.editJson(data).result.then(function(json) {
-                        $scope.data.settings = json;
-                    },function(cancel) {
-                    })
-                };
             },
             size: size,
         });
     }
 
+    var save_service = function( row, save_data ) {
+        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
+            angular.extend( row, new_data );
+        });
+    };
 
     $scope.row_dbl_click = function(row) {
         $scope.service_editor('Редактирование услуги', row, 'lg').result.then(function(data){

@@ -12,7 +12,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Услуга</label>
             <div class="col-sm-8">
-                <input type="text" ng-model="data.name" class="form-control" required>
+                <input type="text" ng-model="data.name" class="form-control" readonly="readonly">
             </div>
             <div class="col-sm-2">
                 <a ng-click="editService(data.service_id)" class="btn btn-default"><i class="ti ti-info"></i></a>
@@ -38,7 +38,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Стоимость</label>
             <div class="col-sm-3">
-                <input type="text" ng-model="data.withdraws.total" class="form-control" readonly="readonly"> 
+                <input type="text" ng-model="data.cost" class="form-control" readonly="readonly">
             </div>
             <label class="col-sm-2 control-label">Действует до</label>
             <div class="col-sm-3">
@@ -54,7 +54,7 @@
                 <input type="text" value="{{ data.settings }}" readonly="readonly" class="form-control">
             </div>
             <div class="col-sm-2">
-                <a ng-click="editJson(data.settings)" class="btn btn-default"><i class="ti ti-settings"></i></a>
+                <json-editor data="data.settings"></json-editor>
             </div>
         </div>
 

@@ -49,6 +49,10 @@ angular
             label: 'Группы',
             url: '#!/servers_groups',
           },
+          {
+            label: 'Ключи',
+            url: '#!/identities',
+          },
       ]
     },
     {

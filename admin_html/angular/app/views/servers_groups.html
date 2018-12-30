@@ -1,7 +1,7 @@
 	<ol class="breadcrumb">
 		<li><a href="#/">Главная</a></li>
-		<li>Пользователи</li>
-		<li class="active">Список</li>
+		<li>Сервера</li>
+		<li class="active">Группы</li>
 	</ol>
 
 <div class="container-fluid" ng-controller="ShmServersGroupsController">
@@ -10,12 +10,11 @@
 			<div class="panel panel-transparent">
 				<div class="panel-heading">
 					<h2>Сервера</h2>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-primary" ng-click="add()">Add</button>
+                    </div>
 				</div>
 				<div class="panel-body">
-					<div class="input mb-xl">
-						<input type="text" ng-model="filterOptions.filterText" class="form-control" placeholder="Search filter...">
-					</div>
-
 					<div class="panel">
 						<div class="panel-body no-padding">
 							<div shm-table></div>

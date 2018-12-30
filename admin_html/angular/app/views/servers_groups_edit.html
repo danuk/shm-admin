@@ -1,0 +1,25 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" ng-show="data.group_id">
+            <label class="col-sm-2 control-label">ID группы</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" readonly="readonly" ng-model="data.group_id">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Имя</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" required=1 ng-model="data.name">
+            </div>
+        </div>
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-danger pull-left" ng-show="data.group_id" ng-click="delete()">Delete</button>
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

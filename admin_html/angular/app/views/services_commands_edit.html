@@ -23,11 +23,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Серверы</label>
             <div class="col-sm-8">
-                <select class="form-control" ng-model="data.server_gid" required>
-                    <option ng-value="group.group_id" ng-repeat="group in servers">
-                    {{ group.name }}
-                    </option>
-                </select>
+                <servers-groups-list data="data.server_gid"></servers-groups-list>
             </div>
         </div>
         <div class="form-group">

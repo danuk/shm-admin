@@ -1,4 +1,4 @@
-<select class="form-control" ng-model="data" ng-disabled="!groups_list">
+<select class="form-control" ng-model="data" ng-disabled="!groups_list" required>
     <option ng-value="group.group_id" ng-repeat="group in groups_list">
     {{ group.name }}
     </option>

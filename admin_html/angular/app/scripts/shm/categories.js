@@ -20,11 +20,6 @@ angular
                 $scope.title = title;
                 $scope.data = angular.copy(row);
 
-                // Load servers groups
-                shm_request('GET','/admin/servers_groups.cgi').then(function(servers) {
-                    $scope.servers = servers;
-                });
-
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };

@@ -56,7 +56,7 @@ angular
         var row = {
         };
 
-        $scope.editor('Создание события', row, 'lg').result.then(function(data){
+        $scope.editor('Создание ключа', row, 'lg').result.then(function(data){
             shm_request('PUT_JSON','/'+url, data ).then(function(row) {
                 row.$$treeLevel = 0;
                 $scope.gridOptions.data.push( row );
@@ -66,7 +66,7 @@ angular
     };
 
     $scope.row_dbl_click = function(row) {
-        $scope.editor('Редактирование события', row, 'lg').result.then(function(data){
+        $scope.editor('Редактирование ключа', row, 'lg').result.then(function(data){
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {

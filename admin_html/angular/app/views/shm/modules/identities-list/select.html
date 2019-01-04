@@ -1,0 +1,5 @@
+<select class="form-control" ng-model="data" ng-disabled="!data_list" required>
+    <option ng-value="item.id" ng-repeat="item in data_list">
+    {{ item.name }}
+    </option>
+</select>

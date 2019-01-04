@@ -1,5 +1,6 @@
 angular
   .module('shm_servers_groups', [
+    'shm_servers_types_list',
   ])
   .controller('ShmServersGroupsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';

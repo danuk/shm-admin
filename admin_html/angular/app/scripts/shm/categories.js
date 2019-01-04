@@ -1,5 +1,6 @@
 angular
   .module('shm_categories', [
+    'shm_events_list',
   ])
   .controller('ShmCategoriesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';

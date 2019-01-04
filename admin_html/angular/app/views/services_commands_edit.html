@@ -17,11 +17,11 @@
 
             <label class="col-sm-2 control-label">Событие</label>
             <div class="col-sm-3">
-                <input type="text" ng-model="data.event" class="form-control" required>
+                <events-list data="data.event"></events-list>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Серверы</label>
+            <label class="col-sm-2 control-label">Группа серверов</label>
             <div class="col-sm-8">
                 <servers-groups-list data="data.server_gid"></servers-groups-list>
             </div>

@@ -1,17 +1,17 @@
 angular
-  .module('shm_categories', [
+  .module('shm_events', [
     'shm_events_list',
   ])
-  .controller('ShmCategoriesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
+  .controller('ShmEventsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
     var url = 'admin/services_commands.cgi';
     $scope.url = url;
 
     $scope.columnDefs = [
-        {field: 'category'},
         {field: 'name'},
-        {field: 'params'},
+        {field: 'category'},
+        {field: 'event'},
     ];
 
     $scope.service_editor = function (title, row, size) {

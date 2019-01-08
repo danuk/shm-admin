@@ -76,6 +76,8 @@ angular
     $scope.add = function() {
         var row = {
             next: null,
+            period_cost: 1,
+            cost: 0,
         };
 
         $scope.service_editor('Создание услуги', row, 'lg').result.then(function(data){

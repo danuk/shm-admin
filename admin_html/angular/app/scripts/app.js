@@ -11,7 +11,7 @@ angular
     'shm_servers_groups',
     'shm_spool',
     'shm_spool_history',
-    'shm_categories',
+    'shm_events',
     'shm',
     'shm_request',
     'shm_json_editor',

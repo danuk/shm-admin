@@ -28,12 +28,12 @@ angular
       iconClasses: 'ti ti-menu-alt',
       children: [
           {
-            label: 'Настройка',
+            label: 'Список',
             url: '#!/services',
           },
           {
-            label: 'Категории',
-            url: '#!/categories',
+            label: 'События',
+            url: '#!/events',
           },
       ]
     },

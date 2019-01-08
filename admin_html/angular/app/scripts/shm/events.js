@@ -1,16 +1,17 @@
 angular
-  .module('shm_categories', [
+  .module('shm_events', [
+    'shm_events_list',
   ])
-  .controller('ShmCategoriesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
+  .controller('ShmEventsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
     var url = 'admin/services_commands.cgi';
     $scope.url = url;
 
     $scope.columnDefs = [
-        {field: 'category'},
         {field: 'name'},
-        {field: 'params'},
+        {field: 'category'},
+        {field: 'event'},
     ];
 
     $scope.service_editor = function (title, row, size) {
@@ -19,11 +20,6 @@ angular
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title;
                 $scope.data = angular.copy(row);
-
-                // Load servers groups
-                shm_request('GET','/admin/servers_groups.cgi').then(function(servers) {
-                    $scope.servers = servers;
-                });
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -44,7 +40,6 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        console.log('SAVE: ', save_data );
         shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
             angular.extend( row, new_data );
         });

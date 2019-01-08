@@ -7,6 +7,7 @@ angular.module('shm_transports_list', [
         data: '='
       },
       controller: function ($scope, $element, $attrs) {
+          if (!$scope.data) $scope.data='ssh';
       },
       templateUrl: "views/shm/modules/transports-list/select.html"
     }

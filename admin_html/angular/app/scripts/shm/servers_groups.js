@@ -2,19 +2,25 @@ angular
   .module('shm_servers_groups', [
     'shm_servers_types_list',
   ])
-  .controller('ShmServersGroupsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
-    'use strict';
+  .service('shm_servers_groups', [ '$q', '$modal', 'shm_request', function( $q, $modal, shm_request ) {
 
     var url = 'admin/server_groups.cgi';
-    $scope.url = url;
+    this.url = url;
 
-    $scope.columnDefs = [
-        {field: 'group_id'},
-        {field: 'name', displayName: 'Группа' },
-        {field: 'type'},
-    ];
-   
-    $scope.editor = function (title, row, size) {
+    this.add = function(data) {
+        var deferred = $q.defer();
+
+        this.editor('Создание группы', data, 'lg').result.then(function(new_data){
+            shm_request('PUT_JSON','/'+url, new_data ).then(function(row) {
+                deferred.resolve(row);
+            });
+        }, function(cancel) {
+            deferred.reject();
+        });
+        return deferred.promise;
+    };
+
+    this.editor = function (title, row, size) {
         return $modal.open({
             templateUrl: 'views/servers_groups_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
@@ -37,10 +43,21 @@ angular
             size: size,
         });
     }
+  }])
+  .controller('ShmServersGroupsController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_servers_groups', function($scope, $modal, shm, shm_request, shm_servers_groups) {
+    'use strict';
+
+    $scope.url = shm_servers_groups.url;
+
+    $scope.columnDefs = [
+        {field: 'group_id'},
+        {field: 'name', displayName: 'Группа' },
+        {field: 'type'},
+    ];
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
+        shm_request('POST_JSON','/'+$scope.url, save_data ).then(function(new_data) {
             angular.extend( row, new_data );
         });
     };
@@ -48,21 +65,19 @@ angular
     $scope.add = function() {
         var row = {};
 
-        $scope.editor('Создание группы', row, 'lg').result.then(function(data){
-            shm_request('PUT_JSON','/'+url, data ).then(function(row) {
-                row.$$treeLevel = 0;
-                $scope.gridOptions.data.push( row );
-            });
+        shm_servers_groups.add().then(function(row) {
+            row.$$treeLevel = 0;
+            $scope.gridOptions.data.push( row );
         }, function(cancel) {
         });
     };
 
     $scope.row_dbl_click = function(row) {
-        $scope.editor('Редактирование группы', row, 'lg').result.then(function(data){
+        shm_servers_groups.editor('Редактирование группы', row, 'lg').result.then(function(data){
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?id='+row.group_id ).then(function() {
+                shm_request('DELETE','/'+$scope.url+'?id='+row.group_id ).then(function() {
                     $scope.gridOptions.data.splice(
                         $scope.gridOptions.data.indexOf( row ),
                         1
@@ -71,5 +86,4 @@ angular
             }
         });
     }
-
   }]);

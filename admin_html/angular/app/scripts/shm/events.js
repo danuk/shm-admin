@@ -40,7 +40,6 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        console.log('SAVE: ', save_data );
         shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
             angular.extend( row, new_data );
         });

@@ -13,6 +13,7 @@ angular.module('shm_identities_list', [
         controller: function ($scope, $element, $attrs) {
             shm_request('GET', '/admin/identities.cgi').then(function(data) {
                 $scope.items = data;
+                if (!$scope.data && data.length ) $scope.data = data[0].id;
             });
 
             identities_list_shared.add_item = function(data) {

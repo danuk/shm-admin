@@ -24,19 +24,20 @@
         <div class="form-group" ng-show="!data.id">
             <label class="col-sm-2 control-label">Приватный ключ</label>
             <div class="col-sm-9">
-                <textarea class="form-control" ng-model="data.private_key"></textarea>
+                <textarea rows=6 class="form-control" ng-model="data.private_key"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Публичный ключ</label>
             <div class="col-sm-9">
-                <textarea class="form-control" ng-model="data.public_key"></textarea>
+                <textarea rows=6 class="form-control" ng-model="data.public_key"></textarea>
             </div>
         </div>
     </div> <!-- modal-body -->
 
     <div class="modal-footer">
         <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
+        <button class="btn btn-info" ng-show="!data.id" ng-click="generate_key()">Generate</button>
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         <button class="btn btn-danger pull-left" ng-show="data.id" ng-click="delete()">Delete</button>
     </div>

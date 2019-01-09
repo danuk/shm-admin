@@ -30,6 +30,12 @@ angular
                     $modalInstance.close( $scope.data );
                 };
 
+                $scope.generate_key = function() {
+                    shm_request('GET','admin/generate_ssh_key_pair.cgi' ).then(function(data) {
+                        $scope.data = data;
+                    });
+                }
+
                 $scope.delete = function () {
                     $modalInstance.dismiss('delete');
                 };

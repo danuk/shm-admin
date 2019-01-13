@@ -35,6 +35,16 @@ angular
                     $modalInstance.close( $scope.data );
                 };
 
+                $scope.test_ssh = function() {
+                    shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(data) {
+                        if ( data.result.ret_code == 1 ) {
+                            alert( "Error: " + data.result.error );
+                        } else {
+                            alert( "Successful: " + data.result.data );
+                        }
+                    });
+                }
+
                 $scope.delete = function () {
                     $modalInstance.dismiss('delete');
                 };

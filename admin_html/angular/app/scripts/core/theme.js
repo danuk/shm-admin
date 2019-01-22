@@ -2,13 +2,9 @@ angular
   .module('theme', [
     'ngCookies',
     'ngResource',
-    'ngSanitize',
     'ngRoute',
     'ngAnimate',
-    'NgSwitchery',
-    'sun.scrollable',
     'ui.bootstrap',
-    'ui.select',
     'theme.core.signupPage',
     'theme.core.templates',
     'theme.core.template_overrides',

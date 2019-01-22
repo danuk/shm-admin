@@ -5,7 +5,6 @@ angular
     'ngSanitize',
     'ngRoute',
     'ngAnimate',
-    'easypiechart',
     'NgSwitchery',
     'sun.scrollable',
     'ui.bootstrap',

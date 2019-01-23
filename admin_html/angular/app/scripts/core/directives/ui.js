@@ -147,7 +147,6 @@ angular
           $timeout( function () {
             angular.element('.animated-content .info-tile, .animated-content .panel, .animated-content .widget-weather, .animated-content .widget-tasks, .animated-content .alert')
             .css('visibility', 'visible')
-            .velocity('transition.slideUpIn', {stagger: 50});
           }, 10);
         });
       }

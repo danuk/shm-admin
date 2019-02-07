@@ -37,10 +37,10 @@ angular
 
                 $scope.test_ssh = function() {
                     shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(data) {
-                        if ( data.result.ret_code != 0 ) {
-                            alert( "Error: " + data.result.error );
+                        if ( data.ret_code != 0 ) {
+                            alert( "Error: " + data.error );
                         } else {
-                            alert( "Successful: " + data.result.data );
+                            alert( "Successful: " + data.data );
                         }
                     });
                 }

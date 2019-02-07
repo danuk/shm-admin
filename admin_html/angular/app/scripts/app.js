@@ -23,7 +23,7 @@ angular
     'use strict';
     $routeProvider
       .when('/', {
-        templateUrl: 'views/index.html',
+        templateUrl: 'views/users.html',
       })
       .when('/:templateFile', {
         templateUrl: function(param) {
@@ -31,7 +31,7 @@ angular
         }
       })
       .when('#', {
-        templateUrl: 'views/index.html',
+        templateUrl: 'views/users.html',
       })
       .otherwise({
         redirectTo: '/'

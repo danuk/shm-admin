@@ -21,6 +21,14 @@ angular
             label: 'Услуги пользователей',
             url: '#!/user_services',
           },
+          {
+            label: 'Списания',
+            url: '#!/withdraws',
+          },
+          {
+            label: 'Платежи',
+            url: '#!/pays',
+          },
       ]
     },
     {

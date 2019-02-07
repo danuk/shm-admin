@@ -17,7 +17,6 @@
 
     // Logo
     .navbar-brand {
-        .text-hide() !important;
         background: url("") no-repeat top left; // Put your logo here
         height: @navbar-height;
         width: @navbar-brand-width;
@@ -25,10 +24,12 @@
             width: 68px;
         }
         padding: 16px 0 !important;
+
+        font-size: 20px;
+        color: #FFFFFF;
     }
     //-- Logo Code: Start - remove/modify this as you see fit
     &.navbar-default .navbar-brand, &.navbar-bluegraylight .navbar-brand, &.navbar-graylight .navbar-brand {background: url("../img/logo-dark.png") no-repeat left 0 center; } // dark logo
-    .navbar-brand {background: url("../img/logo-alt.png") no-repeat left 0 center;} //white logo
     //-- Logo Code: End
 
 

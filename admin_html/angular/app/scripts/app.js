@@ -7,6 +7,7 @@ angular
     'shm_users_list',
     'shm_users_select',
     'shm_user_services',
+    'shm_services_select',
     'shm_services',
     'shm_servers',
     'shm_servers_groups',

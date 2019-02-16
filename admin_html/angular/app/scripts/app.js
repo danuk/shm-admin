@@ -5,6 +5,7 @@ angular
     'shm_table_tree',
     'shm_user',
     'shm_users_list',
+    'shm_users_select',
     'shm_user_services',
     'shm_services',
     'shm_servers',

@@ -38,7 +38,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Стоимость</label>
             <div class="col-sm-3">
-                <input type="text" ng-model="data.cost" class="form-control" readonly="readonly">
+                <input type="text" ng-model="data.withdraws.cost" class="form-control" readonly="readonly">
             </div>
             <label class="col-sm-2 control-label">Действует до</label>
             <div class="col-sm-3">
@@ -63,6 +63,6 @@
     <div class="modal-footer">
         <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        <button class="btn btn-danger pull-left" ng-disabled=1 ng-show="data.service_id" ng-click="delete()">Delete</button>
+        <button class="btn btn-danger pull-left" ng-disabled=1 ng-show="0" ng-click="delete()">Delete</button>
     </div>
 </form>

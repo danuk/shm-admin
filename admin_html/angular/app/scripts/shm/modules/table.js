@@ -21,10 +21,19 @@ angular
             multiSelect: false,
             modifierKeysToMultiSelect: false,
             enableGridMenu: true,
-            noUnselect: true, 
+            noUnselect: true,
             onRegisterApi: function(gridApi) {
                 $scope.gridApi = gridApi;
             },
+            gridMenuCustomItems: [
+                {
+                    title: 'Reload',
+                    action: function ($event) {
+                        $scope.load_data($scope.url);
+                    },
+                    order: 210
+                }
+            ],
         };
 
         if ( $scope.row_dbl_click ) {
@@ -104,7 +113,7 @@ angular
     }])
     .directive('shmTable', function() {
         return {
-            controller: 'ShmTableController', 
+            controller: 'ShmTableController',
             template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-pagination ui-grid-move-columns ui-grid-pinning></div>',
         }
     });

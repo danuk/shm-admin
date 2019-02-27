@@ -23,9 +23,18 @@ angular
             multiSelect: false,
             modifierKeysToMultiSelect: false,
             enableGridMenu: true,
-            noUnselect: true, 
+            noUnselect: true,
             showTreeExpandNoChildren: true,
             enableExpandAll: false,
+            gridMenuCustomItems: [
+                {
+                    title: 'Reload',
+                    action: function ($event) {
+                        $scope.load_data($scope.url);
+                    },
+                    order: 210
+                }
+            ],
         };
 
         $scope.gridOptions.onRegisterApi = function( gridApi ) {
@@ -34,7 +43,7 @@ angular
                 var index = $scope.gridOptions.data.indexOf(row.entity);
                 var treeLevel = 1;
                 console.log('ROW:', row );
-                if ( row.treeLevel ) { treeLevel = row.treeLevel + 1 }; 
+                if ( row.treeLevel ) { treeLevel = row.treeLevel + 1 };
                 if ( !row.treeNode.children.length ) {
                     shm_request('GET','/'+$scope.url, { parent: row.entity[$scope.parent_key_id] } ).then(function(data) {
                         data.forEach(function(childRow) {
@@ -128,7 +137,7 @@ angular
     }])
     .directive('shmTableTree', function() {
         return {
-            controller: 'ShmTableTreeController', 
+            controller: 'ShmTableTreeController',
             template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-pagination ui-grid-move-columns ui-grid-pinning ui-grid-tree-view></div>',
         }
     });

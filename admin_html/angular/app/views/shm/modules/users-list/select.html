@@ -1,5 +1,5 @@
-<select class="form-control" ng-model="data" ng-disabled="!items" required>
-    <option ng-value="item.user_id" ng-repeat="item in items">
+<select class="form-control" ng-model="data" ng-disabled="!items||readonly" required>
+    <option ng-value="item" ng-repeat="item in items">
     {{ item.user_id }}# {{ item.login }}: {{ item.full_name }}
     </option>
 </select>

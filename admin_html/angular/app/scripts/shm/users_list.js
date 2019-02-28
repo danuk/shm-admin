@@ -5,7 +5,7 @@ angular
   ['$scope', '$modal', '$location','$route', 'shm_request', function($scope, $modal, $location, $route, shm_request) {
     'use strict';
 
-    $scope.url = 'admin/users.cgi';
+    $scope.url = 'admin/user.cgi';
 
     $scope.columnDefs = [
         {field: 'user_id', displayName: 'ID'},

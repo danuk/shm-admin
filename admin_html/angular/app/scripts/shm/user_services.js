@@ -7,7 +7,9 @@ angular
             templateUrl: 'views/user_service_add.html',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = 'Создание услуги пользователя';
-                $scope.data = {};
+                $scope.data = {
+                    user_id: "-1",
+                };
                 $scope.service = {};
 
                 $scope.$watch('service', function(newValue, oldValue){

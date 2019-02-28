@@ -10,7 +10,9 @@ angular
                 $scope.data = {
                     user_id: "-1",
                 };
-                $scope.service = {};
+                $scope.service = {
+                    service_id: "-1",
+                };
 
                 $scope.$watch('service', function(newValue, oldValue){
                     $scope.data.service_id = newValue.service_id;

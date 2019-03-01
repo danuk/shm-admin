@@ -1,0 +1,46 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Событие</label>
+            <div class="col-sm-8">
+                <services-commands-list id="data.event_id" readonly></services-commands-list>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Пользователь</label>
+            <div class="col-sm-8">
+                <users-list id="data.user_id" readonly></users-list>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Услуга</label>
+            <div class="col-sm-8">
+                <user-services-list id="data.user_service_id" readonly></user-services-list>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Создана</label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="data.created" class="form-control" readonly>
+            </div>
+            <label class="col-sm-2 control-label">Выполнена</label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="data.executed" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Response</label>
+            <div class="col-sm-8">
+                <angular-jsoneditor ng-model="obj.data" options="obj.options" style="width: 100%;"></angular-jsoneditor>
+            </div>
+        </div>
+
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="close()">Close</button>
+    </div>
+</form>

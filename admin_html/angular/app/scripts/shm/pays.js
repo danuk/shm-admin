@@ -8,7 +8,7 @@ angular
     $scope.url = url;
 
     $scope.columnDefs = [
-        {field: 'pay_id', displayName: "id"},
+        {field: 'id', displayName: "id"},
         {field: 'user_id'},
         {field: 'date', displayName: "Дата"},
         {field: 'money', displayName: "Сумма"},

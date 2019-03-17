@@ -60,6 +60,7 @@ angular
         });
     };
 
+    /*
     $scope.row_dbl_click = function(row) {
         $scope.service_editor('Редактирование списания', row, 'lg').result.then(function(data){
             save_service( row, data );
@@ -74,6 +75,7 @@ angular
             }
         });
     }
+    */
 
   }]);
 

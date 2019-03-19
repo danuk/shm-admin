@@ -68,7 +68,7 @@ angular
     'use strict';
 
     var url = 'admin/u_s_object.cgi';
-    $scope.url = 'admin/user_services.cgi';
+    $scope.url = 'admin/user_service.cgi';
     $scope.parent_key_id = 'user_service_id';
     $scope.maxDeepLevel = 2;
 

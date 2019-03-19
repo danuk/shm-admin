@@ -1,11 +1,11 @@
 angular
-  .module('shm_events', [
-    'shm_events_list',
+  .module('shm_events_us', [
+    'shm_events_us_list',
   ])
-  .controller('ShmEventsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
+  .controller('ShmEventsUsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
-    var url = 'admin/services_commands.cgi';
+    var url = 'admin/events.cgi?kind=user_service';
     $scope.url = url;
 
     $scope.columnDefs = [
@@ -16,7 +16,7 @@ angular
 
     $scope.service_editor = function (title, row, size) {
         return $modal.open({
-            templateUrl: 'views/services_commands_edit.html',
+            templateUrl: 'views/events_us_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title;
                 $scope.data = angular.copy(row);

@@ -41,7 +41,7 @@ angular
           },
           {
             label: 'События',
-            url: '#!/events',
+            url: '#!/events_us',
           },
       ]
     },

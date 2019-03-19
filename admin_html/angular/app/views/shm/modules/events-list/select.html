@@ -1,5 +1,5 @@
 <select class="form-control" ng-model="data" ng-disabled="!items||readonly" required>
     <option ng-value="item" ng-repeat="item in items">
-    [{{ item.id }}] {{ item.name }}
+    [{{ item.id }}] ({{ item.kind }}) {{ item.name }}
     </option>
 </select>

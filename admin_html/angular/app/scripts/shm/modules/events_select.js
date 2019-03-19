@@ -1,16 +1,17 @@
-angular.module('shm_services_commands_select', [
+angular.module('shm_events_select', [
 ])
-.directive('servicesCommandsList', [ 'shm_request', function( shm_request ) {
+.directive('eventsList', [ 'shm_request', function( shm_request ) {
     return {
         restrict: 'E',
         scope: {
             data: '=?data',
             id: '=?id',
+            kind: '=?kind',
         },
         link: function ($scope, $element, $attrs) {
             $scope.readonly = 'readonly' in $attrs;
 
-            var request = 'admin/services_commands.cgi';
+            var request = 'admin/events.cgi';
             var key_field = 'id';
 
             $scope.$watch('data', function(newValue, oldValue){
@@ -21,6 +22,9 @@ angular.module('shm_services_commands_select', [
             if ( $scope.readonly ) {
                 request = request + '?' + key_field + '=' + $scope.id;
             }
+            else if ( $scope.kind ) {
+                request += '?kind=' + $scope.kind;
+            };
 
             shm_request('GET', request).then(function(data) {
                 if (!data) return;
@@ -35,7 +39,7 @@ angular.module('shm_services_commands_select', [
                 } else $scope.data = data[0];
             });
         },
-        templateUrl: "views/shm/modules/services-commands-list/select.html"
+        templateUrl: "views/shm/modules/events-list/select.html"
     }
 }])
 ;

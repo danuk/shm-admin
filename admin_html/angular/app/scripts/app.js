@@ -9,7 +9,7 @@ angular
     'shm_user_services',
     'shm_services_select',
     'shm_user_services_select',
-    'shm_services_commands_select',
+    'shm_events_select',
     'shm_pay_systems_select',
     'shm_services',
     'shm_servers',

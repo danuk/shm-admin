@@ -12,7 +12,17 @@ angular
             width: 150,
         },
         {
-            field: 'user_service_id',
+            field: 'user_id',
+            width: 150,
+        },
+        {
+            field: 'event.kind',
+            displayName: 'kind',
+            width: 150,
+        },
+        {
+            field: 'event.title',
+            displayName: 'event',
             width: 150,
         },
         {

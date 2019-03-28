@@ -6,18 +6,18 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Название</label>
             <div class="col-sm-8">
-                <input type="text" ng-model="data.name" class="form-control" required>
+                <input type="text" ng-model="data.title" class="form-control" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Категория</label>
             <div class="col-sm-3">
-                <input type="text" ng-model="data.category" class="form-control" required>
+                <input type="text" ng-model="data.params.category" class="form-control" required>
             </div>
 
             <label class="col-sm-2 control-label">Событие</label>
             <div class="col-sm-3">
-                <events-us-list data="data.event"></events-us-list>
+                <events-us-list data="data.name"></events-us-list>
             </div>
         </div>
         <div class="form-group">

@@ -6,7 +6,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Событие</label>
             <div class="col-sm-8">
-                <events-list id="data.event_id" readonly></events-list>
+                <input type="text" ng-model="data.event.title" class="form-control" readonly>
             </div>
         </div>
         <div class="form-group">
@@ -15,10 +15,10 @@
                 <users-list id="data.user_id" readonly></users-list>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-show="data.params.user_service_id">
             <label class="col-sm-2 control-label">Услуга</label>
             <div class="col-sm-8">
-                <user-services-list id="data.user_service_id" readonly></user-services-list>
+                <user-services-list id="data.params.user_service_id" readonly></user-services-list>
             </div>
         </div>
         <div class="form-group">
@@ -31,13 +31,18 @@
                 <input type="text" ng-model="data.executed" class="form-control" readonly>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Response</label>
+        <div class="form-group" ng-show="data.event">
+            <label class="col-sm-2 control-label">Event</label>
             <div class="col-sm-8">
-                <angular-jsoneditor ng-model="obj.data" options="obj.options" style="width: 100%;"></angular-jsoneditor>
+                <angular-jsoneditor ng-model="data.event" options="obj.options" style="width: 100%;"></angular-jsoneditor>
             </div>
         </div>
-
+        <div class="form-group" ng-show="data.response">
+            <label class="col-sm-2 control-label">Response</label>
+            <div class="col-sm-8">
+                <angular-jsoneditor ng-model="data.response" options="obj.options" style="width: 100%;"></angular-jsoneditor>
+            </div>
+        </div>
     </div> <!-- modal-body -->
 
     <div class="modal-footer">

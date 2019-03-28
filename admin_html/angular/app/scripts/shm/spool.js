@@ -12,7 +12,17 @@ angular
             width: 150,
         },
         {
-            field: 'user_service_id',
+            field: 'user_id',
+            width: 150,
+        },
+        {
+            field: 'event.kind',
+            displayName: 'kind',
+            width: 150,
+        },
+        {
+            field: 'event.title',
+            displayName: 'event',
             width: 150,
         },
         {
@@ -29,7 +39,6 @@ angular
                 $scope.title = 'Просмотри события';
                 $scope.data = angular.copy(row),
                 $scope.obj = {
-                   data: angular.copy(row.response),
                    options: { mode: 'code' },
                 }
 

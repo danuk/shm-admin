@@ -9,9 +9,17 @@ angular
     $scope.url = url;
 
     $scope.columnDefs = [
-        {field: 'name'},
-        {field: 'category'},
-        {field: 'event'},
+        {
+            field: 'title',
+        },
+        {
+            field: 'name',
+            displayName: 'event',
+        },
+        {
+            field: 'params.category',
+            displayName: 'category',
+        },
     ];
 
     $scope.service_editor = function (title, row, size) {
@@ -64,7 +72,7 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?id='+row.id ).then(function() {
+                shm_request('DELETE','/'+url+'&id='+row.id ).then(function() {
                     $scope.gridOptions.data.splice(
                         $scope.gridOptions.data.indexOf( row ),
                         1

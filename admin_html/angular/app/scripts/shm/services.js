@@ -4,7 +4,7 @@ angular
   .controller('ShmServicesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
-    var url = 'admin/services.cgi';
+    var url = 'admin/service.cgi';
     $scope.url = url;
 
     $scope.parent_key_id = 'service_id';

@@ -31,10 +31,14 @@ angular
             if ( response.status == 401 ) {
                 $rootScope.$broadcast('http_401', this);
             } else {
-                alert(
-                    "URL: " + $request_url + "\n" +
-                    "Status: " + response.status + " (" + response.statusText +  ")\n"
-                );
+                if ( response.data && response.data.error ) {
+                    alert( "Error: " + response.data.error );
+                } else {
+                    alert(
+                        "URL: " + $request_url + "\n" +
+                        "Status: " + response.status + " (" + response.statusText +  ")\n"
+                    );
+                }
             }
             deferred.reject( response );
         }

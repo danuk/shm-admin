@@ -66,8 +66,7 @@ angular
         };
         $scope.totalServerItems = 0;
         $scope.pagingOptions = {
-            pageSizes: [25, 50, 100],
-            pageSize: 25,
+            pageSize: 1000,
             currentPage: 1
         };
         $scope.setPagingData = function(data, page, pageSize) {
@@ -114,7 +113,7 @@ angular
     .directive('shmTable', function() {
         return {
             controller: 'ShmTableController',
-            template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-pagination ui-grid-move-columns ui-grid-pinning></div>',
+            template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-move-columns ui-grid-pinning></div>',
         }
     });
 

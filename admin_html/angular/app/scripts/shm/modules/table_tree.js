@@ -90,8 +90,7 @@ angular
         };
         $scope.totalServerItems = 0;
         $scope.pagingOptions = {
-            pageSizes: [25, 50, 100],
-            pageSize: 25,
+            pageSize: 1000,
             currentPage: 1
         };
         $scope.setPagingData = function(data, page, pageSize) {
@@ -102,6 +101,7 @@ angular
                 $scope.$apply();
             }
         };
+
         $scope.getPagedDataAsync = function(url,pageSize, page, searchText) {
             setTimeout(function() {
                 var data;
@@ -129,6 +129,7 @@ angular
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
             }
         }, true);
+
         $scope.$watch('filterOptions', function(newVal, oldVal) {
             if (newVal !== oldVal) {
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -138,7 +139,7 @@ angular
     .directive('shmTableTree', function() {
         return {
             controller: 'ShmTableTreeController',
-            template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-pagination ui-grid-move-columns ui-grid-pinning ui-grid-tree-view></div>',
+            template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-move-columns ui-grid-pinning ui-grid-tree-view></div>',
         }
     });
 

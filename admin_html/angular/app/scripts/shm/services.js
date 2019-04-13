@@ -10,8 +10,14 @@ angular
     $scope.parent_key_id = 'service_id';
 
     $scope.columnDefs = [
-        {field: 'service_id'},
-        {field: 'name'},
+        {
+            field: 'service_id',
+            width: 100,
+        },
+        {
+            field: 'name',
+            width: 500,
+        },
         {field: 'category'},
         {field: 'cost', displayName: 'Цена'},
     ];

@@ -59,6 +59,12 @@ angular
                     $modalInstance.dismiss('delete');
                 };
 
+                $scope.block = function(data) {
+                    shm_request('GET','/admin/user_service_stop.cgi?user_id='+data.user_id+'&user_service_id='+data.user_service_id).then(function(new_data) {
+                        angular.extend( row, new_data );
+                        angular.extend( data, new_data );
+                    });
+                };
             },
             size: size,
         });
@@ -80,7 +86,29 @@ angular
             width: 100,
             filter: { term: $scope.user.user_id }
         },
-        {field: 'status', width: 100},
+        {
+            field: 'status',
+            width: 100,
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                switch(grid.getCellValue(row,col)) {
+                    case 0:
+                        return 'btn-info';
+                        break;
+                    case 1:
+                        return 'btn-basic';
+                        break;
+                    case 2:
+                        return 'btn-success';
+                        break;
+                    case 3:
+                        return 'btn-danger';
+                        break;
+                    case 5:
+                        return 'btn-warning';
+                        break;
+                };
+            },
+        },
         {field: 'expired'},
         {field: 'withdraws.cost', displayName: 'Цена'},
     ];
@@ -104,7 +132,7 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?service_id='+row.service_id ).then(function() {
+                shm_request('DELETE','/'+url+'?user_id='+row.user_id+'&user_service_id='+row.user_service_id ).then(function() {
                     $scope.gridOptions.data.splice(
                         $scope.gridOptions.data.indexOf( row ),
                         1

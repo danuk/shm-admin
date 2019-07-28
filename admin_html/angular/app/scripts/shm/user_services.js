@@ -1,7 +1,8 @@
 angular
   .module('shm_user_services', [
+      'shm_spool',
   ])
-  .service('shm_user_services', [ '$q', '$modal', 'shm_request', function( $q, $modal, shm_request ) {
+  .service('shm_user_services', [ '$q', '$modal', 'shm_request', 'shm_spool', function( $q, $modal, shm_request, shm_spool ) {
     this.add = function(data) {
         return $modal.open({
             templateUrl: 'views/user_service_add.html',
@@ -64,6 +65,18 @@ angular
                         angular.extend( row, new_data );
                         angular.extend( data, new_data );
                     });
+                };
+
+                $scope.show_event = function(data) {
+                    shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id+'&method=spool_commands').then(function(spool) {
+                        shm_spool.edit( spool[0] ).result.then(function(){
+                            // Update user_service_status
+                            shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id).then(function(new_data) {
+                                data.status = new_data[0].status;
+                            });
+                        }, function(resp) {
+                        })
+                    })
                 };
             },
             size: size,

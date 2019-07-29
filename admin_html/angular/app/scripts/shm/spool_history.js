@@ -36,7 +36,7 @@ angular
         return $modal.open({
             templateUrl: 'views/spool_view.html',
             controller: function ($scope, $modalInstance, $modal) {
-                $scope.title = 'Просмотри события';
+                $scope.title = 'Просмотр события';
                 $scope.data = angular.copy(row),
                 $scope.obj = {
                    data: angular.copy(row.response),

@@ -127,6 +127,7 @@ angular
     ];
 
     var save_service = function( row, save_data ) {
+        delete save_data.status; // protect for change status
         shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
             angular.extend( row, new_data );
         });

@@ -19,7 +19,7 @@ angular.module('shm_user_services_select', [
             });
 
             if ( $scope.readonly ) {
-                request = request + '?' + key_field + '=' + $scope.id;
+                request = request + '?parent=&usi=' + $scope.id;
             }
 
             shm_request('GET', request).then(function(data) {

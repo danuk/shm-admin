@@ -10,6 +10,15 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-2 control-label">Статус</label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="data.status" class="form-control" readonly>
+            </div>
+            <div class="col-sm-3" ng-show="data.status==3">
+                <button class="btn btn-warning" ng-click="retry()">Повторить</button>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-2 control-label">Пользователь</label>
             <div class="col-sm-8">
                 <users-list id="data.user_id" readonly></users-list>
@@ -35,6 +44,9 @@
             <label class="col-sm-2 control-label">Event</label>
             <div class="col-sm-8">
                 <angular-jsoneditor ng-model="data.event" options="obj.options" style="width: 100%;"></angular-jsoneditor>
+            </div>
+            <div class="col-sm-2" ng-show="data.status==3">
+                <json-editor data="data.event"></json-editor>
             </div>
         </div>
         <div class="form-group" ng-show="data.response">

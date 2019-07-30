@@ -22,6 +22,12 @@ angular
                 $scope.close = function () {
                     $modalInstance.close( $scope.data );
                 };
+
+                $scope.retry = function () {
+                    shm_request('POST_JSON', '/admin/spool.cgi?method=manual_retry', $scope.data ).then(function(new_data) {
+			angular.extend( $scope.data , new_data );
+		    });
+                };
             },
             size: 'lg',
         });

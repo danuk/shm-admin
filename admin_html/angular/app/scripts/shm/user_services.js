@@ -113,19 +113,19 @@ angular
             width: 100,
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 switch(grid.getCellValue(row,col)) {
-                    case 0:
+                    case 'NOT PAID':
                         return 'btn-info';
                         break;
-                    case 1:
+                    case 'PROGRESS':
                         return 'btn-basic';
                         break;
-                    case 2:
+                    case 'ACTIVE':
                         return 'btn-success';
                         break;
-                    case 3:
+                    case 'BLOCK':
                         return 'btn-danger';
                         break;
-                    case 5:
+                    case 'ERROR':
                         return 'btn-warning';
                         break;
                 };

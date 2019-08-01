@@ -7,7 +7,7 @@ angular
             templateUrl: 'views/spool_view.html',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = 'Просмотр события';
-                $scope.data = angular.copy(row),
+                $scope.data = angular.copy(row);
                 $scope.obj = {
                    options: { mode: 'code' },
                 }

@@ -1,35 +1,16 @@
 angular
   .module('shm_services', [
   ])
-  .controller('ShmServicesController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
-    'use strict';
-
-    var url = 'admin/service.cgi';
-    $scope.url = url;
-
-    $scope.parent_key_id = 'service_id';
-
-    $scope.columnDefs = [
-        {
-            field: 'service_id',
-            width: 100,
-        },
-        {
-            field: 'name',
-            width: 500,
-        },
-        {field: 'category'},
-        {field: 'cost', displayName: 'Цена'},
-    ];
-
-    $scope.service_editor = function (title, row, size) {
+  .service('shm_services', ['$modal', 'shm', 'shm_request', function($modal, shm, shm_request) {
+    this.edit = function(row, title) {
         return $modal.open({
             templateUrl: 'views/service_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
-                $scope.title = title;
+                $scope.title = title || 'Редактирование услуги';
                 $scope.data = angular.copy(row);
                 $scope.data.children = [];
-                
+                var url = 'admin/service.cgi';
+
                 // Load all services
                 shm_request('GET','/'+url).then(function(data) {
                     $scope.services = data;
@@ -47,11 +28,15 @@ angular
                 };
 
                 $scope.save = function () {
-                    $modalInstance.close( $scope.data );
+                    shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function(row) {
+                        $modalInstance.close( $scope.data );
+                    });
                 };
 
                 $scope.delete = function () {
-                    $modalInstance.dismiss('delete');
+                    shm_request('DELETE','/'+url+'?service_id='+row.service_id ).then(function() {
+                        $modalInstance.dismiss('delete');
+                    })
                 };
 
                 $scope.editSubServices = function(service_id,children) {
@@ -68,16 +53,29 @@ angular
                     });
                 };
             },
-            size: size,
-        });
-    }
-
-    var save_service = function( row, save_data ) {
-        delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
-            angular.extend( row, new_data );
+            size: 'lg',
         });
     };
+  }])
+  .controller('ShmServicesController', ['$scope', 'shm_services', function($scope, shm_services) {
+    'use strict';
+
+    var url = 'admin/service.cgi';
+    $scope.url = url;
+    $scope.parent_key_id = 'service_id';
+
+    $scope.columnDefs = [
+        {
+            field: 'service_id',
+            width: 100,
+        },
+        {
+            field: 'name',
+            width: 500,
+        },
+        {field: 'category'},
+        {field: 'cost', displayName: 'Цена'},
+    ];
 
     $scope.add = function() {
         var row = {
@@ -86,26 +84,20 @@ angular
             cost: 0,
         };
 
-        $scope.service_editor('Создание услуги', row, 'lg').result.then(function(data){
-            shm_request('PUT_JSON','/'+url, data ).then(function(row) {
-                row.$$treeLevel = 0;
-                $scope.gridOptions.data.push( row );
-            });
+        shm_services.edit(row, 'Создание услуги').result.then(function(data){
+            data.$$treeLevel = 0;
+            $scope.gridOptions.data.push( data );
         }, function(cancel) {
         });
     };
 
     $scope.row_dbl_click = function(row) {
-        $scope.service_editor('Редактирование услуги', row, 'lg').result.then(function(data){
-            save_service( row, data );
+        shm_services.edit(row).result.then(function(data){
+            delete row.$$treeLevel;
+            angular.extend( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?service_id='+row.service_id ).then(function() {
-                    $scope.gridOptions.data.splice(
-                        $scope.gridOptions.data.indexOf( row ),
-                        1
-                    );
-                })
+                $scope.gridOptions.data.splice( $scope.gridOptions.data.indexOf( row ), 1 );
             }
         });
     }

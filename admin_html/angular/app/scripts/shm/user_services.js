@@ -1,8 +1,9 @@
 angular
   .module('shm_user_services', [
       'shm_spool',
+      'shm_services',
   ])
-  .service('shm_user_services', [ '$q', '$modal', 'shm_request', 'shm_spool', function( $q, $modal, shm_request, shm_spool ) {
+  .service('shm_user_services', [ '$q', '$modal', 'shm_request', 'shm_spool', 'shm_services', function( $q, $modal, shm_request, shm_spool, shm_services ) {
     this.add = function(data) {
         return $modal.open({
             templateUrl: 'views/user_service_add.html',
@@ -87,6 +88,13 @@ angular
                         }
                     })
                 };
+
+                $scope.edit_service = function() {
+                    shm_services.edit( $scope.data.service ).result.then(function(data){
+                        angular.extend( $scope.data.service, data );
+                    }, function(resp) {
+                    });
+                }
             },
             size: size,
         });

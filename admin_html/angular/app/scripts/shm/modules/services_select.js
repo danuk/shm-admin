@@ -22,17 +22,17 @@ angular.module('shm_services_select', [
                 request = request + '?' + key_field + '=' + $scope.id;
             }
 
-            shm_request('GET', request).then(function(data) {
-                if (!data) return;
-                $scope.items = data;
+            shm_request('GET', request).then(function(rows) {
+                if (!rows) return;
+                $scope.items = rows;
 
                 if ( $scope.id ) {
-                    data.forEach(function(item) {
+                    rows.forEach(function(item) {
                         if ( $scope.id == item[key_field] ) {
                             $scope.data = item;
                         }
                     });
-                } else $scope.data = data[0];
+                } else $scope.data = rows[0];
             });
         },
         templateUrl: "views/shm/modules/services-list/select.html"

@@ -11,6 +11,7 @@ angular
     'shm_user_services_select',
     'shm_events_select',
     'shm_pay_systems_select',
+    'shm_templates',
     'shm_services',
     'shm_servers',
     'shm_servers_groups',

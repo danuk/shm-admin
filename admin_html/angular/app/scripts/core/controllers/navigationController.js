@@ -82,6 +82,10 @@ angular
       iconClasses: 'ti ti-settings',
       children: [
           {
+            label: 'Шаблоны',
+            url: '#!/templates',
+          },
+          {
             label: 'Домены',
             url: '#!/domains',
           },

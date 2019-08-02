@@ -1,0 +1,46 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" readonly="readonly" ng-model="data.id">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Имя</label>
+            <div class="col-sm-8">
+                <input type="text" ng-model="data.name" class="form-control" ng-pattern="name_pattern" maxlength="32" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Описание</label>
+            <div class="col-sm-8">
+                <input type="text" ng-model="data.title" class="form-control" maxlength="64" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Settings</label>
+            <div class="col-sm-8">
+                <input type="text" value="{{ data.settings }}" readonly="readonly" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <json-editor data="data.settings"></json-editor>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Шаблон</label>
+            <div class="col-sm-8">
+                <textarea rows=14 class="form-control" ng-model="data.data"></textarea>
+            </div>
+        </div>
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-danger pull-left" ng-show="data.id" ng-click="delete()">Delete</button>
+    </div>
+</form>

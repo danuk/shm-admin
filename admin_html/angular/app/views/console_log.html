@@ -1,0 +1,30 @@
+<style>
+    console {
+        background-color: black;
+        color: white;
+        width: 100%;
+        height: 500px;
+        display: block;
+        padding: 10px;
+        -webkit-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,1);
+        -moz-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,1);
+        box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,1);
+    }
+</style>
+
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">Просмотр логов</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <console id=1></console>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+</form>

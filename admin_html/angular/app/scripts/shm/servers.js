@@ -4,7 +4,7 @@ angular
     'shm_servers_groups_list',
     'shm_identities_list',
   ])
-  .service('shm_servers', [ '$q', '$modal', 'shm_request', function( $q, $modal, shm_request ) {
+  .service('shm_servers', [ '$q', '$modal', 'shm_request', 'shm_console', function( $q, $modal, shm_request, shm_console ) {
     this.add = function(data) {
         var deferred = $q.defer();
 
@@ -37,11 +37,14 @@ angular
 
                 $scope.test_ssh = function() {
                     shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(data) {
-                        if ( data.ret_code != 0 ) {
+
+                        shm_console.log();
+
+                        /*if ( data.ret_code != 0 ) {
                             alert( "Error: " + data.stderr );
                         } else {
                             alert( "Successful: " + data.stdout );
-                        }
+                        }*/
                     });
                 }
 

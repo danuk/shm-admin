@@ -20,6 +20,7 @@ angular
     'shm_events_us',
     'shm',
     'shm_request',
+    'shm_console',
     'shm_json_editor',
     'shm_identities',
     'shm_withdraws',

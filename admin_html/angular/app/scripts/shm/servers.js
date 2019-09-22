@@ -38,7 +38,10 @@ angular
                 $scope.test_ssh = function() {
                     shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(response) {
 
-                        shm_console.log();
+                        shm_console.log().result.then(function(){
+                        }, function(cancel) {
+                        });
+
 
                         /*if ( data.ret_code != 0 ) {
                             alert( "Error: " + data.stderr );

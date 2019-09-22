@@ -7,10 +7,6 @@ angular
             controller: function ($scope, $modalInstance) {
                 $scope.data = angular.copy(data);
 
-                $scope.add = function() {
-                    $scope.data.list_to.push( angular.copy( $scope.data.from ) );
-                };
-
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
@@ -20,7 +16,7 @@ angular
     }
 
 }])
-.directive('console', [ 'shm_request', '$interval', function( shm_request, $interval ) {
+.directive('console', [ 'shm_request', '$timeout', function( shm_request, $timeout ) {
     return {
         restrict: 'E',
         scope: {
@@ -28,26 +24,37 @@ angular
         },
         link: function ($scope, $element, $attrs) {
 
-            var request = 'admin/console.cgi?id=' + $scope.id;
+            var $timerId;
+            var destroyed = 0;
+            var offset = 1;
 
-            shm_request('GET', request).then(function(response) {
-                var log = response.data;
+            var get_logs = function() {
 
-                if (!log) return;
+                var request = 'admin/console.cgi?id=' + $scope.id + '&offset=' + offset;
+                shm_request('GET', request).then(function(response) {
+                    var log = response.data;
 
-                console.log( response );
+                    if ( log ) {
+                        offset += log.length;
 
-                $element.append( log + "<br>" );
+                        var text = log.replace( /\n\r?|\r\n?/g, '<br/>' );
+                        $element.append( text );
+                    }
 
-                $element.append( "Foo<br>" );
-                $element.append( "bar<br>" );
-                $element.append( "QAZ<br>" );
+                    if ( response.headers('x-console-eof') == '0' && !destroyed ) {
+                        timerId = $timeout(function() {
+                            get_logs();
+                        }, 1000);
+                    }
+                });
+            }
 
+            get_logs();
+
+            $scope.$on( "$destroy", function() {
+                destroyed = 1;
+                $timeout.cancel( timerId );
             });
-
-            /*var timerId = $interval(function() {
-                $element.append( "123<br>" );
-            }, 1000);*/
         },
     }
 }])

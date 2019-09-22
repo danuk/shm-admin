@@ -1,11 +1,11 @@
 angular
 .module('shm_console', [])
 .service('shm_console', [ '$modal', '$q', '$timeout', function( $modal, $q, $timeout ) {
-    this.log = function(data) {
+    this.log = function(id) {
         return $modal.open({
             templateUrl: 'views/console_log.html',
             controller: function ($scope, $modalInstance) {
-                $scope.data = angular.copy(data);
+                $scope.id = angular.copy(id);
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -29,7 +29,6 @@ angular
             var offset = 1;
 
             var get_logs = function() {
-
                 var request = 'admin/console.cgi?id=' + $scope.id + '&offset=' + offset;
                 shm_request('GET', request).then(function(response) {
                     var log = response.data;

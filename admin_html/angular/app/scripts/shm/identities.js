@@ -6,8 +6,8 @@ angular
         var deferred = $q.defer();
 
         this.editor('Создание ключа', data, 'lg').result.then(function(new_data){
-            shm_request('PUT_JSON','/admin/identities.cgi', new_data ).then(function(row) {
-                deferred.resolve(row);
+            shm_request('PUT_JSON','/admin/identities.cgi', new_data ).then(function(response) {
+                deferred.resolve(response.data);
             });
         }, function(cancel) {
             deferred.reject();
@@ -31,8 +31,8 @@ angular
                 };
 
                 $scope.generate_key = function() {
-                    shm_request('GET','admin/generate_ssh_key_pair.cgi' ).then(function(data) {
-                        $scope.data = data;
+                    shm_request('GET','admin/generate_ssh_key_pair.cgi' ).then(function(response) {
+                        $scope.data = response.data;
                     });
                 }
 
@@ -67,8 +67,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
-            angular.extend( row, new_data );
+        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
+            angular.extend( row, response.data );
         });
     };
 

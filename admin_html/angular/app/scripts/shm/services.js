@@ -12,14 +12,14 @@ angular
                 var url = 'admin/service.cgi';
 
                 // Load all services
-                shm_request('GET','/'+url).then(function(data) {
-                    $scope.services = data;
+                shm_request('GET','/'+url).then(function(response) {
+                    $scope.services = response.data;
                 });
 
                 // Load childs
                 if ( row.service_id ) {
-                    shm_request('GET','/'+url, { parent: row.service_id } ).then(function(data) {
-                        $scope.data.children = data;
+                    shm_request('GET','/'+url, { parent: row.service_id } ).then(function(response) {
+                        $scope.data.children = response.data;
                     });
                 };
 
@@ -28,7 +28,7 @@ angular
                 };
 
                 $scope.save = function () {
-                    shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function(row) {
+                    shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function() {
                         $modalInstance.close( $scope.data );
                     });
                 };

@@ -30,10 +30,12 @@ angular
 
             var request = 'admin/console.cgi?id=' + $scope.id;
 
-            shm_request('GET', request).then(function(log, resp) {
+            shm_request('GET', request).then(function(response) {
+                var log = response.data;
+
                 if (!log) return;
 
-                console.log( resp );
+                console.log( response );
 
                 $element.append( log + "<br>" );
 

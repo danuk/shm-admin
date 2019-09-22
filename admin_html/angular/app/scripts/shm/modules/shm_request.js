@@ -26,7 +26,7 @@ angular
       }
       $http( $args ).then(
         function successCallback(response) {
-            deferred.resolve( response.data, response.status );
+            deferred.resolve( response );
         }, function errorCallback(response) {
             if ( response.status == 401 ) {
                 $rootScope.$broadcast('http_401', this);

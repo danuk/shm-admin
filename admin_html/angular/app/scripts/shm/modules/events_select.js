@@ -26,7 +26,9 @@ angular.module('shm_events_select', [
                 request += '?kind=' + $scope.kind;
             };
 
-            shm_request('GET', request).then(function(data) {
+            shm_request('GET', request).then(function(response) {
+                var data = response.data;
+
                 if (!data) return;
                 $scope.items = data;
 

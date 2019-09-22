@@ -9,8 +9,8 @@ angular
         var deferred = $q.defer();
 
         this.editor('Создание сервера', data, 'lg').result.then(function(new_data){
-            shm_request('PUT_JSON', '/admin/server.cgi', new_data ).then(function(row) {
-                deferred.resolve(row);
+            shm_request('PUT_JSON', '/admin/server.cgi', new_data ).then(function(response) {
+                deferred.resolve(response.data);
             });
         }, function(cancel) {
             deferred.reject();
@@ -36,7 +36,7 @@ angular
                 };
 
                 $scope.test_ssh = function() {
-                    shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(data) {
+                    shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(response) {
 
                         shm_console.log();
 
@@ -72,8 +72,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
-            angular.extend( row, new_data );
+        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
+            angular.extend( row, response.data );
         });
     };
 

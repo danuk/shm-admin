@@ -22,7 +22,8 @@ angular.module('shm_users_select', [
                 request = request + '?' + key_field + '=' + $scope.id;
             }
 
-            shm_request('GET', request).then(function(data) {
+            shm_request('GET', request).then(function(response) {
+                var data = response.data;
                 if (!data) return;
                 $scope.items = data;
 

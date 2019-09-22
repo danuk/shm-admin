@@ -44,7 +44,9 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
+        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
+            var new_data = response.data;
+
             angular.extend( row, new_data );
         });
     };
@@ -55,7 +57,9 @@ angular
         };
 
         $scope.service_editor('Создание', row, 'lg').result.then(function(data){
-            shm_request('PUT_JSON','/'+url, data ).then(function(row) {
+            shm_request('PUT_JSON','/'+url, data ).then(function(response) {
+                var row = response.data;
+
                 row.$$treeLevel = 0;
                 $scope.gridOptions.data.push( row );
             });

@@ -22,7 +22,8 @@ angular.module('shm_services_select', [
                 request = request + '?' + key_field + '=' + $scope.id;
             }
 
-            shm_request('GET', request).then(function(rows) {
+            shm_request('GET', request).then(function(response) {
+                var rows = response.data;
                 if (!rows) return;
                 $scope.items = rows;
 

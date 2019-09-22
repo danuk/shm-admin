@@ -28,8 +28,8 @@ angular
                 };
 
                 $scope.save = function () {
-                    shm_request('PUT_JSON', '/admin/create_user_service.cgi', $scope.data ).then(function(row) {
-                        $modalInstance.close( row );
+                    shm_request('PUT_JSON', '/admin/create_user_service.cgi', $scope.data ).then(function(response) {
+                        $modalInstance.close( response.data );
                     });
                 };
 
@@ -62,21 +62,22 @@ angular
                 };
 
                 $scope.block = function(data) {
-                    shm_request('GET','/admin/user_service_stop.cgi?user_id='+data.user_id+'&user_service_id='+data.user_service_id).then(function(new_data) {
-                        angular.extend( row, new_data );
-                        angular.extend( data, new_data );
+                    shm_request('GET','/admin/user_service_stop.cgi?user_id='+data.user_id+'&user_service_id='+data.user_service_id).then(function(response) {
+                        angular.extend( row, response.data );
+                        angular.extend( data, response.data );
                     });
                 };
 
                 var update_status = function(data) {
-                    shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id).then(function(new_data) {
-                        data.status = new_data[0].status;
-                        row.status = new_data[0].status;
+                    shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id).then(function(response) {
+                        data.status = response.data[0].status;
+                        row.status = response.data[0].status;
                     });
                 }
 
                 $scope.show_event = function(data) {
-                    shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id+'&method=spool_commands').then(function(spool) {
+                    shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id+'&method=spool_commands').then(function(response) {
+                        var spool = response.data;
                         if ( spool.length ) {
                             shm_spool.edit( spool[0] ).result.then(function(){
                                 update_status(data);
@@ -145,8 +146,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.status; // protect for change status
-        shm_request('POST_JSON','/'+url, save_data ).then(function(new_data) {
-            angular.extend( row, new_data );
+        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
+            angular.extend( row, response.data );
         });
     };
 

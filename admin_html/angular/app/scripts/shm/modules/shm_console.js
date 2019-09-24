@@ -24,7 +24,7 @@ angular
         },
         link: function ($scope, $element, $attrs) {
 
-            var $timerId;
+            var timerId;
             var destroyed = 0;
             var offset = 1;
 
@@ -38,6 +38,10 @@ angular
 
                         var text = log.replace( /\n\r?|\r\n?/g, '<br/>' );
                         $element.append( text );
+
+                        // AutoScroll
+                        var parentElement = $element.context.parentElement;
+                        parentElement.scrollTop = parentElement.scrollHeight;
                     }
 
                     if ( response.headers('x-console-eof') == '0' && !destroyed ) {
@@ -52,7 +56,7 @@ angular
 
             $scope.$on( "$destroy", function() {
                 destroyed = 1;
-                $timeout.cancel( timerId );
+                if ( timerId ) { $timeout.cancel( timerId ) };
             });
         },
     }

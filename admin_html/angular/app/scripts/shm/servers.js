@@ -37,18 +37,11 @@ angular
 
                 $scope.test_ssh = function() {
                     shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(response) {
-
                         var pipeline_id = response.data.pipeline.id;
 
                         shm_console.log( pipeline_id ).result.then(function(){
                         }, function(cancel) {
                         });
-
-                        /*if ( data.ret_code != 0 ) {
-                            alert( "Error: " + data.stderr );
-                        } else {
-                            alert( "Successful: " + data.stdout );
-                        }*/
                     });
                 }
 

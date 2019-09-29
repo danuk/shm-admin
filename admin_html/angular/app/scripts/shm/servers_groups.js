@@ -11,8 +11,8 @@ angular
         var deferred = $q.defer();
 
         this.editor('Создание группы', data, 'lg').result.then(function(new_data){
-            shm_request('PUT_JSON','/'+url, new_data ).then(function(row) {
-                deferred.resolve(row);
+            shm_request('PUT_JSON','/'+url, new_data ).then(function(response) {
+                deferred.resolve(response.data);
             });
         }, function(cancel) {
             deferred.reject();
@@ -57,8 +57,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+$scope.url, save_data ).then(function(new_data) {
-            angular.extend( row, new_data );
+        shm_request('POST_JSON','/'+$scope.url, save_data ).then(function(response) {
+            angular.extend( row, response.data );
         });
     };
 

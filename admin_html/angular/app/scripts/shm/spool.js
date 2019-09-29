@@ -24,9 +24,9 @@ angular
                 };
 
                 $scope.retry = function () {
-                    shm_request('POST_JSON', '/admin/spool.cgi?method=manual_retry', $scope.data ).then(function(new_data) {
-			angular.extend( $scope.data , new_data );
-		    });
+                    shm_request('POST_JSON', '/admin/spool.cgi?method=manual_retry', $scope.data ).then(function(response) {
+                        angular.extend( $scope.data , response.data );
+                    });
                 };
             },
             size: 'lg',

@@ -1,0 +1,42 @@
+<style>
+    console {
+        background-color: black;
+        color: white;
+        width: 100%;
+        min-height: 500px;
+        height: 100%;
+        display: block;
+        padding: 10px;
+
+        font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
+        word-wrap: break-word;
+
+        border: 1px solid #cccccc;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+      -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+       -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+          transition: border linear 0.2s, box-shadow linear 0.2s;
+    }
+</style>
+
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">Просмотр логов</h4>
+    </div>
+    <div class="modal-body" style="padding: 0px;">
+        <console id="id"></console>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+    </div>
+</form>

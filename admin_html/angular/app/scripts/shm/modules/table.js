@@ -41,7 +41,8 @@ angular
         }
 
         $scope.load_data = function(url) {
-            shm_request('GET','/'+url).then(function(largeLoad) {
+            shm_request('GET','/'+url).then(function(response) {
+                var largeLoad = response.data;
 
                 if ( $scope.columnDefs ) {
                     var row = largeLoad[0];
@@ -82,14 +83,15 @@ angular
                 var data;
                 if (searchText) {
                     /*var ft = searchText.toLowerCase();
-                    shm_request('GET','/'+url).then(function(largeLoad) {
+                    shm_request('GET','/'+url).then(function(response) {
                         data = largeLoad.filter(function(item) {
                                 return JSON.stringify(item).toLowerCase().indexOf(ft) !== -1;
                             });
                         $scope.setPagingData(data, page, pageSize);
                     });*/
                 } else {
-                     shm_request('GET','/'+url).then(function(largeLoad) {
+                     shm_request('GET','/'+url).then(function(response) {
+                         var largeLoad = response.data;
                          $scope.setPagingData(largeLoad, page, pageSize);
                      });
                 }

@@ -11,7 +11,8 @@ angular.module('shm_servers_groups_list', [
             data: '=',
         },
         controller: function ($scope, $element, $attrs) {
-            shm_request('GET', '/admin/server_groups.cgi').then(function(data) {
+            shm_request('GET', '/admin/server_groups.cgi').then(function(response) {
+                var data = response.data;
                 $scope.items = data;
                 if (!$scope.data && data.length ) $scope.data = data[0].group_id;
             });

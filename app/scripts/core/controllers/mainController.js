@@ -8,9 +8,9 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
     'wijetsService',
     '$location',
     '$route',
-    '$cookieStore',
+    '$cookies',
     'shm_request',
-    function($rootScope, $scope, $theme, $timeout, progressLoader, wijetsService, $location, $route, $cookieStore, shm_request ) {
+    function($rootScope, $scope, $theme, $timeout, progressLoader, wijetsService, $location, $route, $cookies, shm_request ) {
     'use strict';
     $scope.layoutFixedHeader = $theme.get('fixedHeader');
     $scope.layoutPageTransitionStyle = $theme.get('pageTransitionStyle');
@@ -151,7 +151,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
     $scope.isLoggedIn = false;
 
     $scope.logOut = function() {
-      $cookieStore.remove('session_id');
+      $cookies.remove('session_id');
       $scope.isLoggedIn = false;
 
       shm_request('POST', 'user/logout.cgi');
@@ -169,7 +169,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
 	  shm_request('POST', 'user/auth.cgi', { login: login, password: password, admin: 1 } ).then( function(response) {
         if ( response.data.session_id ) {
             var $session_id = response.data.session_id;
-            $cookieStore.put('session_id', $session_id);
+            $cookies.put('session_id', $session_id);
             $scope.isLoggedIn = true;
             $location.path('/');
         }
@@ -185,7 +185,7 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
     }
 
     $scope.sessionCheck = function() {
-        var $session_id = $cookieStore.get('session_id');
+        var $session_id = $cookies.get('session_id');
         if ($session_id) {
             $scope.isLoggedIn = true;
             return 1;

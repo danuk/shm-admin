@@ -62,8 +62,7 @@ angular
             shm_request('PUT_JSON','/'+url, data ).then(function(response) {
                 var row = response.data;
 
-                row.data.$$treeLevel = 0;
-                $scope.gridOptions.data.push( row.data );
+                $scope.gridOptions.data.push( row );
             });
         }, function(cancel) {
         });

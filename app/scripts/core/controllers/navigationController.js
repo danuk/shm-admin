@@ -18,6 +18,10 @@ angular
             url: '#!/users',
           },
           {
+            label: 'Персональные данные',
+            url: '#!/personal_data',
+          },
+          {
             label: 'Услуги пользователей',
             url: '#!/user_services',
           },

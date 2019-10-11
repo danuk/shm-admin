@@ -86,10 +86,6 @@ angular
             url: '#!/templates',
           },
           {
-            label: 'Домены',
-            url: '#!/domains',
-          },
-          {
             label: 'Конфигурация',
             url: '#!/config',
           },

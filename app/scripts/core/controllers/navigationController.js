@@ -19,7 +19,7 @@ angular
           },
           {
             label: 'Персональные данные',
-            url: '#!/personal_data',
+            url: '#!/profiles',
           },
           {
             label: 'Услуги пользователей',

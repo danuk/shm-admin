@@ -19,7 +19,7 @@ angular
                 $scope.$watch('service', function(newValue, oldValue){
                     $scope.data.service_id = newValue.service_id;
                     $scope.data.cost = newValue.cost;
-                    $scope.data.period_cost = newValue.period_cost;
+                    $scope.data.months = newValue.period_cost;
                     $scope.data.settings = newValue.config;
                 });
 

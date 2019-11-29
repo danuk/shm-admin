@@ -18,8 +18,8 @@ angular
                 };
 
                 $scope.save = function () {
-                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function() {
-                        $modalInstance.close( $scope.data );
+                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function(responce) {
+                        $modalInstance.close( responce.data );
                     });
                 };
 

@@ -16,6 +16,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-2 control-label">Транспорт</label>
+            <div class="col-sm-9">
+                <transports-list ng-if="data.group_id" id="data.transport" readonly="readonly"></transports-list>
+                <transports-list ng-if="!data.group_id" id="data.transport"></transports-list>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-2 control-label">Тип</label>
             <div class="col-sm-9">
                 <servers-types-list data="data.type"></servers-types-list>

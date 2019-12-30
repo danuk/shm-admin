@@ -8,18 +8,36 @@ angular.module('shm_servers_groups_list', [
     return {
         restrict: 'E',
         scope: {
-            data: '=',
+            data: '=?data',
+            id: '=?id',
         },
-        controller: function ($scope, $element, $attrs) {
+        link: function ($scope, $element, $attrs) {
+
+            var key_field = 'group_id';
+
+            $scope.$watch('data', function(newValue, oldValue){
+                if (!newValue) return;
+                $scope.id = newValue[key_field];
+            });
+
             shm_request('GET', '/admin/server_groups.cgi').then(function(response) {
                 var data = response.data;
+
+                if (!data) return;
                 $scope.items = data;
-                if (!$scope.data && data.length ) $scope.data = data[0].group_id;
+
+                if ( $scope.id ) {
+                    data.forEach(function(item) {
+                        if ( $scope.id == item[key_field] ) {
+                            $scope.data = item;
+                        }
+                    });
+                }
             });
 
             sg_list_shared.add_item = function(data) {
                 $scope.items.push( data );
-                $scope.data = data.group_id;
+                $scope.data = data;
             }
         },
         templateUrl: "views/shm/modules/servers-groups-list/select.html"

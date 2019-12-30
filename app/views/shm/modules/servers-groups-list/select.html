@@ -1,5 +1,5 @@
 <select class="form-control" ng-model="data" ng-disabled="!items" required>
-    <option ng-value="item.group_id" ng-repeat="item in items">
+    <option ng-value="item" ng-repeat="item in items">
     {{ item.name }}
     </option>
 </select>

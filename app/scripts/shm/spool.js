@@ -13,7 +13,7 @@ angular
                 }
 
                 $scope.show_user_service = 0;
-                if ( $scope.data.params ) $scope.show_user_service = $scope.data.params.user_service_id;
+                if ( $scope.data.settings ) $scope.show_user_service = $scope.data.settings.user_service_id;
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

@@ -27,7 +27,7 @@
         <div class="form-group" ng-show="show_user_service">
             <label class="col-sm-2 control-label">Услуга</label>
             <div class="col-sm-8">
-                <user-services-list id="data.params.user_service_id" readonly></user-services-list>
+                <user-services-list id="data.settings.user_service_id" readonly></user-services-list>
             </div>
         </div>
         <div class="form-group">
@@ -43,10 +43,10 @@
         <div class="form-group" ng-show="data.event">
             <label class="col-sm-2 control-label">Params</label>
             <div class="col-sm-8">
-                <angular-jsoneditor ng-model="data.params" options="obj.options" style="width: 100%;"></angular-jsoneditor>
+                <angular-jsoneditor ng-model="data.settings" options="obj.options" style="width: 100%;"></angular-jsoneditor>
             </div>
             <div class="col-sm-2" ng-show="data.status=='STUCK' || data.status=='FAIL'">
-                <json-editor data="data.params"></json-editor>
+                <json-editor data="data.settings"></json-editor>
             </div>
         </div>
         <div class="form-group" ng-show="data.event">

@@ -17,7 +17,7 @@ angular
             displayName: 'event',
         },
         {
-            field: 'params.category',
+            field: 'settings.category',
             displayName: 'category',
         },
     ];

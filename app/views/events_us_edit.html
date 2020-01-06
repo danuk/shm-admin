@@ -12,7 +12,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Категория</label>
             <div class="col-sm-3">
-                <input type="text" ng-model="data.params.category" class="form-control" required>
+                <input type="text" ng-model="data.settings.category" class="form-control" required>
             </div>
 
             <label class="col-sm-2 control-label">Событие</label>
@@ -32,22 +32,22 @@
         <div class="form-group" ng-if="data.server.transport=='ssh'">
             <label class="col-sm-2 control-label">Команда</label>
             <div class="col-sm-8">
-                <input type="text" ng-model="data.params.cmd" class="form-control">
+                <input type="text" ng-model="data.settings.cmd" class="form-control">
             </div>
         </div>
         <div class="form-group" ng-if="data.server.transport=='mail'">
             <label class="col-sm-2 control-label">Шаблон</label>
             <div class="col-sm-8">
-                <templates-list id="data.params.template_id"></templates-list>
+                <templates-list id="data.settings.template_id"></templates-list>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Params</label>
             <div class="col-sm-8">
-                <input type="text" value="{{ data.params }}" readonly="readonly" class="form-control">
+                <input type="text" value="{{ data.settings }}" readonly="readonly" class="form-control">
             </div>
             <div class="col-sm-2">
-                <json-editor data="data.params"></json-editor>
+                <json-editor data="data.settings"></json-editor>
             </div>
         </div>
 

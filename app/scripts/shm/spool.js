@@ -1,7 +1,7 @@
 angular
   .module('shm_spool', [
   ])
-  .service('shm_spool', [ '$q', '$modal', 'shm_request', function( $q, $modal, shm_request ) {
+  .service('shm_spool', [ '$q', '$modal', 'shm_request', 'shm_console', function( $q, $modal, shm_request, shm_console ) {
     this.edit = function(row) {
         return $modal.open({
             templateUrl: 'views/spool_view.html',
@@ -28,6 +28,13 @@ angular
                         angular.extend( $scope.data , response.data );
                     });
                 };
+
+                $scope.console = function() {
+                    var pipeline_id = $scope.data.response.pipeline_id;
+                    shm_console.log( pipeline_id ).result.then(function(){
+                    }, function(cancel) {
+                    });
+                }
             },
             size: 'lg',
         });

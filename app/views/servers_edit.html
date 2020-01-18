@@ -42,7 +42,7 @@
                 <input type="text" class="form-control" required=1 ng-model="data.host">
             </div>
         </div>
-        <div class="form-group" ng-if="data.transport=='ssh'">
+        <div class="form-group" ng-if="data.server.transport=='ssh'">
             <label class="col-sm-2 control-label">Ключ</label>
             <div class="col-sm-8">
                 <identities-list data="data.settings.key_id"></identities-list>

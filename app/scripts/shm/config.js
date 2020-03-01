@@ -16,13 +16,13 @@ angular
                 };
 
                 $scope.save = function () {
-                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function(responce) {
+                    shm_request( $scope.data.new ? 'PUT_JSON' : 'POST_JSON','/'+url, $scope.data ).then(function(responce) {
                         $modalInstance.close( responce.data );
                     });
                 };
 
                 $scope.delete = function () {
-                    shm_request('DELETE','/'+url+'?id='+row.id ).then(function() {
+                    shm_request('DELETE','/'+url+'?key='+row.key ).then(function() {
                         $modalInstance.dismiss('delete');
                     })
                 };
@@ -37,24 +37,22 @@ angular
 
     var url = 'admin/config.cgi';
     $scope.url = url;
-    $scope.parent_key_id = 'id';
+    $scope.parent_key_id = 'key';
 
     $scope.columnDefs = [
         {
-            field: 'id',
-            width: 100,
+            field: 'key',
+            width: 300,
         },
         {
-            field: 'name',
-            width: 200,
-        },
-        {
-            field: 'data',
+            field: 'value',
         },
     ];
 
     $scope.add = function() {
-        var row = {};
+        var row = {
+            new: 1
+        };
 
         shm_config.edit(row, 'Создание параметра').result.then(function(data){
             data.$$treeLevel = 0;

@@ -40,7 +40,7 @@ angular
     $scope.add = function() {
         $scope.user_add('Создание пользователя', null, 'lg').result.then(function(user){
             console.log( user );
-            shm_request('PUT_JSON','/admin/user.cgi', user ).then(function(row) {
+            shm_request('PUT_JSON','/user/register.cgi', user ).then(function(row) {
                 $scope.gridOptions.data.push( row.data );
             })
         }, function(cancel) {

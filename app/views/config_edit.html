@@ -13,7 +13,10 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Значение</label>
             <div class="col-sm-8">
-                <input type="text" ng-model="data.value" class="form-control" maxlength="64" required>
+                <input type="text" value="{{ data.value }}" readonly="readonly" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <json-editor data="data.value"></json-editor>
             </div>
         </div>
     </div> <!-- modal-body -->

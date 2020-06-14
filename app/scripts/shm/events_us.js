@@ -5,7 +5,7 @@ angular
   .controller('ShmEventsUsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
-    var url = 'admin/events.cgi?kind=user_service';
+    var url = 'admin/events.cgi?kind=UserService';
     $scope.url = url;
 
     $scope.columnDefs = [

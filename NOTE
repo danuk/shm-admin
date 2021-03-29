@@ -1,6 +1,6 @@
-docker build . -t danuk/shm-admin:test
+docker build . -t danuk/shm-admin:latest
 
-docker run --name shm-admin -d -p 8080:80 -e 'SHM_URL=http://shm.local' --rm danuk/shm-admin:test
+docker run --name shm-admin -d -p 8081:80 -e 'SHM_URL=http://shm.local' --rm danuk/shm-admin:latest
 
-curl: http://127.0.0.1:8080
+curl: http://127.0.0.1:8081
 

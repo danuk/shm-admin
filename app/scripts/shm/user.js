@@ -19,5 +19,18 @@ angular
         })
     }
 
+    $scope.passwd = function () {
+        var new_password = prompt("Enter new password:");
+        if ( new_password ) {
+            var data = {
+                user_id: $scope.user.user_id,
+                password: new_password
+            };
+            shm_request('POST_JSON','/admin/user.cgi?method=passwd', data ).then(function() {
+                $location.path('/users');
+            })
+        }
+    }
+
 }]);
 

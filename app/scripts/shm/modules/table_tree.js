@@ -42,7 +42,6 @@ angular
             $scope.gridApi.treeBase.on.rowExpanded($scope, function(row) {
                 var index = $scope.gridOptions.data.indexOf(row.entity);
                 var treeLevel = 1;
-                console.log('ROW:', row );
                 if ( row.treeLevel ) { treeLevel = row.treeLevel + 1 };
                 if ( !row.treeNode.children.length ) {
                     shm_request('GET','/'+$scope.url, { parent: row.entity[$scope.parent_key_id] } ).then(function(response) {

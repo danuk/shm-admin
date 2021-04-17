@@ -9,16 +9,19 @@ angular
                 $scope.title = title || 'Редактирование услуги';
                 $scope.data = angular.copy(row);
                 $scope.data.children = [];
-                var url = 'admin/service.cgi';
+                var url = 'admin/service.cgi?limit=0';
 
                 // Load all services
                 shm_request('GET','/'+url).then(function(response) {
-                    $scope.services = response.data;
+                    $scope.services = response.data.data;
                 });
 
                 // Load childs
                 if ( row.service_id ) {
-                    shm_request('GET','/'+url, { parent: row.service_id } ).then(function(response) {
+                    shm_request('GET','/'+url, {
+                        method: 'subservices_list',
+                        service_id: row.service_id,
+                    } ).then(function(response) {
                         $scope.data.children = response.data;
                     });
                 };
@@ -28,6 +31,12 @@ angular
                 };
 
                 $scope.save = function () {
+                    var children = [];
+                    for ( var item in $scope.data.children ) {
+                        children.push(  $scope.data.children[item].service_id );
+                    }
+                    $scope.data.children = children;
+
                     shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function(response) {
                         $modalInstance.close( response.data );
                     });

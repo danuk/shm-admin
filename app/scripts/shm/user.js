@@ -9,7 +9,7 @@ angular
         $location.path('/users');
     } else {
         shm_request('GET','/admin/user.cgi?user_id='+$scope.user.user_id ).then(function(response) {
-            $scope.data = response.data[0];
+            $scope.data = response.data.data[0];
         });
     }
 

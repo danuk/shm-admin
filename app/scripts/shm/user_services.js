@@ -63,21 +63,21 @@ angular
 
                 $scope.block = function(data) {
                     shm_request('GET','/admin/user_service_stop.cgi?user_id='+data.user_id+'&user_service_id='+data.user_service_id).then(function(response) {
-                        angular.extend( row, response.data );
-                        angular.extend( data, response.data );
+                        angular.extend( row, response.data.data );
+                        angular.extend( data, response.data.data );
                     });
                 };
 
                 var update_status = function(data) {
                     shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id).then(function(response) {
-                        data.status = response.data[0].status;
-                        row.status = response.data[0].status;
+                        data.status = response.data.data[0].status;
+                        row.status = response.data.data[0].status;
                     });
                 }
 
                 $scope.show_event = function(data) {
                     shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id+'&method=spool_commands').then(function(response) {
-                        var spool = response.data;
+                        var spool = response.data.data;
                         if ( spool.length ) {
                             shm_spool.edit( spool[0] ).result.then(function(){
                                 update_status(data);

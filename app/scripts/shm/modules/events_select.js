@@ -27,7 +27,7 @@ angular.module('shm_events_select', [
             };
 
             shm_request('GET', request).then(function(response) {
-                var data = response.data;
+                var data = response.data.data;
 
                 if (!data) return;
                 $scope.items = data;

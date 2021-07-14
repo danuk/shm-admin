@@ -23,7 +23,7 @@ angular.module('shm_templates_select', [
             }
 
             shm_request('GET', request).then(function(response) {
-                var data = response.data;
+                var data = response.data.data;
 
                 if (!data) return;
                 $scope.items = data;

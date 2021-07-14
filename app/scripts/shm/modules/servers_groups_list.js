@@ -21,7 +21,7 @@ angular.module('shm_servers_groups_list', [
             });
 
             shm_request('GET', '/admin/server_groups.cgi').then(function(response) {
-                var data = response.data;
+                var data = response.data.data;
 
                 if (!data) return;
                 $scope.items = data;

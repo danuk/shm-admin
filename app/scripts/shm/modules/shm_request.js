@@ -32,9 +32,9 @@ angular
                 $rootScope.$broadcast('http_401', this);
             } else {
                 if ( response.data && response.data.error ) {
-                    console.error( "Error: " + response.data.error );
+                    alert( "Error: " + response.data.error );
                 } else {
-                    console.error(
+                    alert(
                         "URL: " + $request_url + "\n" +
                         "Status: " + response.status + " (" + response.statusText +  ")\n"
                     );

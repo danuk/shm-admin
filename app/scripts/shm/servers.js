@@ -45,6 +45,12 @@ angular
                     });
                 }
 
+                $scope.test_mail = function() {
+                        shm_request('POST_JSON', '/admin/mail_test.cgi', $scope.data ).then(function(response) {
+                        alert("Task created");
+                    })
+                };
+
                 $scope.delete = function () {
                     $modalInstance.dismiss('delete');
                 };

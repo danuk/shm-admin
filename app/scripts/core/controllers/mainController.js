@@ -192,6 +192,11 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
         return 0;
     };
 
+    $scope.resetUser = function() {
+        $scope.user = {};
+        $location.path('/#!/user');
+    };
+
     $scope.$on('$routeChangeStart', function() {
       if ( !$scope.sessionCheck() ) return $location.path( '/extras-login' );
 

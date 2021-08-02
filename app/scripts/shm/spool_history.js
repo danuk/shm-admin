@@ -1,7 +1,7 @@
 angular
   .module('shm_spool_history', [
   ])
-  .service('shm_spool', [ '$q', '$modal', 'shm_request', 'shm_console', function( $q, $modal, shm_request, shm_console ) {
+  .service('shm_spool_history', [ '$q', '$modal', 'shm_request', 'shm_console', function( $q, $modal, shm_request, shm_console ) {
     this.edit = function(row) {
         return $modal.open({
             templateUrl: 'views/spool_view.html',
@@ -23,12 +23,6 @@ angular
                     $modalInstance.close( $scope.data );
                 };
 
-                $scope.retry = function () {
-                    shm_request('POST_JSON', '/admin/spool.cgi?method=manual_retry', $scope.data ).then(function(response) {
-                        angular.extend( $scope.data , response.data );
-                    });
-                };
-
                 $scope.console = function() {
                     var pipeline_id = $scope.data.response.pipeline_id;
                     shm_console.log( pipeline_id ).result.then(function(){
@@ -40,7 +34,7 @@ angular
         });
     };
   }])
-  .controller('ShmSpoolHistoryController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_spool', function($scope, $modal, shm, shm_request, shm_spool) {
+  .controller('ShmSpoolHistoryController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_spool_history', function($scope, $modal, shm, shm_request, shm_spool_history) {
     'use strict';
 
     $scope.url = 'admin/spool_history.cgi';
@@ -72,7 +66,7 @@ angular
     ];
 
     $scope.row_dbl_click = function(row) {
-        shm_spool.edit(row);
+        shm_spool_history.edit(row);
     }
 
   }]);

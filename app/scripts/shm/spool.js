@@ -25,7 +25,29 @@ angular
 
                 $scope.retry = function () {
                     shm_request('POST_JSON', '/admin/spool.cgi?method=manual_retry', $scope.data ).then(function(response) {
-                        angular.extend( $scope.data , response.data );
+                        angular.extend( $scope.data, response.data );
+                        $modalInstance.close( response.data );
+                    });
+                };
+
+                $scope.pause = function () {
+                    shm_request('POST_JSON', '/admin/spool.cgi?method=pause', $scope.data ).then(function(response) {
+                        angular.extend( $scope.data, response.data );
+                        $modalInstance.close( response.data );
+                    });
+                };
+
+                $scope.resume = function () {
+                    shm_request('POST_JSON', '/admin/spool.cgi?method=resume', $scope.data ).then(function(response) {
+                        angular.extend( $scope.data, response.data );
+                        $modalInstance.close( response.data );
+                    });
+                };
+
+                $scope.save = function () {
+                    shm_request('POST_JSON', '/admin/spool.cgi', $scope.data ).then(function(response) {
+                        angular.extend( $scope.data, response.data );
+                        $modalInstance.close( response.data );
                     });
                 };
 
@@ -52,17 +74,12 @@ angular
         },
         {
             field: 'user_id',
-            width: 150,
-        },
-        {
-            field: 'event.kind',
-            displayName: 'kind',
-            width: 150,
+            width: 100,
         },
         {
             field: 'event.title',
             displayName: 'event',
-            width: 150,
+            width: 200,
         },
         {
             field: 'status',
@@ -72,7 +89,10 @@ angular
     ];
 
     $scope.row_dbl_click = function(row) {
-        shm_spool.edit(row);
+        shm_spool.edit(row).result.then(function(data) {
+            angular.extend( row, data );
+        }, function(resp) {
+        });
     }
 
   }]);

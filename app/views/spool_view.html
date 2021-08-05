@@ -14,9 +14,15 @@
             <div class="col-sm-3">
                 <input type="text" ng-model="data.status" class="form-control" readonly>
             </div>
-            <div class="col-sm-3" ng-show="data.status=='STUCK' || data.status=='FAIL'">
-                <button class="btn btn-warning" ng-click="retry()">Повторить</button>
-            </div>
+            <span ng-show="data.status!='PAUSED'">
+                <button class="btn btn-warning" ng-click="pause()">Пауза</button>
+            </span>
+            <span ng-show="data.status=='PAUSED'">
+                <button class="btn btn-warning" ng-click="resume()">Запустить</button>
+            </span>
+            <span ng-show="data.status=='STUCK' || data.status=='FAIL'">
+                <button class="btn btn-danger" ng-click="retry()">Повторить</button>
+            </span>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Пользователь</label>
@@ -40,6 +46,12 @@
                 <input type="text" ng-model="data.executed" class="form-control" readonly>
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Отложена</label>
+            <div class="col-sm-3">
+                <input type="text" ng-disabled="data.status!='STUCK' && data.status!='PAUSED'" ng-model="data.delayed" class="form-control">
+            </div>
+        </div>
         <div class="form-group" ng-show="data.response.pipeline_id">
             <label class="col-sm-2 control-label">Console</label>
             <div class="col-sm-8">
@@ -57,7 +69,7 @@
             <div class="col-sm-8">
                 <angular-jsoneditor ng-model="data.event" options="obj.options" style="width: 100%;"></angular-jsoneditor>
             </div>
-            <div class="col-sm-2" ng-show="data.status=='STUCK' || data.status=='FAIL'">
+            <div class="col-sm-2" ng-show="data.status=='STUCK' || data.status=='PAUSED'">
                 <json-editor data="data.event"></json-editor>
             </div>
         </div>
@@ -66,13 +78,14 @@
             <div class="col-sm-8">
                 <angular-jsoneditor ng-model="data.settings" options="obj.options" style="width: 100%;"></angular-jsoneditor>
             </div>
-            <div class="col-sm-2" ng-show="data.status=='STUCK' || data.status=='FAIL'">
+            <div class="col-sm-2" ng-show="data.status=='STUCK' || data.status=='PAUSED'">
                 <json-editor data="data.settings"></json-editor>
             </div>
         </div>
     </div> <!-- modal-body -->
 
     <div class="modal-footer">
+        <button class="btn btn-primary" ng-show="data.status=='STUCK' || data.status=='PAUSED'" ng-click="save()">Save</button>
         <button class="btn btn-warning" ng-click="close()">Close</button>
     </div>
 </form>

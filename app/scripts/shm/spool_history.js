@@ -47,6 +47,7 @@ angular
         {
             field: 'user_id',
             width: 150,
+            filter: { term: $scope.user.user_id }
         },
         {
             field: 'event.kind',

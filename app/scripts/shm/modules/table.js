@@ -19,7 +19,6 @@ angular
             limit: 25,
         };
 
-        var filteringData = {};
         var delay_request = false;
 
         $scope.gridScope = $scope;
@@ -49,16 +48,9 @@ angular
         $scope.gridOptions.onRegisterApi = function( gridApi ) {
             $scope.gridApi = gridApi;
             $scope.gridApi.core.on.filterChanged($scope, function() {
-                var grid = this.grid;
                 if ( !delay_request ) {
                     delay_request = true;
                     $timeout(function() {
-                        filteringData = {};
-                        angular.forEach( grid.columns, function( col ) {
-                            if ( col.filters[0].term ) {
-                                filteringData[col.field] = col.filters[0].term;
-                            }
-                        });
                         delay_request = false;
                         $scope.load_data($scope.url);
                     },1000);
@@ -87,6 +79,14 @@ angular
         }
 
         $scope.load_data = function(url) {
+
+            var filteringData = {};
+            angular.forEach( $scope.columnDefs, function( col ) {
+                if ( col.filter && col.filter.term ) {
+                    filteringData[col.field] = col.filter.term;
+                }
+            });
+
             var args = angular.merge(
                 paginationOptions,
                 {

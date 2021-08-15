@@ -63,8 +63,8 @@ angular
 
                 $scope.block = function(data) {
                     shm_request('GET','/admin/user_service_stop.cgi?user_id='+data.user_id+'&user_service_id='+data.user_service_id).then(function(response) {
-                        angular.extend( row, response.data.data );
-                        angular.extend( data, response.data.data );
+                        angular.extend( row, response.data );
+                        angular.extend( data, response.data );
                     });
                 };
 

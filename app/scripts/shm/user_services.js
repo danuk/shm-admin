@@ -111,7 +111,10 @@ angular
 
     $scope.columnDefs = [
         {field: 'user_service_id', width: 120},
-        {field: 'name'},
+        {
+            field: 'name',
+            width: 300
+        },
         {
             field: 'user_id',
             width: 100,

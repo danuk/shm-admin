@@ -113,16 +113,18 @@ angular
         {field: 'user_service_id', width: 120},
         {
             field: 'name',
-            width: 300
+            width: 300,
+            filter: {},
         },
         {
             field: 'user_id',
             width: 100,
-            filter: { term: $scope.user.user_id }
+            filter: { term: $scope.user.user_id },
         },
         {
             field: 'status',
             width: 100,
+            filter: {},
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 switch(grid.getCellValue(row,col)) {
                     case 'NOT PAID':

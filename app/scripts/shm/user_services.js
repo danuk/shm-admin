@@ -110,7 +110,11 @@ angular
     $scope.maxDeepLevel = 2;
 
     $scope.columnDefs = [
-        {field: 'user_service_id', width: 120},
+        {
+            field: 'user_service_id',
+            width: 120,
+            filter: {},
+        },
         {
             field: 'name',
             width: 300,

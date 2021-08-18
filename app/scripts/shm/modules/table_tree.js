@@ -100,8 +100,9 @@ angular
         $scope.load_data = function(url) {
 
             var filteringData = {};
+            if ( $scope.defaultFilter ) { filteringData = angular.copy( $scope.defaultFilter ); $scope.defaultFilter = {} };
             angular.forEach( $scope.columnDefs, function( col ) {
-                if ( col.filter && col.filter.term ) {
+                if ( col.filter && col.filter.term!=null ) {
                     filteringData[col.field] = col.filter.term;
                 }
             });
@@ -122,13 +123,21 @@ angular
 
                 if ( $scope.columnDefs ) {
                     var row = largeLoad[0];
-
                     for ( var field in row ) {
                         var found = 0;
                         $scope.columnDefs.forEach(function(item) {
                             if ( item.field == field ) { found = 1; return; };
-                        })
-                        if ( !found ) { $scope.columnDefs.push( { field: field, visible: false } ) };
+                        });
+
+                        if ( !found ) {
+                            var col = {
+                                field: field,
+                                visible: false,
+                                filter: {},
+                            };
+                            if ( filteringData[field]!=undefined ) ( col.filter.term = filteringData[field] );
+                            $scope.columnDefs.push( col );
+                        };
                     }
                     $scope.gridOptions.columnDefs = $scope.columnDefs;
                 }

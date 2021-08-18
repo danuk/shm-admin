@@ -8,11 +8,31 @@ angular
     $scope.url = 'admin/user.cgi';
 
     $scope.columnDefs = [
-        {field: 'user_id', displayName: 'ID'},
-        {field: 'login', displayName: 'Логин' },
-        {field: 'full_name', displayName: 'Клиент'},
-        {field: 'balance', displayName: 'Баланс'},
+        {
+            field: 'user_id',
+            displayName: 'ID',
+            filter: {},
+        },
+        {
+            field: 'login',
+            displayName: 'Логин',
+            filter: {},
+        },
+        {
+            field: 'full_name',
+            displayName: 'Клиент',
+            filter: {},
+        },
+        {
+            field: 'balance',
+            displayName: 'Баланс',
+            filter: {},
+        },
     ];
+
+    $scope.defaultFilter = {
+        block: 0,
+    };
 
     $scope.row_dbl_click = function(row) {
         angular.extend( $scope.user, row );

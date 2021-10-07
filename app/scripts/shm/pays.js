@@ -58,8 +58,8 @@ angular
         };
 
         shm_pays.make_pay('Принять платеж', row, 'lg').result.then(function(data){
-            shm_request('PUT_JSON','/'+url, data ).then(function(response) {
-                var row = response.data;
+            shm_request('PUT_JSON','/v1/admin/user/'+data.user_id+'/payment', data ).then(function(response) {
+                var row = response.data[0];
 
                 row.$$treeLevel = 0;
                 $scope.gridOptions.data.push( row );

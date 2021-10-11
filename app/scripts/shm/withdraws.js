@@ -8,7 +8,7 @@ angular
     $scope.url = url;
 
     $scope.columnDefs = [
-        {field: 'user_service_id', displayName: "id"},
+        {field: 'user_service_id', displayName: "usi"},
         {
             field: 'user_id',
             filter: { term: $scope.user.user_id },

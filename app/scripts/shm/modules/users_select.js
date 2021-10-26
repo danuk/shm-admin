@@ -10,7 +10,7 @@ angular.module('shm_users_select', [
         link: function ($scope, $element, $attrs) {
             $scope.readonly = 'readonly' in $attrs;
 
-            var request = 'admin/user.cgi';
+            var request = 'v1/admin/user';
             var key_field = 'user_id';
 
             $scope.$watch('data', function(newValue, oldValue){

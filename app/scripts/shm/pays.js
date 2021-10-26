@@ -30,7 +30,7 @@ angular
   .controller('ShmPaysController', ['$scope', '$modal', 'shm', 'shm_request','shm_pays', function($scope, $modal, shm, shm_request, shm_pays ) {
     'use strict';
 
-    var url = 'admin/pay.cgi';
+    var url = 'v1/admin/user/pay';
     $scope.url = url;
 
     $scope.columnDefs = [
@@ -46,8 +46,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
-            angular.extend( row, response.data );
+        shm_request('POST_JSON', url, save_data ).then(function(response) {
+            angular.extend( row, response.data.data[0] );
         });
     };
 
@@ -67,23 +67,6 @@ angular
         }, function(cancel) {
         });
     };
-
-    /*
-    $scope.row_dbl_click = function(row) {
-        shm_pays.make_pay('Редактирование платежа', row, 'lg').result.then(function(data){
-            save_service( row, data );
-        }, function(resp) {
-            if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?id='+row.id ).then(function() {
-                    $scope.gridOptions.data.splice(
-                        $scope.gridOptions.data.indexOf( row ),
-                        1
-                    );
-                })
-            }
-        });
-    }
-    */
 
   }]);
 

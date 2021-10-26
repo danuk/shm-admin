@@ -24,30 +24,30 @@ angular
                 };
 
                 $scope.retry = function () {
-                    shm_request('POST_JSON', '/admin/spool.cgi?method=manual_retry', $scope.data ).then(function(response) {
-                        angular.extend( $scope.data, response.data );
-                        $modalInstance.close( response.data );
+                    shm_request('POST_JSON', 'v1/admin/spool/retry', $scope.data ).then(function(response) {
+                        angular.extend( $scope.data, response.data.data[0] );
+                        $modalInstance.close( response.data.data[0] );
                     });
                 };
 
                 $scope.pause = function () {
-                    shm_request('POST_JSON', '/admin/spool.cgi?method=pause', $scope.data ).then(function(response) {
+                    shm_request('POST_JSON', 'v1/admin/spool/pause', $scope.data ).then(function(response) {
                         angular.extend( $scope.data, response.data );
-                        $modalInstance.close( response.data );
+                        $modalInstance.close( response.data.data[0] );
                     });
                 };
 
                 $scope.resume = function () {
-                    shm_request('POST_JSON', '/admin/spool.cgi?method=resume', $scope.data ).then(function(response) {
+                    shm_request('POST_JSON', 'v1/admin/spool/resume', $scope.data ).then(function(response) {
                         angular.extend( $scope.data, response.data );
-                        $modalInstance.close( response.data );
+                        $modalInstance.close( response.data.data[0] );
                     });
                 };
 
                 $scope.save = function () {
-                    shm_request('POST_JSON', '/admin/spool.cgi', $scope.data ).then(function(response) {
+                    shm_request('POST_JSON', 'v1/admin/spool', $scope.data ).then(function(response) {
                         angular.extend( $scope.data, response.data );
-                        $modalInstance.close( response.data );
+                        $modalInstance.close( response.data.data[0] );
                     });
                 };
 
@@ -65,7 +65,7 @@ angular
   .controller('ShmSpoolController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_spool', function($scope, $modal, shm, shm_request,shm_spool) {
     'use strict';
 
-    $scope.url = 'admin/spool.cgi';
+    $scope.url = 'v1/admin/spool';
 
     $scope.columnDefs = [
         {

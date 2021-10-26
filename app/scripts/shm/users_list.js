@@ -5,7 +5,7 @@ angular
   ['$scope', '$modal', '$location','$route', 'shm_request', function($scope, $modal, $location, $route, shm_request) {
     'use strict';
 
-    $scope.url = 'admin/user.cgi';
+    $scope.url = 'v1/admin/user';
 
     $scope.columnDefs = [
         {
@@ -59,8 +59,8 @@ angular
     }
     $scope.add = function() {
         $scope.user_add('Создание пользователя', null, 'lg').result.then(function(user){
-            shm_request('PUT_JSON','/user/register.cgi', user ).then(function(row) {
-                $scope.gridOptions.data.push( row.data );
+            shm_request('PUT_JSON','/v1/user', user ).then(function(row) {
+                $scope.gridOptions.data.push( row.data.data[0] );
             })
         }, function(cancel) {
         });

@@ -6,8 +6,8 @@ angular
         var deferred = $q.defer();
 
         this.editor('Создание ключа', data, 'lg').result.then(function(new_data){
-            shm_request('PUT_JSON','/admin/identities.cgi', new_data ).then(function(response) {
-                deferred.resolve(response.data);
+            shm_request('PUT_JSON','v1/admin/server/identity', new_data ).then(function(response) {
+                deferred.resolve(response.data.data[0]);
             });
         }, function(cancel) {
             deferred.reject();
@@ -48,7 +48,7 @@ angular
   .controller('ShmIdentitiesController', ['shm_identities', '$scope', '$modal', 'shm', 'shm_request', function(shm_identities, $scope, $modal, shm, shm_request) {
     'use strict';
 
-    var url = 'admin/identities.cgi';
+    var url = 'v1/admin/server/identity';
     $scope.url = url;
 
     $scope.columnDefs = [
@@ -67,8 +67,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
-            angular.extend( row, response.data );
+        shm_request('POST_JSON', url, save_data ).then(function(response) {
+            angular.extend( row, response.data.data[0] );
         });
     };
 
@@ -85,7 +85,7 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?id='+row.id ).then(function() {
+                shm_request('DELETE', url+'?id='+row.id ).then(function() {
                     $scope.gridOptions.data.splice(
                         $scope.gridOptions.data.indexOf( row ),
                         1

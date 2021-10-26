@@ -4,7 +4,7 @@ angular
   .controller('ShmWithdrawsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
     'use strict';
 
-    var url = 'admin/withdraw.cgi';
+    var url = 'v1/admin/user/service/withdraw';
     $scope.url = url;
 
     $scope.columnDefs = [
@@ -44,8 +44,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
-            var new_data = response.data;
+        shm_request('POST_JSON', url, save_data ).then(function(response) {
+            var new_data = response.data.data[0];
 
             angular.extend( row, new_data );
         });
@@ -57,8 +57,8 @@ angular
         };
 
         $scope.service_editor('Создание', row, 'lg').result.then(function(data){
-            shm_request('PUT_JSON','/'+url, data ).then(function(response) {
-                var row = response.data;
+            shm_request('PUT_JSON', url, data ).then(function(response) {
+                var row = response.data.data[0];
 
                 row.$$treeLevel = 0;
                 $scope.gridOptions.data.push( row );
@@ -66,23 +66,6 @@ angular
         }, function(cancel) {
         });
     };
-
-    /*
-    $scope.row_dbl_click = function(row) {
-        $scope.service_editor('Редактирование списания', row, 'lg').result.then(function(data){
-            save_service( row, data );
-        }, function(resp) {
-            if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?id='+row.id ).then(function() {
-                    $scope.gridOptions.data.splice(
-                        $scope.gridOptions.data.indexOf( row ),
-                        1
-                    );
-                })
-            }
-        });
-    }
-    */
 
   }]);
 

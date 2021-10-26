@@ -11,20 +11,20 @@ angular
 
                 $scope.name_pattern = '\\w+';
 
-                var url = 'admin/template.cgi';
+                var url = 'v1/admin/template';
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
 
                 $scope.save = function () {
-                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function(responce) {
-                        $modalInstance.close( responce.data );
+                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data ).then(function(response) {
+                        $modalInstance.close( response.data.data[0] );
                     });
                 };
 
                 $scope.delete = function () {
-                    shm_request('DELETE','/'+url+'?id='+row.id ).then(function() {
+                    shm_request('DELETE', url+'?id='+row.id ).then(function() {
                         $modalInstance.dismiss('delete');
                     })
                 };
@@ -37,7 +37,7 @@ angular
   .controller('ShmTemplatesController', ['$scope', 'shm_templates', function($scope, shm_templates) {
     'use strict';
 
-    var url = 'admin/template.cgi';
+    var url = 'v1/admin/template';
     $scope.url = url;
     $scope.parent_key_id = 'id';
 

@@ -11,7 +11,7 @@ angular.module('shm_events_select', [
         link: function ($scope, $element, $attrs) {
             $scope.readonly = 'readonly' in $attrs;
 
-            var request = 'admin/events.cgi';
+            var request = 'v1/admin/service/event';
             var key_field = 'id';
 
             $scope.$watch('data', function(newValue, oldValue){

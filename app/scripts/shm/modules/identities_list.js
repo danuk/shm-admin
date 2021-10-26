@@ -11,7 +11,7 @@ angular.module('shm_identities_list', [
             data: '='
         },
         controller: function ($scope, $element, $attrs) {
-            shm_request('GET', '/admin/identities.cgi').then(function(response) {
+            shm_request('GET', 'v1/admin/server/identity').then(function(response) {
                 var data = response.data.data;
 
                 $scope.items = data;

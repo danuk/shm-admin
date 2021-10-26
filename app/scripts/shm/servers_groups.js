@@ -4,15 +4,15 @@ angular
   ])
   .service('shm_servers_groups', [ '$q', '$modal', 'shm_request', function( $q, $modal, shm_request ) {
 
-    var url = 'admin/server_groups.cgi';
+    var url = 'v1/admin/server/group';
     this.url = url;
 
     this.add = function(data) {
         var deferred = $q.defer();
 
         this.editor('Создание группы', data, 'lg').result.then(function(new_data){
-            shm_request('PUT_JSON','/'+url, new_data ).then(function(response) {
-                deferred.resolve(response.data);
+            shm_request('PUT_JSON', url, new_data ).then(function(response) {
+                deferred.resolve(response.data.data[0]);
             });
         }, function(cancel) {
             deferred.reject();
@@ -57,8 +57,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+$scope.url, save_data ).then(function(response) {
-            angular.extend( row, response.data );
+        shm_request('POST_JSON', $scope.url, save_data ).then(function(response) {
+            angular.extend( row, response.data.data[0] );
         });
     };
 
@@ -77,7 +77,7 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+$scope.url+'?id='+row.group_id ).then(function() {
+                shm_request('DELETE', $scope.url+'?id='+row.group_id ).then(function() {
                     $scope.gridOptions.data.splice(
                         $scope.gridOptions.data.indexOf( row ),
                         1

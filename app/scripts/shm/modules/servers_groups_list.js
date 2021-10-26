@@ -20,7 +20,7 @@ angular.module('shm_servers_groups_list', [
                 $scope.id = newValue[key_field];
             });
 
-            shm_request('GET', '/admin/server_groups.cgi').then(function(response) {
+            shm_request('GET', 'v1/admin/server/group').then(function(response) {
                 var data = response.data.data;
 
                 if (!data) return;

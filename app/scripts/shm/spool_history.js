@@ -37,7 +37,7 @@ angular
   .controller('ShmSpoolHistoryController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_spool_history', function($scope, $modal, shm, shm_request, shm_spool_history) {
     'use strict';
 
-    $scope.url = 'admin/spool_history.cgi';
+    $scope.url = 'v1/admin/spool/history';
 
     $scope.columnDefs = [
         {

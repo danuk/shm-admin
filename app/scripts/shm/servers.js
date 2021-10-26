@@ -9,8 +9,8 @@ angular
         var deferred = $q.defer();
 
         this.editor('Создание сервера', data, 'lg').result.then(function(new_data){
-            shm_request('PUT_JSON', '/admin/server.cgi', new_data ).then(function(response) {
-                deferred.resolve(response.data);
+            shm_request('PUT_JSON', 'v1/admin/server', new_data ).then(function(response) {
+                deferred.resolve(response.data.data[0]);
             });
         }, function(cancel) {
             deferred.reject();
@@ -36,8 +36,8 @@ angular
                 };
 
                 $scope.test_ssh = function() {
-                    shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(response) {
-                        var pipeline_id = response.data.pipeline_id;
+                    shm_request('POST_JSON', 'v1/admin/test/ssh', $scope.data ).then(function(response) {
+                        var pipeline_id = response.data.data[0].pipeline_id;
 
                         shm_console.log( pipeline_id ).result.then(function(){
                         }, function(cancel) {
@@ -46,8 +46,7 @@ angular
                 }
 
                 $scope.test_mail = function() {
-                        shm_request('POST_JSON', '/admin/mail_test.cgi', $scope.data ).then(function(response) {
-                        alert("Task created");
+                        shm_request('POST_JSON', 'v1/admin/test/mail', $scope.data ).then(function(response) {
                     })
                 };
 
@@ -62,7 +61,7 @@ angular
   .controller('ShmServersController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_servers', function($scope, $modal, shm, shm_request, shm_servers ) {
     'use strict';
 
-    var url = '/admin/server.cgi';
+    var url = 'v1/admin/server';
     $scope.url = url;
 
     $scope.columnDefs = [
@@ -75,8 +74,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
-            angular.extend( row, response.data );
+        shm_request('POST_JSON', url, save_data ).then(function(response) {
+            angular.extend( row, response.data.data[0] );
         });
     };
 
@@ -93,7 +92,7 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE','/'+url+'?id='+row.server_id ).then(function() {
+                shm_request('DELETE', url+'?server_id='+row.server_id ).then(function() {
                     $scope.gridOptions.data.splice(
                         $scope.gridOptions.data.indexOf( row ),
                         1

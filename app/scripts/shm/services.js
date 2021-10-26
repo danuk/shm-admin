@@ -9,20 +9,19 @@ angular
                 $scope.title = title || 'Редактирование услуги';
                 $scope.data = angular.copy(row);
                 $scope.data.children = [];
-                var url = 'admin/service.cgi?limit=0';
+                var url = 'v1/admin/service';
 
                 // Load all services
-                shm_request('GET','/'+url).then(function(response) {
+                shm_request('GET', url, { limit: 0 } ).then(function(response) {
                     $scope.services = response.data.data;
                 });
 
                 // Load childs
                 if ( row.service_id ) {
-                    shm_request('GET','/'+url, {
-                        method: 'subservices_list',
+                    shm_request('GET', url + '/children', {
                         service_id: row.service_id,
                     } ).then(function(response) {
-                        $scope.data.children = response.data;
+                        $scope.data.children = response.data.data;
                     });
                 };
 
@@ -37,13 +36,13 @@ angular
                     }
                     $scope.data.children = children;
 
-                    shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON','/'+url, $scope.data ).then(function(response) {
-                        $modalInstance.close( response.data );
+                    shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data ).then(function(response) {
+                        $modalInstance.close( response.data.data[0] );
                     });
                 };
 
                 $scope.delete = function () {
-                    shm_request('DELETE','/'+url+'&service_id='+row.service_id ).then(function() {
+                    shm_request('DELETE', url, { service_id: row.service_id } ).then(function() {
                         $modalInstance.dismiss('delete');
                     })
                 };
@@ -69,7 +68,7 @@ angular
   .controller('ShmServicesController', ['$scope', 'shm_services', function($scope, shm_services) {
     'use strict';
 
-    var url = 'admin/service.cgi';
+    var url = 'v1/admin/service';
     $scope.url = url;
     $scope.parent_key_id = 'service_id';
 
@@ -102,7 +101,6 @@ angular
 
     $scope.row_dbl_click = function(row) {
         shm_services.edit(row).result.then(function(data){
-            delete row.$$treeLevel;
             angular.extend( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {

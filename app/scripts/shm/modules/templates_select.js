@@ -10,7 +10,7 @@ angular.module('shm_templates_select', [
         link: function ($scope, $element, $attrs) {
             $scope.readonly = 'readonly' in $attrs;
 
-            var request = 'admin/template.cgi';
+            var request = 'v1/admin/template';
             var key_field = 'id';
 
             $scope.$watch('data', function(newValue, oldValue){

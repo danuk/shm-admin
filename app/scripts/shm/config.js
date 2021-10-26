@@ -9,20 +9,20 @@ angular
                 $scope.title = title || 'Редактирование';
                 $scope.data = angular.copy(row);
 
-                var url = 'admin/config.cgi';
+                var url = 'v1/admin/config';
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
 
                 $scope.save = function () {
-                    shm_request( $scope.data.new ? 'PUT_JSON' : 'POST_JSON','/'+url, $scope.data ).then(function(responce) {
-                        $modalInstance.close( responce.data );
+                    shm_request( $scope.data.new ? 'PUT_JSON' : 'POST_JSON', url, $scope.data ).then(function(responce) {
+                        $modalInstance.close( responce.data.data[0] );
                     });
                 };
 
                 $scope.delete = function () {
-                    shm_request('DELETE','/'+url+'?key='+row.key ).then(function() {
+                    shm_request('DELETE', url+'?key='+row.key ).then(function() {
                         $modalInstance.dismiss('delete');
                     })
                 };
@@ -35,7 +35,7 @@ angular
   .controller('ShmConfigController', ['$scope', 'shm_config', function($scope, shm_config) {
     'use strict';
 
-    var url = 'admin/config.cgi';
+    var url = 'v1/admin/config';
     $scope.url = url;
     $scope.parent_key_id = 'key';
 

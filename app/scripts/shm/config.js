@@ -22,7 +22,7 @@ angular
                 };
 
                 $scope.delete = function () {
-                    shm_request('DELETE', url+'?key='+row.key ).then(function() {
+                    shm_request('DELETE', url, { key: row.key } ).then(function() {
                         $modalInstance.dismiss('delete');
                     })
                 };

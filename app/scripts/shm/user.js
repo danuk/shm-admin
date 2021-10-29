@@ -8,7 +8,7 @@ angular
     if ( !$scope.user.user_id ) {
         $location.path('/users');
     } else {
-        shm_request('GET','/v1/admin/user?user_id='+$scope.user.user_id ).then(function(response) {
+        shm_request('GET','/v1/admin/user', { user_id: $scope.user.user_id } ).then(function(response) {
             $scope.data = response.data.data[0];
         });
     }

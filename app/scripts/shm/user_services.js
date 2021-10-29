@@ -62,24 +62,33 @@ angular
                 };
 
                 $scope.block = function(data) {
-                    shm_request('GET','/admin/user_service_stop.cgi?user_id='+data.user_id+'&user_service_id='+data.user_service_id).then(function(response) {
-                        angular.extend( row, response.data );
-                        angular.extend( data, response.data );
+                    shm_request('POST','v1/admin/user/service/stop', {
+                        user_id: data.user_id,
+                        user_service_id: data.user_service_id
+                    }).then(function(response) {
+                        angular.extend( row, response.data.data[0] );
+                        angular.extend( data, response.data.data[0] );
                     });
                 };
 
                 var update_status = function(data) {
-                    shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id).then(function(response) {
+                    shm_request('GET','v1/admin/user/service', {
+                        user_id: data.user_id,
+                        id: data.user_service_id
+                    }).then(function(response) {
                         data.status = response.data.data[0].status;
                         row.status = response.data.data[0].status;
                     });
                 }
 
                 $scope.show_event = function(data) {
-                    shm_request('GET','/admin/u_s_object.cgi?user_id='+data.user_id+'&id='+data.user_service_id+'&method=spool_commands').then(function(response) {
-                        var spool = response.data.data;
+                    shm_request('GET','/admin/user/service/spool', {
+                        user_id: data.user_id,
+                        id: data.user_service_id
+                    }).then(function(response) {
+                        var spool = response.data.data[0];
                         if ( spool.length ) {
-                            shm_spool.edit( spool[0] ).result.then(function(){
+                            shm_spool.edit( spool ).result.then(function(){
                                 update_status(data);
                             }, function(resp) {
                             })
@@ -104,8 +113,8 @@ angular
   .controller('ShmUserServicesController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_user_services', function($scope, $modal, shm, shm_request, shm_user_services ) {
     'use strict';
 
-    var url = 'admin/u_s_object.cgi';
-    $scope.url = 'admin/user_service.cgi';
+    var url = 'v1/admin/user/service';
+    $scope.url = 'v1/admin/user/service';
     $scope.parent_key_id = 'user_service_id';
     $scope.maxDeepLevel = 2;
 
@@ -155,8 +164,8 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.status; // protect for change status
-        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
-            angular.extend( row, response.data );
+        shm_request('POST_JSON', url, save_data ).then(function(response) {
+            angular.extend( row, response.data.data[0] );
         });
     };
 

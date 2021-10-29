@@ -32,14 +32,14 @@ angular
 
                 $scope.pause = function () {
                     shm_request('POST_JSON', 'v1/admin/spool/pause', $scope.data ).then(function(response) {
-                        angular.extend( $scope.data, response.data );
+                        angular.extend( $scope.data, response.data.data[0] );
                         $modalInstance.close( response.data.data[0] );
                     });
                 };
 
                 $scope.resume = function () {
                     shm_request('POST_JSON', 'v1/admin/spool/resume', $scope.data ).then(function(response) {
-                        angular.extend( $scope.data, response.data );
+                        angular.extend( $scope.data, response.data.data[0] );
                         $modalInstance.close( response.data.data[0] );
                     });
                 };

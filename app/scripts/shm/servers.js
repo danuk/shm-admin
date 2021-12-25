@@ -36,8 +36,8 @@ angular
                 };
 
                 $scope.test_ssh = function() {
-                    shm_request('POST_JSON', 'v1/admin/test/ssh', $scope.data ).then(function(response) {
-                        var pipeline_id = response.data.data[0].pipeline_id;
+                    shm_request('POST_JSON', '/admin/ssh_test.cgi', $scope.data ).then(function(response) {
+                        var pipeline_id = response.data.pipeline_id;
 
                         shm_console.log( pipeline_id ).result.then(function(){
                         }, function(cancel) {
@@ -46,7 +46,7 @@ angular
                 }
 
                 $scope.test_mail = function() {
-                        shm_request('POST_JSON', 'v1/admin/test/mail', $scope.data ).then(function(response) {
+                        shm_request('POST_JSON', '/admin/mail_test.cgi', $scope.data ).then(function(response) {
                     })
                 };
 

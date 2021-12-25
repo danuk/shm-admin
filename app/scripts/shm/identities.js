@@ -31,8 +31,8 @@ angular
                 };
 
                 $scope.generate_key = function() {
-                    shm_request('GET','admin/generate_ssh_key_pair.cgi' ).then(function(response) {
-                        $scope.data = response.data;
+                    shm_request('GET','v1/admin/server/identity/generate' ).then(function(response) {
+                        $scope.data = response.data.data[0];
                     });
                 }
 

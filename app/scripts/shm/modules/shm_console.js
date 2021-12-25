@@ -29,8 +29,7 @@ angular
             var offset = 1;
 
             var get_logs = function() {
-                var request = 'v1/admin/console?id=' + $scope.id + '&offset=' + offset;
-                shm_request('GET', request).then(function(response) {
+                shm_request('GET', 'admin/console.cgi', { id: $scope.id, offset: offset } ).then(function(response) {
                     var log = response.data;
 
                     if ( log ) {

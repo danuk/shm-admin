@@ -18,7 +18,7 @@ angular
 
                 $scope.$watch('service', function(newValue, oldValue){
                     $scope.data.service_id = newValue.service_id;
-                    $scope.data.cost = newValue.cost;
+                    $scope.data.total = newValue.total;
                     $scope.data.months = newValue.period_cost;
                     $scope.data.settings = newValue.config;
                 });
@@ -159,7 +159,7 @@ angular
             },
         },
         {field: 'expired'},
-        {field: 'withdraws.cost', displayName: 'Цена'},
+        {field: 'withdraws.total', displayName: 'Стоимость'},
     ];
 
     var save_service = function( row, save_data ) {

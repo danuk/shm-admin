@@ -18,10 +18,14 @@ angular
                 };
 
                 $scope.save = function () {
-                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data ).then(function(response) {
+                    save().then(function(response) {
                         $modalInstance.close( response.data.data[0] );
                     });
                 };
+
+                var save = function() {
+                    return shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data );
+                }
 
                 $scope.delete = function () {
                     shm_request('DELETE', url, { id: row.id } ).then(function() {
@@ -29,10 +33,34 @@ angular
                     })
                 };
 
+                $scope.test = function () {
+                    save();
+                    $modal.open({
+                        templateUrl: 'views/template_test.html',
+                        controller: function ($scope, $modalInstance, $modal) {
+                            $scope.data = angular.copy(row);
+
+                            $scope.close = function () {
+                                $modalInstance.dismiss('close');
+                            };
+
+                            $scope.render = function () {
+                                var args = {
+                                    user_id: $scope.data.user_id,
+                                    usi: $scope.data.usi,
+                                };
+                                shm_request( 'GET', 'v1/template/'+ $scope.data.name, args ).then(function(response) {
+                                    $scope.data.render = response.data.data[0];
+                                });
+                            };
+                        },
+                    });
+                };
             },
             size: 'lg',
         });
     };
+
   }])
   .controller('ShmTemplatesController', ['$scope', 'shm_templates', function($scope, shm_templates) {
     'use strict';

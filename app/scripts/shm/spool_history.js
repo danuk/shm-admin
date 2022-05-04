@@ -8,6 +8,7 @@ angular
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = 'Просмотр события';
                 $scope.data = angular.copy(row);
+                $scope.history_mode = 1;
                 $scope.obj = {
                    options: { mode: 'code' },
                 }

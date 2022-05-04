@@ -23,6 +23,10 @@
             <span ng-show="data.status=='STUCK' || data.status=='FAIL'">
                 <button class="btn btn-danger" ng-click="retry()">Повторить</button>
             </span>
+            <span ng-show="data.status=='STUCK' || data.status=='FAIL'">
+                <button class="btn btn-success" ng-click="force_success()">Считать успешным</button>
+            </span>
+            </span>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Пользователь</label>

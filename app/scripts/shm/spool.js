@@ -37,6 +37,13 @@ angular
                     });
                 };
 
+                $scope.force_success = function () {
+                    shm_request('POST_JSON', 'v1/admin/spool/success', $scope.data ).then(function(response) {
+                        angular.extend( $scope.data, response.data.data[0] );
+                        $modalInstance.close( response.data.data[0] );
+                    });
+                };
+
                 $scope.resume = function () {
                     shm_request('POST_JSON', 'v1/admin/spool/resume', $scope.data ).then(function(response) {
                         angular.extend( $scope.data, response.data.data[0] );

@@ -28,8 +28,8 @@ angular
                 };
 
                 $scope.save = function () {
-                    shm_request('PUT_JSON', '/admin/create_user_service.cgi', $scope.data ).then(function(response) {
-                        $modalInstance.close( response.data );
+                    shm_request('PUT_JSON', 'v1/admin/service/order', $scope.data ).then(function(response) {
+                        $modalInstance.close( response.data.data[0] );
                     });
                 };
 

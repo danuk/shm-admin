@@ -17,15 +17,12 @@ angular
                     $modalInstance.dismiss('cancel');
                 };
 
-                $scope.save = function () {
-                    save().then(function(response) {
-                        $modalInstance.close( response.data.data[0] );
+                $scope.save = function (is_test) {
+                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data ).then(function(response) {
+                        angular.extend( row, response.data.data[0] );
+                        if (!is_test) $modalInstance.close( response.data.data[0] );
                     });
                 };
-
-                var save = function() {
-                    return shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data );
-                }
 
                 $scope.delete = function () {
                     shm_request('DELETE', url, { id: row.id } ).then(function() {
@@ -34,7 +31,7 @@ angular
                 };
 
                 $scope.test = function () {
-                    save();
+                    $scope.save(1);
                     $modal.open({
                         templateUrl: 'views/template_test.html',
                         controller: function ($scope, $modalInstance, $modal) {

@@ -55,7 +55,7 @@ angular
                 var treeLevel = 1;
                 if ( row.treeLevel ) { treeLevel = row.treeLevel + 1 };
                 if ( !row.treeNode.children.length ) {
-                    shm_request('GET','/'+$scope.url, { parent: row.entity[$scope.parent_key_id] } ).then(function(response) {
+                    shm_request('GET', $scope.url, { parent: row.entity[$scope.parent_key_id] } ).then(function(response) {
                         var data = response.data.data;
                         data.forEach(function(childRow) {
                             if ( $scope.maxDeepLevel > treeLevel ) { childRow.$$treeLevel = treeLevel };
@@ -114,11 +114,7 @@ angular
                 },
             );
 
-            var str_args = Object.keys(args).map(function(key) {
-                return key + '=' + args[key];
-            }).join('&');
-
-            shm_request('GET','/'+url+'?'+str_args).then(function(response) {
+            shm_request('GET', url, args).then(function(response) {
                 var largeLoad = response.data.data;
 
                 if ( $scope.columnDefs ) {
@@ -180,7 +176,7 @@ angular
                         $scope.setPagingData(data, page, pageSize);
                     });*/
                 } else {
-                     shm_request('GET','/'+url).then(function(response) {
+                     shm_request('GET', url).then(function(response) {
                          var largeLoad = response.data;
                          $scope.setPagingData(largeLoad, page, pageSize);
                      });

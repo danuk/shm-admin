@@ -158,7 +158,7 @@ angular
                 };
             },
         },
-        {field: 'expired'},
+        {field: 'expire'},
         {field: 'withdraws.total', displayName: 'Стоимость'},
     ];
 

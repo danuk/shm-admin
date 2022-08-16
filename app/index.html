@@ -126,9 +126,9 @@
 
         <div class="yamm navbar-left navbar-collapse collapse in">
             <ul class="nav navbar-nav">
-                <li class="dropdown" id="widget-classicmenu" ng-show="user.full_name.length">
+                <li class="dropdown" id="widget-classicmenu" ng-show="user.user_id">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                        [{{ user.user_id }}] {{ user.full_name }}
+                        [{{ user.user_id }}] {{ user.login }}
                         <span class="caret"></span>
                     </a>
                   <ul class="dropdown-menu" role="menu">

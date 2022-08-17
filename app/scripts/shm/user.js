@@ -2,7 +2,7 @@ angular
     .module('shm_user', [
 ])
 .controller('ShmUserController',
-    ['$scope','$location','$route','shm_request', function($scope, $location, $route, shm_request) {
+    ['$scope','$location','$window','$route','shm_request', function($scope, $location, $window, $route, shm_request) {
     'use strict';
 
     if ( !$scope.user.user_id ) {
@@ -30,6 +30,16 @@ angular
                 $location.path('/users');
             })
         }
+    }
+
+    $scope.cli_login = function () {
+        shm_request('GET','/v1/admin/config/cli' ).then(function(response) {
+            var url = response.data.data[0].url;
+            shm_request('PUT','v1/admin/user/session', { user_id: $scope.user.user_id } ).then(function(response) {
+                var session_id = response.data.data[0].id;
+                $window.open( url + '/shm/user/auth.cgi?session_id=' + session_id, '_blank');
+            })
+        })
     }
 
 }]);

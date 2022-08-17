@@ -8,8 +8,9 @@ angular
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title || 'Редактирование услуги';
                 $scope.data = angular.copy(row);
+                $scope.data.is_add = row.id ? 0 : 1;
 
-                $scope.name_pattern = '\\w+';
+                $scope.id_pattern = '\\w+';
 
                 var url = 'v1/admin/template';
 
@@ -18,7 +19,7 @@ angular
                 };
 
                 $scope.save = function (is_test) {
-                    shm_request( $scope.data.id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data ).then(function(response) {
+                    shm_request( $scope.data.is_add ? 'PUT_JSON' : 'POST_JSON', url, $scope.data ).then(function(response) {
                         angular.extend( row, response.data.data[0] );
                         if (!is_test) $modalInstance.close( response.data.data[0] );
                     });
@@ -46,7 +47,7 @@ angular
                                     user_id: $scope.data.user_id,
                                     usi: $scope.data.usi,
                                 };
-                                shm_request( 'GET', 'v1/template/'+ $scope.data.name, args ).then(function(response) {
+                                shm_request( 'GET', 'v1/template/'+ $scope.data.id, args ).then(function(response) {
                                     $scope.data.render = response.data.data[0];
                                 });
                             };
@@ -69,10 +70,6 @@ angular
     $scope.columnDefs = [
         {
             field: 'id',
-            width: 100,
-        },
-        {
-            field: 'name',
             width: 200,
         },
         {

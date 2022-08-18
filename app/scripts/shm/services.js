@@ -42,7 +42,7 @@ angular
                 };
 
                 $scope.delete = function () {
-                    shm_request('DELETE', url, { id: row.service_id } ).then(function() {
+                    shm_request('DELETE', url, { service_id: row.service_id } ).then(function() {
                         $modalInstance.dismiss('delete');
                     })
                 };

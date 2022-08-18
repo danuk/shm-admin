@@ -93,7 +93,7 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE', url, { id: row.server_id } ).then(function() {
+                shm_request('DELETE', url, { server_id: row.server_id } ).then(function() {
                     $scope.gridOptions.data.splice(
                         $scope.gridOptions.data.indexOf( row ),
                         1

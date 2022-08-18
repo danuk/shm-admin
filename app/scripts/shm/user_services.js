@@ -74,7 +74,7 @@ angular
                 var update_status = function(data) {
                     shm_request('GET','v1/admin/user/service', {
                         user_id: data.user_id,
-                        id: data.user_service_id
+                        user_service_id: data.user_service_id
                     }).then(function(response) {
                         data.status = response.data.data[0].status;
                         row.status = response.data.data[0].status;
@@ -84,7 +84,7 @@ angular
                 $scope.show_event = function(data) {
                     shm_request('GET','/admin/user/service/spool', {
                         user_id: data.user_id,
-                        id: data.user_service_id
+                        user_service_id: data.user_service_id
                     }).then(function(response) {
                         var spool = response.data.data[0];
                         if ( spool.length ) {
@@ -182,7 +182,7 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
-                shm_request('DELETE', url, { user_id: row.user_id, id: row.user_service_id } ).then(function(response) {
+                shm_request('DELETE', url, { user_id: row.user_id, user_service_id: row.user_service_id } ).then(function(response) {
                     if (response.data.data.length) {
                         angular.extend( row, response.data.data[0] );
                     } else {

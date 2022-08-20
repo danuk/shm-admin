@@ -178,7 +178,7 @@ angular
     }
 
     $scope.row_dbl_click = function(row) {
-        shm_user_services.editor('Редактирование услуги', row, 'lg').result.then(function(data){
+        shm_user_services.editor('Редактирование услуги пользователя', row, 'lg').result.then(function(data){
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {

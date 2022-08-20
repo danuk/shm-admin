@@ -6,7 +6,7 @@ angular
         return $modal.open({
             templateUrl: 'views/template_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
-                $scope.title = title || 'Редактирование услуги';
+                $scope.title = title || 'Редактирование шаблона';
                 $scope.data = angular.copy(row);
                 $scope.data.is_add = row.id ? 0 : 1;
 

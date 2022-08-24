@@ -29,13 +29,7 @@
                 <servers-groups-list-add></servers-groups-list-add>
             </div>
         </div>
-        <div class="form-group" ng-if="data.server.transport=='ssh'">
-            <label class="col-sm-2 control-label">Команда</label>
-            <div class="col-sm-8">
-                <input type="text" ng-model="data.settings.cmd" class="form-control">
-            </div>
-        </div>
-        <div class="form-group" ng-if="data.server.transport=='mail'">
+        <div class="form-group">
             <label class="col-sm-2 control-label">Шаблон</label>
             <div class="col-sm-8">
                 <templates-list id="data.settings.template_id"></templates-list>

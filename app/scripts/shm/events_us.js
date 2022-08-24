@@ -2,27 +2,23 @@ angular
   .module('shm_events_us', [
     'shm_events_us_list',
   ])
-  .controller('ShmEventsUsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
-    'use strict';
+  .service('shm_events_us', [ '$q', '$modal', 'shm_request', 'shm_console', function( $q, $modal, shm_request, shm_console ) {
+    var url = 'v1/admin/service/event';
 
-    var url = 'admin/events.cgi';
-    $scope.url = url;
+    this.add = function(data) {
+        var deferred = $q.defer();
+        this.service_editor('Создание события', data, 'lg').result.then(function(data){
+            shm_request('PUT_JSON', url, data ).then(function(response) {
+                var row = response.data;
+                deferred.resolve(response.data.data[0]);
+            });
+        }, function(cancel) {
+            deferred.reject();
+        });
+        return deferred.promise;
+    };
 
-    $scope.columnDefs = [
-        {
-            field: 'title',
-        },
-        {
-            field: 'name',
-            displayName: 'event',
-        },
-        {
-            field: 'settings.category',
-            displayName: 'category',
-        },
-    ];
-
-    $scope.service_editor = function (title, row, size) {
+    this.service_editor = function (title, row, size) {
         return $modal.open({
             templateUrl: 'views/events_us_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
@@ -40,15 +36,33 @@ angular
                 $scope.delete = function () {
                     $modalInstance.dismiss('delete');
                 };
-
             },
             size: size,
         });
     }
+  }])
+  .controller('ShmEventsUsController', ['$scope', '$modal', 'shm', 'shm_request','shm_events_us', function($scope, $modal, shm, shm_request, shm_events_us) {
+    'use strict';
+    var url = 'v1/admin/service/event';
+    $scope.url = url;
+
+    $scope.columnDefs = [
+        {
+            field: 'title',
+        },
+        {
+            field: 'name',
+            displayName: 'event',
+        },
+        {
+            field: 'settings.category',
+            displayName: 'category',
+        },
+    ];
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
-        shm_request('POST_JSON','/'+url, save_data ).then(function(response) {
+        shm_request('POST_JSON', url, save_data ).then(function(response) {
             angular.extend( row, response.data );
         });
     };
@@ -58,18 +72,15 @@ angular
             next: null,
         };
 
-        $scope.service_editor('Создание события', row, 'lg').result.then(function(data){
-            shm_request('PUT_JSON','/'+url, data ).then(function(response) {
-                var row = response.data;
-
-                $scope.gridOptions.data.push( row );
-            });
+        shm_events_us.add().then(function(row) {
+            row.$$treeLevel = 0;
+            $scope.gridOptions.data.push( row );
         }, function(cancel) {
         });
     };
 
     $scope.row_dbl_click = function(row) {
-        $scope.service_editor('Редактирование события', row, 'lg').result.then(function(data){
+        shm_events_us.service_editor('Редактирование события', row, 'lg').result.then(function(data){
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {

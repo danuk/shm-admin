@@ -1,18 +1,35 @@
 angular
   .module('shm_templates', [
   ])
-  .service('shm_templates', ['$modal', 'shm', 'shm_request', function($modal, shm, shm_request) {
-    this.edit = function(row, title) {
+  .service('shm_templates', ['$q', '$modal', 'shm', 'shm_request', function($q, $modal, shm, shm_request) {
+    var url = 'v1/admin/template';
+
+    this.add = function() {
+        var deferred = $q.defer();
+        var row = {
+            next: null,
+            period_cost: 1,
+            cost: 0,
+        };
+
+        this.edit('Создание шаблона', row, 'lg').result.then(function(new_data){
+            deferred.resolve(new_data);
+        }, function(cancel) {
+            deferred.reject();
+        });
+
+        return deferred.promise;
+    };
+
+    this.edit = function(title, row) {
         return $modal.open({
             templateUrl: 'views/template_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
-                $scope.title = title || 'Редактирование шаблона';
+                $scope.title = title;
                 $scope.data = angular.copy(row);
                 $scope.data.is_add = row.id ? 0 : 1;
 
                 $scope.id_pattern = '\\w+';
-
-                var url = 'v1/admin/template';
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -20,6 +37,7 @@ angular
 
                 $scope.save = function (is_test) {
                     shm_request( $scope.data.is_add ? 'PUT_JSON' : 'POST_JSON', url, $scope.data ).then(function(response) {
+                        $scope.data.is_add = 0;
                         angular.extend( row, response.data.data[0] );
                         if (!is_test) $modalInstance.close( response.data.data[0] );
                     });
@@ -31,7 +49,7 @@ angular
                     })
                 };
 
-                $scope.test = function () {
+                $scope.test = function (template_id) {
                     $scope.save(1);
                     $modal.open({
                         templateUrl: 'views/template_test.html',
@@ -48,7 +66,7 @@ angular
                                     usi: $scope.data.usi,
                                     dry_run: 1,
                                 };
-                                shm_request( 'GET', 'v1/template/'+ $scope.data.id, args ).then(function(response) {
+                                shm_request( 'GET', 'v1/template/'+ template_id, args ).then(function(response) {
                                     $scope.data.render = response.data.data[0];
                                 });
                             };
@@ -79,13 +97,7 @@ angular
     ];
 
     $scope.add = function() {
-        var row = {
-            next: null,
-            period_cost: 1,
-            cost: 0,
-        };
-
-        shm_templates.edit(row, 'Создание шаблона').result.then(function(data){
+        shm_templates.add().then(function(data) {
             data.$$treeLevel = 0;
             $scope.gridOptions.data.push( data );
         }, function(cancel) {
@@ -93,9 +105,11 @@ angular
     };
 
     $scope.row_dbl_click = function(row) {
-        shm_templates.edit(row).result.then(function(data){
-            delete row.$$treeLevel;
-            angular.extend( row, data );
+        shm_templates.edit('Редактирование шаблона',row).result.then(function(data){
+            shm_request('POST_JSON', url, data ).then(function(response) {
+                angular.extend( row, response.data.data[0] );
+                delete row.$$treeLevel;
+            });
         }, function(resp) {
             if ( resp === 'delete' ) {
                 $scope.gridOptions.data.splice( $scope.gridOptions.data.indexOf( row ), 1 );

@@ -6,13 +6,8 @@ angular
 
     this.add = function() {
         var deferred = $q.defer();
-        var row = {
-            next: null,
-            period_cost: 1,
-            cost: 0,
-        };
 
-        this.edit('Создание шаблона', row, 'lg').result.then(function(new_data){
+        this.edit('Создание шаблона', {}, 'lg').result.then(function(new_data){
             deferred.resolve(new_data);
         }, function(cancel) {
             deferred.reject();
@@ -89,10 +84,7 @@ angular
     $scope.columnDefs = [
         {
             field: 'id',
-            width: 200,
-        },
-        {
-            field: 'title',
+            width: "100%",
         },
     ];
 

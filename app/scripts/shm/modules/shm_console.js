@@ -47,11 +47,14 @@ angular
                         timerId = $timeout(function() {
                             get_logs();
                         }, 1000);
+                    } else {
+                        angular.element( document.getElementById("loading") ).remove();
                     }
                 });
             }
 
             get_logs();
+            $element.append('<div><img id="loading" src="/images/loading.gif" style="width: 30px; margin: 10px; position: absolute; bottom: 0; right: 0"></div>');
 
             $scope.$on( "$destroy", function() {
                 destroyed = 1;

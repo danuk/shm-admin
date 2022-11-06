@@ -69,7 +69,25 @@
                 <identities-list-add></identities-list-add>
             </div>
         </div>
-        <div class="form-group" ng-if="data.server.transport=='ssh'">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Использовать</label>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="data.mode" required=1>
+                    <option value="template">Шаблон</option>
+                    <option ng-if="data.server.transport=='ssh'" value="cmd">Команду</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" ng-if="data.mode=='template'">
+            <label class="col-sm-2 control-label">Шаблон</label>
+            <div class="col-sm-8">
+                <templates-list id="data.settings.template_id"></templates-list>
+            </div>
+            <div class="col-sm-2">
+                <templates-list-add></templates-list-add>
+            </div>
+        </div>
+        <div class="form-group" ng-if="data.mode=='cmd'">
             <label class="col-sm-2 control-label">shell command</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" ng-model="data.settings.cmd">

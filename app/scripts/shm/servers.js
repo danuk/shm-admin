@@ -6,6 +6,9 @@ angular
   ])
   .service('shm_servers', [ '$q', '$modal', 'shm_request', 'shm_console', function( $q, $modal, shm_request, shm_console ) {
     this.add = function(data) {
+        data = {
+            mode: 'template',
+        };
         var deferred = $q.defer();
 
         this.editor('Создание сервера', data, 'lg').result.then(function(new_data){
@@ -24,6 +27,12 @@ angular
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title;
                 $scope.data = angular.copy(row);
+
+                if ( $scope.data.settings && $scope.data.settings.template_id ) {
+                    $scope.data.mode = "template";
+                } else if ( $scope.data.settings && $scope.data.settings.cmd ) {
+                    $scope.data.mode = "cmd";
+                }
 
                 $scope.servers_list = [];
 
@@ -75,6 +84,10 @@ angular
 
     var save_service = function( row, save_data ) {
         delete save_data.$$treeLevel;
+
+        if (save_data.mode!='cmd') delete save_data.settings.cmd;
+        if (save_data.mode!='template') delete save_data.settings.template_id;
+
         shm_request('POST_JSON', url, save_data ).then(function(response) {
             angular.extend( row, response.data.data[0] );
         });

@@ -1,9 +1,9 @@
 angular.module('shm_templates_select', [
 ])
-.value('sg_list_shared', {
+.value('tp_list_shared', {
     'add_item': null,
 })
-.directive('templatesList', [ 'sg_list_shared', 'shm_request', function( sg_list_shared, shm_request ) {
+.directive('templatesList', [ 'tp_list_shared', 'shm_request', function( tp_list_shared, shm_request ) {
     return {
         restrict: 'E',
         scope: {
@@ -40,7 +40,7 @@ angular.module('shm_templates_select', [
                 };
             });
 
-            sg_list_shared.add_item = function(data) {
+            tp_list_shared.add_item = function(data) {
                 $scope.items.push( data );
                 $scope.data = data;
             }
@@ -48,7 +48,7 @@ angular.module('shm_templates_select', [
         templateUrl: "views/shm/modules/templates-list/select.html"
     }
 }])
-.directive('templatesListAdd', [ 'sg_list_shared', 'shm_templates', function( sg_list_shared, shm_templates ) {
+.directive('templatesListAdd', [ 'tp_list_shared', 'shm_templates', function( tp_list_shared, shm_templates ) {
     return {
         restrict: "E",
         scope: {
@@ -57,7 +57,7 @@ angular.module('shm_templates_select', [
         controller: function ($scope, $element, $attrs) {
             $scope.add = function() {
                 shm_templates.add().then(function(row) {
-                    sg_list_shared.add_item( row );
+                    tp_list_shared.add_item( row );
                 }, function(cancel) {
                 });
             };

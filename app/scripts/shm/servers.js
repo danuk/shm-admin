@@ -61,20 +61,22 @@ angular
                 }
 
                 $scope.template_init = function() {
-                    var args = {
-                        host: $scope.data.host,
-                        server_id: $scope.data.server_id,
-                        key_id: $scope.data.settings.key_id,
-                        template_id: $scope.data.settings.template_id,
-                    };
+                    if (confirm("Выполнить шаблон на сервере?")) {
+                        var args = {
+                            host: $scope.data.host,
+                            server_id: $scope.data.server_id,
+                            key_id: $scope.data.settings.key_id,
+                            template_id: $scope.data.settings.template_id,
+                        };
 
-                    shm_request('PUT_JSON', 'v1/admin/transport/ssh/init', args ).then(function(response) {
-                        var pipeline_id = response.data.data[0].pipeline_id;
+                        shm_request('PUT_JSON', 'v1/admin/transport/ssh/init', args ).then(function(response) {
+                            var pipeline_id = response.data.data[0].pipeline_id;
 
-                        shm_console.log( pipeline_id ).result.then(function(){
-                        }, function(cancel) {
+                            shm_console.log( pipeline_id ).result.then(function(){
+                            }, function(cancel) {
+                            });
                         });
-                    });
+                    }
                 }
 
                 $scope.test_mail = function() {

@@ -11,8 +11,8 @@ angular
         'ui.grid.treeView',
     ])
     .controller('ShmTableTreeController',
-        ['$scope', '$filter', '$timeout', 'shm_request',
-            function($scope, $filter, $timeout, shm_request) {
+        ['$scope', '$filter', '$timeout', '$interval', 'shm_request', 'uiGridConstants',
+            function($scope, $filter, $timeout, $interval, shm_request, uiGridConstants) {
         'use strict';
 
         var paginationOptions = {
@@ -20,6 +20,7 @@ angular
             limit: 25,
         };
 
+        var filteringData = {};
         var delay_request = false;
 
         $scope.gridScope = $scope;
@@ -55,7 +56,14 @@ angular
                 var treeLevel = 1;
                 if ( row.treeLevel ) { treeLevel = row.treeLevel + 1 };
                 if ( !row.treeNode.children.length ) {
-                    shm_request('GET', $scope.url, { parent: row.entity[$scope.parent_key_id] } ).then(function(response) {
+                    var args = angular.merge(
+                        paginationOptions,
+                        {
+                            filter: angular.toJson( filteringData ),
+                            parent: row.entity[$scope.parent_key_id],
+                        },
+                    );
+                    shm_request('GET', $scope.url, args ).then(function(response) {
                         var data = response.data.data;
                         data.forEach(function(childRow) {
                             if ( $scope.maxDeepLevel > treeLevel ) { childRow.$$treeLevel = treeLevel };
@@ -67,9 +75,16 @@ angular
             });
 
             $scope.gridApi.core.on.filterChanged($scope, function() {
+                var grid = this.grid;
                 if ( !delay_request ) {
                     delay_request = true;
                     $timeout(function() {
+                        filteringData = {};
+                        angular.forEach( grid.columns, function( col ) {
+                            if ( col.filters[0].term ) {
+                                filteringData[col.field] = col.filters[0].term;
+                            }
+                        });
                         delay_request = false;
                         $scope.load_data($scope.url);
                     },1000);
@@ -98,19 +113,11 @@ angular
         }
 
         $scope.load_data = function(url) {
-
-            var filteringData = {};
-            if ( $scope.defaultFilter ) { filteringData = angular.copy( $scope.defaultFilter ); $scope.defaultFilter = {} };
-            angular.forEach( $scope.columnDefs, function( col ) {
-                if ( col.filter && col.filter.term!=null ) {
-                    filteringData[col.field] = col.filter.term;
-                }
-            });
-
             var args = angular.merge(
                 paginationOptions,
                 {
                     filter: angular.toJson( filteringData ),
+                    parent: null,
                 },
             );
 
@@ -119,21 +126,13 @@ angular
 
                 if ( $scope.columnDefs ) {
                     var row = largeLoad[0];
+
                     for ( var field in row ) {
                         var found = 0;
                         $scope.columnDefs.forEach(function(item) {
                             if ( item.field == field ) { found = 1; return; };
-                        });
-
-                        if ( !found ) {
-                            var col = {
-                                field: field,
-                                visible: false,
-                                filter: {},
-                            };
-                            if ( filteringData[field]!=undefined ) ( col.filter.term = filteringData[field] );
-                            $scope.columnDefs.push( col );
-                        };
+                        })
+                        if ( !found ) { $scope.columnDefs.push( { field: field, visible: false } ) };
                     }
                     $scope.gridOptions.columnDefs = $scope.columnDefs;
                 }
@@ -187,6 +186,35 @@ angular
         //$scope.getPagedDataAsync($scope.url, $scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
         $scope.load_data($scope.url);
 
+        // Auto refresh data
+        var timerId = $interval(function() {
+            var tree_by_usi = {};
+            $scope.gridOptions.data.forEach(function(item) {
+                tree_by_usi[ item.user_service_id ] = item;
+            });
+
+            var args = angular.merge(
+                paginationOptions,
+                {
+                    filter: angular.toJson( filteringData ),
+                    parent: null,
+                },
+            );
+            shm_request('GET', $scope.url, args).then(function(response) {
+                var largeLoad = response.data.data;
+
+                largeLoad.forEach(function(item) {
+                    if ( tree_by_usi[ item.user_service_id ] ) {
+                        angular.merge( tree_by_usi[ item.user_service_id ], item );
+                    }
+                })
+            });
+        }, 3000);
+
+        $scope.$on( "$destroy", function() {
+            if ( timerId ) { $interval.cancel( timerId ) };
+        });
+
         $scope.$watch('pagingOptions', function(newVal, oldVal) {
             if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
@@ -195,6 +223,11 @@ angular
         $scope.$watch('filterOptions', function(newVal, oldVal) {
             if (newVal !== oldVal) {
                 $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+            }
+        }, true);
+        $scope.$watch('gridOptions', function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.EDIT);
             }
         }, true);
     }])

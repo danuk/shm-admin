@@ -21,25 +21,25 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Статус</label>
             <div class="col-sm-3">
-                <div class="btn-group" ng-if="data.status=='NOT PAID'">
+                <div class="btn-group" ng-if="row.status=='NOT PAID'">
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Не оплачена</button>
                 </div>
-                <div class="btn-group" ng-if="data.status=='INIT'">
+                <div class="btn-group" ng-if="row.status=='INIT'">
                     <button type="button" class="btn btn-basic dropdown-toggle" data-toggle="dropdown">Инициализация</button>
                 </div>
-                <div class="btn-group" ng-if="data.status=='PROGRESS'">
+                <div class="btn-group" ng-if="row.status=='PROGRESS'">
                     <button ng-click="show_event(data)" type="button" class="btn btn-basic dropdown-toggle" data-toggle="dropdown">Обработка</button>
                 </div>
-                <div class="btn-group" ng-if="data.status=='ACTIVE'">
+                <div class="btn-group" ng-if="row.status=='ACTIVE'">
                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Активен <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a ng-click="block(data)">Заблокировать</a></li>
                     </ul>
                 </div>
-                <div class="btn-group" ng-if="data.status=='BLOCK'">
+                <div class="btn-group" ng-if="row.status=='BLOCK'">
                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Блокировка</button>
                 </div>
-                <div class="btn-group" ng-if="data.status=='ERROR'">
+                <div class="btn-group" ng-if="row.status=='ERROR'">
                     <button ng-click="show_event(data)" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Ошибка</button>
                 </div>
             </div>

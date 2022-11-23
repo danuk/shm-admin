@@ -47,7 +47,8 @@ angular
             templateUrl: 'views/user_service_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title;
-                $scope.data = angular.copy(row);
+                $scope.row = row; // follow scope status
+                $scope.data = angular.copy(row); // isolate data
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -82,7 +83,7 @@ angular
                 }
 
                 $scope.show_event = function(data) {
-                    shm_request('GET','/admin/user/service/spool', {
+                    shm_request('GET','v1/admin/user/service/spool', {
                         user_id: data.user_id,
                         user_service_id: data.user_service_id
                     }).then(function(response) {

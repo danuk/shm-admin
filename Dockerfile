@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM nginx:alpine AS admin
 
 EXPOSE 80
 

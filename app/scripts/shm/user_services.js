@@ -18,8 +18,8 @@ angular
 
                 $scope.$watch('service', function(newValue, oldValue){
                     $scope.data.service_id = newValue.service_id;
-                    $scope.data.total = newValue.total;
-                    $scope.data.months = newValue.period_cost;
+                    $scope.data.cost = newValue.cost;
+                    $scope.data.months = newValue.period_cost || 1;
                     $scope.data.settings = newValue.config;
                 });
 

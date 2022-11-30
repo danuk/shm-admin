@@ -21,7 +21,7 @@ function build_and_push {
 }
 
 # Build Admin
-[ -z "$VERSION" ]; VERSION="latest"
+[ -z "$VERSION" ]; VERSION=$(git describe --abbrev=0 --tags)
 echo -n "$VERSION" > app/version
 build_and_push admin
 

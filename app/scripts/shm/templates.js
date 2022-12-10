@@ -24,7 +24,7 @@ angular
                 $scope.data = angular.copy(row);
                 $scope.data.is_add = row.id ? 0 : 1;
 
-                $scope.id_pattern = '\\w+';
+                $scope.id_pattern = '[A-Za-z0-9-_]+';
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');

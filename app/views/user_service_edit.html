@@ -37,7 +37,10 @@
                     </ul>
                 </div>
                 <div class="btn-group" ng-if="row.status=='BLOCK'">
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Блокировка</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Блокировка <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a ng-click="unblock(data)">Активировать</a></li>
+                    </ul>
                 </div>
                 <div class="btn-group" ng-if="row.status=='ERROR'">
                     <button ng-click="show_event(data)" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Ошибка</button>

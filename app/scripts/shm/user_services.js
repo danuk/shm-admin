@@ -72,6 +72,16 @@ angular
                     });
                 };
 
+                $scope.unblock = function(data) {
+                    shm_request('POST','v1/admin/user/service/activate', {
+                        user_id: data.user_id,
+                        user_service_id: data.user_service_id
+                    }).then(function(response) {
+                        angular.extend( row, response.data.data[0] );
+                        angular.extend( data, response.data.data[0] );
+                    });
+                };
+
                 var update_status = function(data) {
                     shm_request('GET','v1/admin/user/service', {
                         user_id: data.user_id,

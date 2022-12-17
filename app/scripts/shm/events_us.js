@@ -8,6 +8,9 @@ angular
     this.add = function(data) {
         data = {
             mode: "default",
+            settings: {
+                category: "%",
+            },
         };
         var deferred = $q.defer();
         this.service_editor('Создание события', data, 'lg').result.then(function(data){

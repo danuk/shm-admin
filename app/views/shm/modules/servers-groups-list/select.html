@@ -1,4 +1,5 @@
-<select class="form-control" ng-model="data" ng-disabled="!items" required>
+<select class="form-control" ng-model="data" ng-disabled="!items">
+    <option ng-value="">&lt;AUTO&gt;</option>
     <option ng-value="item" ng-repeat="item in items">
     {{ item.name }}
     </option>

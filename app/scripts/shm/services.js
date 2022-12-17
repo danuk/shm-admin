@@ -9,6 +9,7 @@ angular
                 $scope.title = title || 'Редактирование услуги';
                 $scope.data = angular.copy(row);
                 $scope.data.children = [];
+                $scope.data.deleted = 0;
                 var url = 'v1/admin/service';
 
                 // Load all services

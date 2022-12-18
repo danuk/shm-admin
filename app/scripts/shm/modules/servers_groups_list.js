@@ -21,18 +21,22 @@ angular.module('shm_servers_groups_list', [
             });
 
             shm_request('GET', 'v1/admin/server/group').then(function(response) {
-                var data = response.data.data;
+                var auto = [
+                    {
+                        name: '<AUTO>',
+                        group_id: 0,
+                        server_gid: 0,
+                    },
+                ];
 
-                if (!data) return;
+                var data = [].concat( auto, response.data.data );
+                data.forEach(function(item) {
+                    if ( $scope.id == item[key_field] ) {
+                        $scope.data = item;
+                    }
+                });
+
                 $scope.items = data;
-
-                if ( $scope.id ) {
-                    data.forEach(function(item) {
-                        if ( $scope.id == item[key_field] ) {
-                            $scope.data = item;
-                        }
-                    });
-                }
             });
 
             sg_list_shared.add_item = function(data) {

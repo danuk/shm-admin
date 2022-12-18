@@ -11,6 +11,7 @@ angular
             settings: {
                 category: "%",
             },
+            server_gid: 0,
         };
         var deferred = $q.defer();
         this.service_editor('Создание события', data, 'lg').result.then(function(data){

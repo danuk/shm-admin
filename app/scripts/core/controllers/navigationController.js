@@ -40,7 +40,7 @@ angular
       iconClasses: 'ti ti-menu-alt',
       children: [
           {
-            label: 'Список',
+            label: 'Каталог',
             url: '#!/services',
           },
           {
@@ -76,7 +76,7 @@ angular
             url: '#!/spool',
           },
           {
-            label: 'История',
+            label: 'Архив',
             url: '#!/spool_history',
           },
       ]

@@ -34,13 +34,28 @@ angular
     $scope.url = url;
 
     $scope.columnDefs = [
-        {field: 'id', displayName: "id"},
         {
             field: 'user_id',
             filter: { term: $scope.user.user_id },
+            width: 80,
         },
-        {field: 'date', displayName: "Дата"},
-        {field: 'money', displayName: "Сумма"},
+        {
+            field: 'date',
+            displayName: "Дата",
+            width: 140,
+        },
+        {
+            field: 'money',
+            displayName: "Сумма",
+            width: 80,
+        },
+        {
+            field: 'pay_system_id',
+            width: 100,
+        },
+        {
+            field: 'comments',
+        },
     ];
 
 

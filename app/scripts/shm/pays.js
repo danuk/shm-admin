@@ -51,7 +51,7 @@ angular
         },
         {
             field: 'pay_system_id',
-            width: 100,
+            width: 140,
         },
         {
             field: 'comment',

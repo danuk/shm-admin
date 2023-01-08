@@ -54,7 +54,7 @@ angular
             width: 100,
         },
         {
-            field: 'comments',
+            field: 'comment',
         },
     ];
 

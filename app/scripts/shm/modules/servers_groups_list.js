@@ -23,7 +23,7 @@ angular.module('shm_servers_groups_list', [
             shm_request('GET', 'v1/admin/server/group').then(function(response) {
                 var auto = [
                     {
-                        name: '<AUTO>',
+                        name: '<AUTO> - на том же сервере, на котором услуга была создана',
                         group_id: 0,
                         server_gid: 0,
                     },

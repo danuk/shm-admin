@@ -45,6 +45,16 @@ angular
                 };
 
                 $scope.save = function () {
+                    if ( !$scope.data.server_gid &&
+                        (
+                            $scope.data.name=='create' ||
+                            $scope.data.name=='not_enough_money'
+                        )
+                    ) {
+                        alert("Ошибка! Недопустимо использовать группу <AUTO> для события "+ $scope.data.name );
+                        return;
+                    }
+
                     $modalInstance.close( $scope.data );
                 };
 

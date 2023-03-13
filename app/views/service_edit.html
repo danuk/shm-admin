@@ -69,6 +69,11 @@
                 </div>
                 <div class="checkbox">
                     <label>
+                        <input type="checkbox" ng-disabled="!data.allow_to_order" toggle-int toggle-model="data.config.order_only_once">Можно заказать только один раз
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
                         <input type="checkbox" toggle-int toggle-model="data.pay_in_credit">Списывать всегда (даже в минус)
                     </label>
                 </div>

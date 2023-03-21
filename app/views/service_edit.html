@@ -37,7 +37,8 @@
             <label class="col-sm-2 control-label">Следующая услуга</label>
             <div class="col-sm-8">
                 <select class="form-control" ng-model="data.next">
-                    <option ng-value="null">Не изменять</option>
+                    <option ng-value="null">Не изменять (продлить текущую)</option>
+                    <option ng-value="-1">Не продлевать (удалить текущую)</option>
                     <option ng-value="service.service_id" ng-repeat="service in services">
                     {{ service.name }}
                     </option>

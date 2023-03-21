@@ -17,12 +17,12 @@
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Статус</label>
-            <div class="col-sm-8">
+            <div class="col-sm-1">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.enabled">
-                        <span class="text-success" ng-if="data.enabled">Создание новых услуг <b>РАЗРЕШЕНО</b></span>
-                        <span class="text-danger" ng-if="!data.enabled">Создание новых услуг <b>ЗАПРЕЩЕНО</b></span>
+                        <span class="text-success" ng-if="data.enabled"><b>Включен</b></span>
+                        <span class="text-danger" ng-if="!data.enabled"><b>Выключен</b></span>
                     </label>
                 </div>
             </div>

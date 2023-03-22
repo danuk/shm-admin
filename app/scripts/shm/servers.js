@@ -45,11 +45,13 @@ angular
                 };
 
                 $scope.test_ssh = function() {
-                    var args = {
-                        host: $scope.data.host,
-                        key_id: $scope.data.settings.key_id,
-                        cmd: "uname -a; echo; w",
-                    };
+                    var args = angular.merge(
+                        $scope.data.settings,
+                        {
+                            host: $scope.data.host,
+                            cmd: "uname -a; echo; w",
+                        },
+                    );
 
                     shm_request('PUT_JSON', 'v1/admin/transport/ssh/test', args ).then(function(response) {
                         var pipeline_id = response.data.data[0].pipeline_id;
@@ -62,12 +64,13 @@ angular
 
                 $scope.template_init = function() {
                     if (confirm("Выполнить шаблон на сервере?")) {
-                        var args = {
-                            host: $scope.data.host,
-                            server_id: $scope.data.server_id,
-                            key_id: $scope.data.settings.key_id,
-                            template_id: $scope.data.settings.template_id,
-                        };
+                        var args = angular.merge(
+                            $scope.data.settings,
+                            {
+                                host: $scope.data.host,
+                                server_id: $scope.data.server_id,
+                            },
+                        );
 
                         shm_request('PUT_JSON', 'v1/admin/transport/ssh/init', args ).then(function(response) {
                             var pipeline_id = response.data.data[0].pipeline_id;

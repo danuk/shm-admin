@@ -105,8 +105,8 @@ angular
     $scope.columnDefs = [
         {field: 'server_id'},
         {field: 'name', displayName: 'Имя' },
+        {field: 'services_count', displayName: 'Кол-во услуг'},
         {field: 'host'},
-        {field: 'ip'},
         {field: 'transport'},
     ];
 

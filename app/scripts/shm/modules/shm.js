@@ -1,61 +1,59 @@
 angular
 .module('shm', [])
-.service('shm', [ '$modal', '$q', '$timeout', function( $modal, $q, $timeout ) {
+.service('shm', [ '$modal', 'shm_request', '$q', '$timeout', function( $modal, shm_request, $q, $timeout ) {
     this.list_choises = function(data) {
         return $modal.open({
             templateUrl: 'views/list_choises.html',
             controller: function ($scope, $modalInstance) {
                 $scope.data = angular.copy(data);
 
-                $scope.btn_up_disabled = 1;
-                $scope.btn_down_disabled = 1;
-                $scope.btn_remove_disabled = 1;
+                $scope.btn_remove_disabled = 0;
+
+                var url = 'v1/admin/service/children';
+                $scope.url = url;
+                $scope.args = { service_id: data.service_id };
+
+                $scope.columnDefs = [
+                    {
+                        field: 'service_id',
+                        width: 100,
+                    },
+                    {
+                        field: 'name',
+                        width: 360,
+                    },
+                    {
+                        field: 'qnt',
+                        displayName: 'Кол-во',
+                        type: 'number',
+                        enableCellEdit: true,
+                    },
+                ];
 
                 $scope.add = function() {
-                    $scope.data.list_to.push( angular.copy( $scope.data.from ) );
+                    $scope.gridOptions.data.push( $scope.data.from );
                 };
 
                 $scope.remove = function() {
-                    if ( $scope.data.to ) {
-                        $scope.data.list_to.splice( $scope.data.to[0], 1 );
-                        $scope.btn_remove_disabled = 1;
-                        $scope.btn_down_disabled = 1;
-                        $scope.btn_up_disabled = 1;
+                    var rows = $scope.gridApi.selection.getSelectedRows();
+                    for ( var i in rows ) {
+                        $scope.gridOptions.data.splice( $scope.gridOptions.data.indexOf( rows[i] ), 1 );
                     }
                 };
-
-                $scope.$watch('data.to', function(newValue, oldValue) {
-                    if ( newValue === oldValue) return;
-
-                    var ItemSelected = $scope.data.to[0];
-                    $scope.btn_down_disabled = ( ItemSelected == $scope.data.list_to.length - 1 ) ? 1 : 0;
-                    $scope.btn_up_disabled = ItemSelected == 0 ? 1 : 0;
-                    $scope.btn_remove_disabled = 0;
-                }, true);
-
-                $scope.move = function(dir) {
-                    var selItemIndex = parseInt( $scope.data.to[0] );
-
-                    var array = $scope.data.list_to;
-                    var Item = array[ selItemIndex ];
-
-                    if ( dir === 'up' && selItemIndex > 0 ) {
-                            array[ selItemIndex ] = array[ selItemIndex - 1 ];
-                            array[ selItemIndex - 1 ] = Item;
-                            $scope.data.to[0] = selItemIndex - 1;
-                    }
-                    else if ( dir === 'down' && array.length > selItemIndex + 1 ) {
-                            array[ selItemIndex ] = array[ selItemIndex + 1 ];
-                            array[ selItemIndex + 1 ] = Item;
-                            $scope.data.to[0] = selItemIndex + 1;
-                    }
-                }
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };
+
                 $scope.save = function () {
-                    $modalInstance.close( $scope.data );
+                    var args = {
+                        service_id: data.service_id,
+                        children: $scope.gridOptions.data,
+                    };
+
+                    shm_request( 'POST_JSON', url, args ).then(function(response) {
+                        $modalInstance.close( response.data );
+                    });
                 };
             },
             size: 'lg',

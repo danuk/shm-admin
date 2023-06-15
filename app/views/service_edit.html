@@ -47,15 +47,8 @@
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Дочерние услуги</label>
-            <div class="col-sm-8">
-                <select class="form-control" multiple>
-                    <option ng-repeat="sub_service in data.children">
-                    {{ sub_service.service_id}}# {{ sub_service.name }}
-                    </option>
-                </select>
-            </div>
             <div class="col-sm-2">
-                <a ng-click="editSubServices(data.service_id, data.children)" class="btn btn-default">
+                <a ng-click="editSubServices(data.service_id)" ng-disabled="!data.service_id" class="btn btn-default">
                     <i class="ti ti-settings"></i>
                 </a>
             </div>
@@ -71,6 +64,11 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" ng-disabled="!data.allow_to_order" toggle-int toggle-model="data.config.order_only_once">Можно заказать только один раз
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" toggle-int toggle-model="data.is_composite">Составная услуга
                     </label>
                 </div>
                 <div class="checkbox">

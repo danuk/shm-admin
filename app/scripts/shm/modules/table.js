@@ -8,10 +8,12 @@ angular
         'ui.grid.moveColumns',
         'ui.grid.pinning',
         'ui.grid.cellNav',
+        'ui.grid.edit',
+        'ui.grid.rowEdit',
     ])
     .controller('ShmTableController',
-        ['$scope', '$filter', '$timeout', 'shm_request',
-            function($scope, $filter, $timeout, shm_request) {
+        ['$scope', '$q', '$filter', '$timeout', 'shm_request',
+            function($scope, $q, $filter, $timeout, shm_request) {
         'use strict';
 
         var paginationOptions = {
@@ -25,6 +27,7 @@ angular
 
         $scope.gridOptions = {
             enableFiltering: true,
+            enableCellEdit: false,
             enableRowSelection: true,
             enableRowHeaderSelection: false,
             multiSelect: false,
@@ -43,6 +46,12 @@ angular
             useExternalPagination: true,
             paginationPageSizes: [25, 50, 100],
             paginationPageSize: paginationOptions.limit,
+        };
+
+        $scope.saveRow = function( rowEntity ) {
+            var promise = $q.defer();
+            $scope.gridApi.rowEdit.setSavePromise( rowEntity, promise.promise );
+            promise.resolve();
         };
 
         $scope.gridOptions.onRegisterApi = function( gridApi ) {
@@ -73,7 +82,10 @@ angular
                 paginationOptions.limit = pageSize;
                 $scope.load_data($scope.url);
             });
+
+            gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
         };
+
         if ( $scope.row_dbl_click ) {
             $scope.gridOptions.rowTemplate = '<div ng-dblclick="grid.appScope.row_dbl_click(row.entity)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div>';
         }
@@ -89,17 +101,14 @@ angular
             });
 
             var args = angular.merge(
+                $scope.args || {},
                 paginationOptions,
                 {
                     filter: angular.toJson( filteringData ),
                 },
             );
 
-            var str_args = Object.keys(args).map(function(key) {
-                return key + '=' + args[key];
-            }).join('&');
-
-            shm_request('GET','/'+url+'?'+str_args).then(function(response) {
+            shm_request('GET', url, args).then(function(response) {
                 var largeLoad = response.data.data;
 
                 if ( $scope.columnDefs ) {
@@ -157,7 +166,7 @@ angular
                         $scope.setPagingData(data, page, pageSize);
                     });*/
                 } else {
-                     shm_request('GET','/'+url).then(function(response) {
+                     shm_request('GET', url).then(function(response) {
                          var largeLoad = response.data;
                          $scope.setPagingData(largeLoad, page, pageSize);
                      });
@@ -182,7 +191,7 @@ angular
     .directive('shmTable', function() {
         return {
             controller: 'ShmTableController',
-            template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-move-columns ui-grid-pinning ui-grid-pagination></div>',
+            template: '<div style="height: 512px;" ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-move-columns ui-grid-pinning ui-grid-pagination></div>',
         }
     });
 

@@ -8,7 +8,6 @@ angular
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title || 'Редактирование услуги';
                 $scope.data = angular.copy(row);
-                $scope.data.children = [];
                 $scope.data.deleted = 0;
                 var url = 'v1/admin/service';
 
@@ -31,12 +30,6 @@ angular
                 };
 
                 $scope.save = function () {
-                    var children = [];
-                    for ( var item in $scope.data.children ) {
-                        children.push(  $scope.data.children[item].service_id );
-                    }
-                    $scope.data.children = children;
-
                     shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data ).then(function(response) {
                         $modalInstance.close( response.data.data[0] );
                     });
@@ -48,16 +41,16 @@ angular
                     })
                 };
 
-                $scope.editSubServices = function(service_id,children) {
+
+                $scope.editSubServices = function(service_id) {
                     shm.list_choises({
                         title: 'Управление дочерними услугами',
                         list_caption_field: 'name',
                         label_from: 'Услуги',
-                        list_from: $scope.services,
+                        services: $scope.services,
                         label_to: 'Дочерние услуги',
-                        list_to: $scope.data.children,
+                        service_id: $scope.data.service_id,
                     }).result.then(function(data){
-                        $scope.data.children = data.list_to;
                     },function(cancel) {
                     });
                 };

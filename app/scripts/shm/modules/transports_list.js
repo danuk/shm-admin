@@ -15,6 +15,7 @@ angular.module('shm_transports_list', [
             });
 
             var data = [
+                'http',
                 'ssh',
                 'mail',
                 'telegram',

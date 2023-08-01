@@ -50,6 +50,11 @@ angular
                 $scope.row = row; // follow scope status
                 $scope.data = angular.copy(row); // isolate data
 
+                // Load all services
+                shm_request('GET', 'v1/admin/service', { limit: 0 } ).then(function(response) {
+                    $scope.services = response.data.data;
+                });
+
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };

@@ -33,6 +33,10 @@ angular
             label: 'Платежи',
             url: '#!/pays',
           },
+          {
+            label: 'Бонусы',
+            url: '#!/bonuses',
+          },
       ]
     },
     {

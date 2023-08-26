@@ -22,7 +22,7 @@ angular.module('shm_users_select', [
                 request = request + '?' + key_field + '=' + $scope.id;
             }
 
-            shm_request('GET', request, { limit: 1000, filter: '{"block":0}' }).then(function(response) {
+            shm_request('GET', request, { limit: 0, filter: '{"block":0}' }).then(function(response) {
                 var data = response.data.data;
                 if (!data) return;
                 $scope.items = data;

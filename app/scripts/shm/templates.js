@@ -60,6 +60,7 @@ angular
                                     user_id: $scope.data.user_id,
                                     usi: $scope.data.usi,
                                     dry_run: 1,
+                                    format: 'default',
                                 };
                                 shm_request( 'GET', 'v1/template/'+ template_id, args ).then(function(response) {
                                     $scope.data.render = response.data.data[0];

@@ -4,13 +4,13 @@ angular
       'shm_services',
   ])
   .service('shm_user_services', [ '$q', '$modal', 'shm_request', 'shm_spool', 'shm_services', function( $q, $modal, shm_request, shm_spool, shm_services ) {
-    this.add = function(data) {
+    this.add = function(scope) {
         return $modal.open({
             templateUrl: 'views/user_service_add.html',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = 'Создание услуги пользователя';
                 $scope.data = {
-                    user_id: "-1",
+                    user_id: scope.user.user_id || "-1",
                 };
                 $scope.service = {
                     service_id: "-1",
@@ -186,7 +186,7 @@ angular
     };
 
     $scope.add = function() {
-        shm_user_services.add().result.then(function(row) {
+        shm_user_services.add($scope).result.then(function(row) {
             row.$$treeLevel = 0;
             $scope.gridOptions.data.push( row );
         }, function(resp) {

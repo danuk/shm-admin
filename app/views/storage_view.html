@@ -1,0 +1,35 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Пользователь</label>
+            <div class="col-sm-9">
+                <users-list id="data.user_id" readonly></users-list>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Название</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" readonly="readonly" ng-model="data.name">
+            </div>
+        </div>
+        <div class="form-group" ng-show="data.settings.json">
+            <label class="col-sm-2 control-label">Данные</label>
+            <div class="col-sm-9">
+                <angular-jsoneditor ng-model="data.data" style="width: 100%;"></angular-jsoneditor>
+            </div>
+        </div>
+        <div class="form-group" ng-show="!data.settings.json">
+            <label class="col-sm-2 control-label">Данные</label>
+            <div class="col-sm-9">
+                <textarea rows=10 class="form-control" readonly="readonly" ng-model="data.data"></textarea>
+            </div>
+        </div>
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="close()">Close</button>
+    </div>
+</form>

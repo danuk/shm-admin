@@ -29,6 +29,7 @@ angular
     'shm_withdraws',
     'shm_pays',
     'shm_bonuses',
+    'shm_storage',
   ])
   .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';

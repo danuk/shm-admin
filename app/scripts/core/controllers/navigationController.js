@@ -37,6 +37,10 @@ angular
             label: 'Бонусы',
             url: '#!/bonuses',
           },
+          {
+            label: 'Хранилище',
+            url: '#!/storage',
+          },
       ]
     },
     {

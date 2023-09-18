@@ -10,7 +10,9 @@ angular
                 $scope.data = {
                     title: 'Пользовательская задача',
                     mode: 'selected_user',
-                    user_id: scope.user.user_id,
+                    settings: {
+                        user_id: scope.user.user_id,
+                    },
                 };
 
                 $scope.$watch( 'data.mode', function(newValue, oldValue) {

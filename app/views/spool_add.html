@@ -1,0 +1,61 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Название</label>
+            <div class="col-sm-8">
+                <input type="text" ng-model="data.title" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Выполнить для</label>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="data.mode" required>
+                    <option value="selected_user">Указанного пользователя</option>
+                    <option value="all_users">Всех пользователей</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" ng-if="data.mode=='selected_user'">
+            <label class="col-sm-2 control-label">Пользователь</label>
+            <div class="col-sm-8">
+                <users-list id="data.settings.user_id"></users-list>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Группа серверов</label>
+            <div class="col-sm-8">
+                <servers-groups-list id="data.server_gid" data="data.server"></servers-groups-list>
+            </div>
+            <div class="col-sm-2">
+                <servers-groups-list-add></servers-groups-list-add>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Шаблон</label>
+            <div class="col-sm-8">
+                <templates-list id="data.settings.template_id"></templates-list>
+            </div>
+            <div class="col-sm-2">
+                <templates-list-add></templates-list-add>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Settings</label>
+            <div class="col-sm-8">
+                <input type="text" value="{{ data.settings }}" readonly="readonly" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <json-editor data="data.settings"></json-editor>
+            </div>
+        </div>
+
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="create()">Создать</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

@@ -2,6 +2,58 @@ angular
   .module('shm_spool', [
   ])
   .service('shm_spool', [ '$q', '$modal', 'shm_request', 'shm_console', function( $q, $modal, shm_request, shm_console ) {
+    this.add = function(scope) {
+        return $modal.open({
+            templateUrl: 'views/spool_add.html',
+            controller: function ($scope, $modalInstance, $modal) {
+                $scope.title = 'Создание задачи';
+                $scope.data = {
+                    title: 'Пользовательская задача',
+                    mode: 'selected_user',
+                    user_id: scope.user.user_id,
+                };
+
+                $scope.$watch( 'data.mode', function(newValue, oldValue) {
+                    if ( newValue != 'selected_user' ) {
+                        delete $scope.data.settings.user_id;
+                    }
+                });
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.create = function () {
+                    if ( !$scope.data.server_gid ) {
+                        alert("Ошибка! Группа <AUTO> не поддерживается на данный момент");
+                        return;
+                    }
+
+                    var args = {
+                        'event': {
+                            kind: 'Jobs',
+                            method: 'job_users',
+                            title: $scope.data.title,
+                            //period: $scope.data.period || 0,
+                            server_gid: $scope.data.server_gid,
+                        },
+                        settings: $scope.data.settings,
+                    };
+
+                    shm_request('PUT_JSON', 'v1/admin/spool', args ).then(function(response) {
+                        angular.extend( $scope.data, response.data.data[0] );
+                        $modalInstance.close( response.data.data[0] );
+                    });
+                };
+
+                $scope.delete = function () {
+                    $modalInstance.dismiss('delete');
+                };
+            },
+            size: 'lg',
+        });
+    };
+
     this.edit = function(row) {
         return $modal.open({
             templateUrl: 'views/spool_view.html',
@@ -95,6 +147,14 @@ angular
         },
         {field: 'response'},
     ];
+
+    $scope.add = function() {
+        shm_spool.add($scope).result.then(function(row) {
+            row.$$treeLevel = 0;
+            $scope.gridOptions.data.push( row );
+        }, function(cancel) {
+        });
+    };
 
     $scope.row_dbl_click = function(row) {
         shm_spool.edit(row).result.then(function(data) {

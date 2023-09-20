@@ -1,0 +1,40 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Пользователь</label>
+            <div class="col-sm-9">
+                <users-list id="data.user_id" readonly></users-list>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Дата</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" readonly="readonly" ng-model="data.date">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Сумма</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" readonly="readonly" ng-model="data.money">
+            </div>
+            <div class="col-sm-1"></div>
+            <label class="col-sm-2 control-label">Платежная система</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" ng-model="data.pay_system_id" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Комментарий</label>
+            <div class="col-sm-9">
+                <angular-jsoneditor ng-model="data.comment" style="width: 100%;"></angular-jsoneditor>
+            </div>
+        </div>
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="close()">Close</button>
+    </div>
+</form>

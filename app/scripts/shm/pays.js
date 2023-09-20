@@ -2,6 +2,21 @@ angular
   .module('shm_pays', [
   ])
   .service('shm_pays', [ '$q', '$modal', 'shm_request', function( $q, $modal, shm_request ) {
+    this.show = function (row) {
+        return $modal.open({
+            templateUrl: 'views/pay_view.html',
+            controller: function ($scope, $modalInstance, $modal) {
+                $scope.title = 'Просмотр платежа';
+                $scope.data = angular.copy(row);
+
+                $scope.close = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            },
+            size: 'lg',
+        });
+    };
+
     this.make_pay = function (title, row, size) {
         return $modal.open({
             templateUrl: 'views/make_pay.html',
@@ -82,6 +97,12 @@ angular
         }, function(cancel) {
         });
     };
+
+    $scope.row_dbl_click = function(row) {
+        shm_pays.show(row).result.then(function(data){
+        }, function(resp) {
+        });
+    }
 
   }]);
 

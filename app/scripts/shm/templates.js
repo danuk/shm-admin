@@ -16,7 +16,7 @@ angular
         return deferred.promise;
     };
 
-    this.edit = function(title, row) {
+    this.edit = function(title, row, scope) {
         return $modal.open({
             templateUrl: 'views/template_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
@@ -50,6 +50,7 @@ angular
                         templateUrl: 'views/template_test.html',
                         controller: function ($scope, $modalInstance, $modal) {
                             $scope.data = angular.copy(row);
+                            $scope.data.user_id = scope.user.user_id || "1";
 
                             $scope.close = function () {
                                 $modalInstance.dismiss('close');
@@ -75,7 +76,7 @@ angular
     };
 
   }])
-  .controller('ShmTemplatesController', ['$scope', 'shm_templates', function($scope, shm_templates) {
+  .controller('ShmTemplatesController', ['$scope', 'shm_templates', 'shm_request', function($scope, shm_templates, shm_request) {
     'use strict';
 
     var url = 'v1/admin/template';
@@ -98,7 +99,7 @@ angular
     };
 
     $scope.row_dbl_click = function(row) {
-        shm_templates.edit('Редактирование шаблона',row).result.then(function(data){
+        shm_templates.edit('Редактирование шаблона',row, $scope).result.then(function(data){
             shm_request('POST_JSON', url, data ).then(function(response) {
                 angular.extend( row, response.data.data[0] );
                 delete row.$$treeLevel;

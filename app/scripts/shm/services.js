@@ -82,7 +82,7 @@ angular
     $scope.add = function() {
         var row = {
             next: null,
-            period_cost: 1,
+            period: 1,
             cost: 0,
         };
 

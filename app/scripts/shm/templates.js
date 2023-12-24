@@ -51,6 +51,7 @@ angular
                         controller: function ($scope, $modalInstance, $modal) {
                             $scope.data = angular.copy(row);
                             $scope.data.user_id = scope.user.user_id || "1";
+                            $scope.data.dry_run = 1;
 
                             $scope.close = function () {
                                 $modalInstance.dismiss('close');
@@ -60,7 +61,7 @@ angular
                                 var args = {
                                     user_id: $scope.data.user_id,
                                     usi: $scope.data.usi,
-                                    dry_run: 1,
+                                    dry_run: $scope.data.dry_run + 0,
                                     format: 'default',
                                 };
                                 shm_request( 'GET', 'v1/template/'+ template_id, args ).then(function(response) {

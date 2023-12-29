@@ -11,6 +11,9 @@ angular.module('shm_services_select', [
             $scope.readonly = 'readonly' in $attrs;
 
             var request = 'v1/admin/service';
+            var args = {
+                limit: 0,
+            };
             var key_field = 'service_id';
 
             $scope.$watch('data', function(newValue, oldValue){
@@ -19,10 +22,10 @@ angular.module('shm_services_select', [
             });
 
             if ( $scope.readonly ) {
-                request = request + '?' + key_field + '=' + $scope.id;
+                args[key_field] = $scope.id;
             }
 
-            shm_request('GET', request).then(function(response) {
+            shm_request('GET', request, args).then(function(response) {
                 var rows = response.data.data;
                 if (!rows) return;
                 $scope.items = rows;

@@ -14,6 +14,9 @@ angular.module('shm_templates_select', [
             $scope.readonly = 'readonly' in $attrs;
 
             var request = 'v1/admin/template';
+            var args = {
+                limit: 0,
+            };
             var key_field = 'id';
 
             $scope.$watch('data', function(newValue, oldValue){
@@ -22,10 +25,10 @@ angular.module('shm_templates_select', [
             });
 
             if ( $scope.readonly ) {
-                request = request + '?id=' + $scope.id;
+                args[key_field] = $scope.id;
             }
 
-            shm_request('GET', request).then(function(response) {
+            shm_request('GET', request, args).then(function(response) {
                 var data = response.data.data;
 
                 if (!data) return;

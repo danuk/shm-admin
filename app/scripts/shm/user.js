@@ -32,6 +32,18 @@ angular
         }
     }
 
+    $scope.delete = function () {
+        var str = prompt("Type 'delete' to confirm delete user:");
+        if ( str == 'delete' ) {
+            var data = {
+                user_id: $scope.user.user_id,
+            };
+            shm_request('DELETE','/v1/admin/user', data ).then(function() {
+                $location.path('/users');
+            })
+        }
+    }
+
     $scope.cli_login = function () {
         shm_request('GET','/v1/admin/config/cli' ).then(function(response) {
             var url = response.data.data[0].url;

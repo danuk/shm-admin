@@ -44,7 +44,7 @@ angular
                 }
             ],
             useExternalPagination: true,
-            paginationPageSizes: [25, 50, 100],
+            paginationPageSizes: [50, 100, 200, 500],
             paginationPageSize: paginationOptions.limit,
         };
 

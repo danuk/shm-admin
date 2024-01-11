@@ -17,7 +17,7 @@ angular
 
         var paginationOptions = {
             offset: 0,
-            limit: 25,
+            limit: 50,
         };
 
         var filteringData = {};

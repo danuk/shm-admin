@@ -25,7 +25,7 @@ angular
   .controller('ShmStorageController', ['$scope', '$modal', 'shm', 'shm_request','shm_storage', function($scope, $modal, shm, shm_request, shm_storage ) {
     'use strict';
 
-    var url = 'v1/storage/manage';
+    var url = 'v1/admin/storage/manage';
     $scope.url = url;
 
     $scope.columnDefs = [

@@ -114,8 +114,8 @@ angular
 
         $scope.load_data = function(url) {
             angular.forEach( $scope.columnDefs, function( col ) {
-                if ( col.filter && col.filter.term!=null ) {
-                    filteringData[col.field] = col.filter.term;
+                if ( col.filter && col.filter.term ) {
+                    filteringData[col.field] = '%'+ col.filter.term +'%';
                 }
             });
 

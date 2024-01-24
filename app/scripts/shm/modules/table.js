@@ -95,8 +95,8 @@ angular
             var filteringData = {};
             if ( $scope.defaultFilter ) { filteringData = angular.copy( $scope.defaultFilter ); $scope.defaultFilter = {} };
             angular.forEach( $scope.columnDefs, function( col ) {
-                if ( col.filter && col.filter.term!=null ) {
-                    filteringData[col.field] = col.filter.term;
+                if ( col.filter && col.filter.term ) {
+                    filteringData[col.field] = '%'+ col.filter.term +'%';
                 }
             });
 

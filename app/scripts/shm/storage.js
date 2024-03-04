@@ -31,6 +31,7 @@ angular
     $scope.columnDefs = [
         {
             field: 'user_id',
+            displayName: "UID",
             filter: { term: $scope.user.user_id },
             width: 80,
         },

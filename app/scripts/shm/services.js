@@ -69,6 +69,7 @@ angular
     $scope.columnDefs = [
         {
             field: 'service_id',
+            displayName: 'SI',
             width: 100,
         },
         {

@@ -10,7 +10,7 @@ angular
     $scope.columnDefs = [
         {
             field: 'user_id',
-            displayName: 'ID',
+            displayName: 'UID',
             filter: {},
         },
         {

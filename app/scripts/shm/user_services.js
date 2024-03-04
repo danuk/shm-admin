@@ -137,6 +137,7 @@ angular
     $scope.columnDefs = [
         {
             field: 'user_service_id',
+            displayName: 'USI',
             width: 120,
             filter: {},
         },

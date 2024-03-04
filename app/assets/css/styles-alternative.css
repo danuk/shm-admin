@@ -20858,7 +20858,7 @@ body.topnav-collapsed header.navbar.navbar-default .navbar-collapse .open .tt-dr
 /*!
  * Yamm!3
  * Yet another megamenu for Bootstrap 3
- * 
+ *
  * http://geedmo.github.com/yamm3
  */
 .yamm .nav,
@@ -21684,7 +21684,7 @@ body.error .error-wrapper h1 {
 }
 @media (max-width: 767px) {
   #topnav .navbar-brand {
-    width: 68px;
+    width: 110px;
   }
 }
 #topnav.navbar-default .navbar-brand,

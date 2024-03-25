@@ -122,7 +122,7 @@ angular
                 };
 
                 $scope.edit_service = function() {
-                    shm_services.edit( $scope.data.service ).result.then(function(data){
+                    shm_services.edit( $scope.data.services ).result.then(function(data){
                         angular.extend( $scope.data.service, data );
                     }, function(resp) {
                     });

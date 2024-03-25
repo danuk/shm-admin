@@ -3,7 +3,7 @@ angular
       'shm_spool',
       'shm_services',
   ])
-  .service('shm_user_services', [ '$q', '$modal', 'shm_request', 'shm_spool', 'shm_services', function( $q, $modal, shm_request, shm_spool, shm_services ) {
+  .service('shm_user_services', [ '$q', '$modal', '$location', 'shm_request', 'shm_spool', 'shm_services', function( $q, $modal, $location, shm_request, shm_spool, shm_services ) {
     this.add = function(scope) {
         return $modal.open({
             templateUrl: 'views/user_service_add.html',
@@ -42,7 +42,7 @@ angular
         });
     };
 
-    this.editor = function (title, row, size) {
+    this.editor = function (title, row, size, $root_scope) {
         return $modal.open({
             templateUrl: 'views/user_service_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
@@ -113,6 +113,12 @@ angular
                             update_status(data);
                         }
                     })
+                };
+
+                $scope.show_user = function(user) {
+                    angular.extend( $root_scope.user, user );
+                    $location.path('/user');
+                    $modalInstance.dismiss('cancel');
                 };
 
                 $scope.edit_service = function() {
@@ -195,7 +201,7 @@ angular
     }
 
     $scope.row_dbl_click = function(row) {
-        shm_user_services.editor('Редактирование услуги пользователя', row, 'lg').result.then(function(data){
+        shm_user_services.editor('Редактирование услуги пользователя', row, 'lg', $scope).result.then(function(data){
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {

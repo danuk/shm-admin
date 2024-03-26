@@ -1,7 +1,52 @@
 angular
   .module('shm_withdraws', [
+      'shm_services',
   ])
-  .controller('ShmWithdrawsController', ['$scope', '$modal', 'shm', 'shm_request', function($scope, $modal, shm, shm_request) {
+  .service('shm_withdraws', [ '$q', '$modal', 'shm_request', 'shm_services', function( $q, $modal, shm_request, shm_services ) {
+    this.edit = function (row) {
+        return $modal.open({
+            templateUrl: 'views/withdraw_edit.html',
+            controller: function ($scope, $modalInstance, $modal) {
+                $scope.title = 'Редактирование списания';
+                $scope.data = row;
+                $scope.wd = angular.copy( row );
+
+                $scope.$watch('wd', function(newValue, oldValue){
+                    if (
+                        newValue.cost != oldValue.cost ||
+                        newValue.bonus != oldValue.bonus ||
+                        newValue.months != oldValue.months ||
+                        newValue.qnt != oldValue.qnt ||
+                        newValue.discount != oldValue.discount
+                    ) {
+                        $scope.wd["dry_run"] = 1;
+                        shm_request('POST_JSON', 'v1/admin/user/service/withdraw', $scope.wd ).then(function(response) {
+                            var data = response.data.data[0];
+                            $scope.wd.total = data.total;
+                            $scope.wd.end_date = data.end_date;
+                        })
+                    }
+
+                }, true);
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.save = function () {
+                    $scope.wd["dry_run"] = 0;
+                    shm_request('POST_JSON', 'v1/admin/user/service/withdraw', $scope.wd ).then(function(response) {
+                        $modalInstance.close( response.data.data[0] );
+                    })
+                };
+
+            },
+            size: 'lg',
+        });
+    }
+
+  }])
+  .controller('ShmWithdrawsController', ['$scope', '$modal', 'shm', 'shm_request', 'shm_withdraws', function($scope, $modal, shm, shm_request, shm_withdraws) {
     'use strict';
 
     var url = 'v1/admin/user/service/withdraw';
@@ -20,54 +65,12 @@ angular
         {field: 'total', displayName: "Итого"},
     ];
 
-    $scope.service_editor = function (title, row, size) {
-        return $modal.open({
-            templateUrl: 'views/withdraw_edit.html',
-            controller: function ($scope, $modalInstance, $modal) {
-                $scope.title = title;
-                $scope.data = angular.copy(row);
-
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel');
-                };
-
-                $scope.save = function () {
-                    $modalInstance.close( $scope.data );
-                };
-
-                $scope.delete = function () {
-                    $modalInstance.dismiss('delete');
-                };
-
-            },
-            size: size,
+    $scope.row_dbl_click = function(row) {
+        shm_withdraws.edit(row).result.then(function(data){
+            angular.extend( row, data );
+        }, function(resp) {
         });
     }
-
-    var save_service = function( row, save_data ) {
-        delete save_data.$$treeLevel;
-        shm_request('POST_JSON', url, save_data ).then(function(response) {
-            var new_data = response.data.data[0];
-
-            angular.extend( row, new_data );
-        });
-    };
-
-    $scope.add = function() {
-        var row = {
-            next: null,
-        };
-
-        $scope.service_editor('Создание', row, 'lg').result.then(function(data){
-            shm_request('PUT_JSON', url, data ).then(function(response) {
-                var row = response.data.data[0];
-
-                row.$$treeLevel = 0;
-                $scope.gridOptions.data.push( row );
-            });
-        }, function(cancel) {
-        });
-    };
 
   }]);
 

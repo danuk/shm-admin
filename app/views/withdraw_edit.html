@@ -1,0 +1,78 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Пользователь</label>
+            <div class="col-sm-8">
+                <users-list id="wd.user_id" data="wd.user" readonly></users-list>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Услуга</label>
+            <div class="col-sm-8">
+                <services-list id="wd.service_id" data="wd.service" readonly></services-list>
+            </div>
+            <div class="col-sm-2">
+                <a ng-click="edit_service()" class="btn btn-default"><i class="ti ti-info"></i></a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Цена</label>
+            <div class="col-sm-3">
+                <input type="number" title="{{ data.cost }}" step="0.01" min="0" ng-model="wd.cost" class="form-control" required>
+            </div>
+            <label class="col-sm-2 control-label">Кол-во</label>
+            <div class="col-sm-3">
+                <input type="number" title="{{ data.qnt }}" step="1" min="1" ng-model="wd.qnt" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Бонусы</label>
+            <div class="col-sm-3">
+                <input type="number" title="{{ data.bonus }} / {{ wd.user.bonus }}" step="0.01" min="0" max="{{ wd.user.bonus || data.bonus }}" ng-model="wd.bonus" class="form-control" required ng-disabled="wd.user.bonus + data.bonus == 0">
+            </div>
+            <label class="col-sm-2 control-label">Скидка (%)</label>
+            <div class="col-sm-3">
+                <input type="number" title="{{ data.discount }}" step="1" min="0" max="100" ng-model="wd.discount" class="form-control" required ng-disabled="wd.service.no_discount">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Период</label>
+            <div class="col-sm-3">
+                <input type="number" title="{{ data.months }}" step="0.0001" min="0.0001" max="12" ng-model="wd.months" class="form-control" required>
+            </div>
+            <div class="col-sm-6">
+                <div style="float:left;">
+                    <label class="control-label">M.DDHH (M - месяцы, DD - дни, HH - часы)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Итого</label>
+            <div class="col-sm-3">
+                <input type="text" title="{{ data.total }}" ng-model="wd.total" class="form-control" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Дата списания</label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="wd.withdraw_date" class="form-control" readonly="readonly">
+            </div>
+            <label class="col-sm-2 control-label">Дата окончания</label>
+            <div class="col-sm-3">
+                <input type="text" title="{{ data.end_date }}" ng-model="wd.end_date" class="form-control" readonly="readonly">
+            </div>
+        </div>
+
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-danger pull-left" ng-show="!wd.withdraw_date" ng-click="delete()">Delete</button>
+    </div>
+</form>

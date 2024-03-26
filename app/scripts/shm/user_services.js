@@ -2,8 +2,9 @@ angular
   .module('shm_user_services', [
       'shm_spool',
       'shm_services',
+      'shm_withdraws',
   ])
-  .service('shm_user_services', [ '$q', '$modal', '$location', 'shm_request', 'shm_spool', 'shm_services', function( $q, $modal, $location, shm_request, shm_spool, shm_services ) {
+  .service('shm_user_services', [ '$q', '$modal', '$location', 'shm_request', 'shm_spool', 'shm_services', 'shm_withdraws', function( $q, $modal, $location, shm_request, shm_spool, shm_services, shm_withdraws ) {
     this.add = function(scope) {
         return $modal.open({
             templateUrl: 'views/user_service_add.html',
@@ -126,7 +127,14 @@ angular
                         angular.extend( $scope.data.service, data );
                     }, function(resp) {
                     });
-                }
+                };
+
+                $scope.show_withdraw = function(wd) {
+                    shm_withdraws.edit( wd ).result.then(function(data){
+                        angular.extend( $scope.data.withdraws, data );
+                    }, function(resp) {
+                    });
+                };
             },
             size: size,
         });
@@ -181,7 +189,7 @@ angular
                 };
             },
         },
-        {field: 'expire'},
+        {field: 'withdraws.end_date', displayName: 'Expire'},
         {field: 'withdraws.total', displayName: 'Стоимость'},
     ];
 

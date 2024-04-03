@@ -43,11 +43,11 @@ angular
         });
     };
 
-    this.editor = function (title, row, size, $root_scope) {
+    this.editor = function (row, $root_scope) {
         return $modal.open({
             templateUrl: 'views/user_service_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
-                $scope.title = title;
+                $scope.title = 'Редактирование услуги пользователя';
                 $scope.row = row; // follow scope status
                 $scope.data = angular.copy(row); // isolate data
 
@@ -136,7 +136,7 @@ angular
                     });
                 };
             },
-            size: size,
+            size: 'lg',
         });
     }
   }])
@@ -189,7 +189,7 @@ angular
                 };
             },
         },
-        {field: 'withdraws.end_date', displayName: 'Expire'},
+        {field: 'withdraws.end_date', displayName: 'Истекает'},
         {field: 'withdraws.total', displayName: 'Стоимость'},
     ];
 
@@ -209,7 +209,7 @@ angular
     }
 
     $scope.row_dbl_click = function(row) {
-        shm_user_services.editor('Редактирование услуги пользователя', row, 'lg', $scope).result.then(function(data){
+        shm_user_services.editor(row, $scope).result.then(function(data){
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {

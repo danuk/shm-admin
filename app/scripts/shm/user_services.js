@@ -132,6 +132,7 @@ angular
                 $scope.show_withdraw = function(wd) {
                     shm_withdraws.edit( wd ).result.then(function(data){
                         angular.extend( $scope.data.withdraws, data );
+                        if ( data.end_date ) $scope.data.expire = data.end_date;
                     }, function(resp) {
                     });
                 };
@@ -189,7 +190,7 @@ angular
                 };
             },
         },
-        {field: 'withdraws.end_date', displayName: 'Истекает'},
+        {field: 'expire', displayName: 'Истекает'},
         {field: 'withdraws.total', displayName: 'Стоимость'},
     ];
 

@@ -13,6 +13,16 @@ angular
                     $scope.data.data = response.data;
                 });
 
+                $scope.save = function () {
+                    $modalInstance.close( $scope.data );
+                };
+
+                $scope.delete = function () {
+                    if ( confirm('Удалить запись?') ) {
+                        $modalInstance.dismiss('delete');
+                    }
+                };
+
                 $scope.close = function () {
                     $modalInstance.dismiss('cancel');
                 };
@@ -50,11 +60,17 @@ angular
             save_service( row, data );
         }, function(resp) {
             if ( resp === 'delete' ) {
+                shm_request('DELETE', url + '/' + row.name, { user_id: row.user_id } ).then(function(response) {
+                    $scope.gridOptions.data.splice($scope.gridOptions.data.indexOf( row ), 1);
+                })
             }
         });
     }
 
     var save_service = function( row, save_data ) {
+        shm_request('POST_JSON', url + '/' + row.name, { data: save_data.data, user_id: row.user_id } ).then(function(response) {
+            angular.extend( row, response.data.data[0] );
+        });
         delete save_data.$$treeLevel;
     };
 

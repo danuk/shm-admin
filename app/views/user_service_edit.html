@@ -46,7 +46,15 @@
                     </ul>
                 </div>
                 <div class="btn-group" ng-if="row.status=='ERROR'">
-                    <button ng-click="show_event(data)" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Ошибка</button>
+                    <button ng-click="show_event(data)" type="button" class="btn btn-warning btn-secondary">Ошибка</button>
+                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="set_status(data,'BLOCK')">Ручная блокировка</a></li>
+                        <li><a ng-click="set_status(data,'ACTIVE')">Ручная активация</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

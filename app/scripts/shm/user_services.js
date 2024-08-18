@@ -88,6 +88,17 @@ angular
                     });
                 };
 
+                $scope.set_status = function(data, new_status) {
+                    shm_request('POST','v1/admin/user/service/status', {
+                        user_id: data.user_id,
+                        user_service_id: data.user_service_id,
+                        status: new_status
+                    }).then(function(response) {
+                        angular.extend( row, response.data.data[0] );
+                        angular.extend( data, response.data.data[0] );
+                    });
+                };
+
                 var update_status = function(data) {
                     shm_request('GET','v1/admin/user/service', {
                         user_id: data.user_id,

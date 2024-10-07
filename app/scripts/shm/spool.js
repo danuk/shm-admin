@@ -139,8 +139,13 @@ angular
             filter: { term: $scope.user.user_id }
         },
         {
-            field: 'event.title',
+            field: 'event.name',
             displayName: 'event',
+            width: 100,
+        },
+        {
+            field: 'event.title',
+            displayName: 'title',
             width: 200,
         },
         {

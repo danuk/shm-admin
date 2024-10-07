@@ -47,17 +47,17 @@ angular
         },
         {
             field: 'user_id',
-            width: 150,
+            width: 100,
             filter: { term: $scope.user.user_id }
         },
         {
-            field: 'event.kind',
-            displayName: 'kind',
-            width: 150,
+            field: 'event.name',
+            displayName: 'event',
+            width: 100,
         },
         {
             field: 'event.title',
-            displayName: 'event',
+            displayName: 'title',
             width: 150,
         },
         {

@@ -9,6 +9,7 @@ angular
                 $scope.title = title || 'Редактирование услуги';
                 $scope.data = angular.copy(row);
                 $scope.data.deleted = 0;
+                $scope.data.once_service = ($scope.data.period == 0 && $scope.data.next == -1);
                 var url = 'v1/admin/service';
 
                 // Load all services
@@ -30,6 +31,10 @@ angular
                 };
 
                 $scope.save = function () {
+                    if ( $scope.data.once_service ) {
+                        $scope.data.period = 0;
+                        $scope.data.next = -1;
+                    };
                     shm_request( $scope.data.service_id ? 'POST_JSON' : 'PUT_JSON', url, $scope.data ).then(function(response) {
                         $modalInstance.close( response.data.data[0] );
                     });
@@ -40,7 +45,6 @@ angular
                         $modalInstance.dismiss('delete');
                     })
                 };
-
 
                 $scope.editSubServices = function(service_id) {
                     shm.list_choises({

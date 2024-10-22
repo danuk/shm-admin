@@ -24,7 +24,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Период услуги:</label>
             <div class="col-sm-2">
-                <input type="number" step="0.0001" min="0.0001" max="12" ng-model="data.period" class="form-control" required>
+                <input type="number" step="0.0001" min="0" max="12" ng-model="data.period" ng-disabled="data.once_service" class="form-control" required>
             </div>
             <div class="col-sm-6">
                 <div style="float:left;">
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Цена за период</label>
+            <label class="col-sm-2 control-label">Цена</label>
             <div class="col-sm-8">
                 <input type="number" step="0.01" min="0" ng-model="data.cost" class="form-control" required>
             </div>
@@ -41,9 +41,9 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Следующая услуга</label>
             <div class="col-sm-8">
-                <select class="form-control" ng-model="data.next">
+                <select class="form-control" ng-model="data.next" ng-disabled="data.once_service">
                     <option ng-value="null">Не изменять (продлить текущую)</option>
-                    <option ng-value="-1">Не продлевать (удалить текущую)</option>
+                    <option ng-value="-1" ng-selected="data.once_service">Не продлевать (удалить текущую)</option>
                     <option ng-value="service.service_id" ng-repeat="service in services">
                     {{ service.name }}
                     </option>
@@ -64,6 +64,11 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" toggle-int toggle-model="data.allow_to_order">Доступно к заказу
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" toggle-int toggle-model="data.once_service" ng-click="data.period==0 ? data.period=1 : data.period=0">Разовая услуга
                     </label>
                 </div>
                 <div class="checkbox">

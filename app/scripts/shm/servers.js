@@ -34,6 +34,15 @@ angular
                     $scope.data.mode = "cmd";
                 }
 
+                $scope.$watch('data.mode', function(newValue, oldValue){
+                    if (!newValue) return;
+                    if (newValue == 'template') {
+                        delete $scope.data.settings.cmd;
+                    } else {
+                        delete $scope.data.settings.template_id;
+                    }
+                });
+
                 $scope.servers_list = [];
 
                 $scope.cancel = function () {
@@ -45,12 +54,12 @@ angular
                 };
 
                 $scope.test_ssh = function() {
-                    var args = angular.merge(
-                        $scope.data.settings,
+                    var args = angular.copy( $scope.data.settings );
+                    angular.merge(
+                        args,
                         {
                             host: $scope.data.host,
-                            cmd: "uname -a; echo; w",
-                        },
+                        }
                     );
 
                     shm_request('PUT_JSON', 'v1/admin/transport/ssh/test', args ).then(function(response) {
@@ -64,12 +73,12 @@ angular
 
                 $scope.template_init = function() {
                     if (confirm("Выполнить шаблон на сервере?")) {
-                        var args = angular.merge(
-                            $scope.data.settings,
+                        var args = angular.copy( $scope.data.settings );
+                        angular.merge(
+                            args,
                             {
                                 host: $scope.data.host,
-                                server_id: $scope.data.server_id,
-                            },
+                            }
                         );
 
                         shm_request('PUT_JSON', 'v1/admin/transport/ssh/init', args ).then(function(response) {

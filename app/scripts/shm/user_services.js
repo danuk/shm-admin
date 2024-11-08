@@ -162,20 +162,20 @@ angular
 
     $scope.columnDefs = [
         {
+            field: 'user_id',
+            displayName: 'UID',
+            width: 100,
+            filter: { term: $scope.user.user_id },
+        },
+        {
             field: 'user_service_id',
             displayName: 'USI',
-            width: 120,
+            width: 100,
             filter: {},
         },
         {
             field: 'name',
-            width: 300,
             filter: {},
-        },
-        {
-            field: 'user_id',
-            width: 100,
-            filter: { term: $scope.user.user_id },
         },
         {
             field: 'status',
@@ -201,8 +201,17 @@ angular
                 };
             },
         },
-        {field: 'expire', displayName: 'Истекает'},
-        {field: 'withdraws.total', displayName: 'Стоимость'},
+        {field: 'expire', displayName: 'Истекает', width: 200},
+        {field: 'withdraws.total', displayName: 'Стоимость', width: 120},
+        {field: 'next', displayName: 'Следующая', width: 130},
+        {
+            field: 'settings',
+            displayName: 'Settings',
+            visible: false,
+            filter: {
+                condition: function() { return true },
+            },
+        },
     ];
 
     var save_service = function( row, save_data ) {

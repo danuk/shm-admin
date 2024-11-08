@@ -46,6 +46,7 @@ angular
         },
         {
             field: 'user_id',
+            displayName: 'UID',
             width: 100,
         },
         {

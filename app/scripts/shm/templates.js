@@ -4,10 +4,10 @@ angular
   .service('shm_templates', ['$q', '$modal', 'shm', 'shm_request', function($q, $modal, shm, shm_request) {
     var url = 'v1/admin/template';
 
-    this.add = function() {
+    this.add = function($scope) {
         var deferred = $q.defer();
 
-        this.edit('Создание шаблона', {}, 'lg').result.then(function(new_data){
+        this.edit('Создание шаблона', {}, $scope).result.then(function(new_data){
             deferred.resolve(new_data);
         }, function(cancel) {
             deferred.reject();
@@ -96,7 +96,7 @@ angular
     ];
 
     $scope.add = function() {
-        shm_templates.add().then(function(data) {
+        shm_templates.add($scope).then(function(data) {
             data.$$treeLevel = 0;
             $scope.gridOptions.data.push( data );
         }, function(cancel) {

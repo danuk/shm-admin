@@ -87,7 +87,11 @@ angular
     $scope.columnDefs = [
         {
             field: 'id',
-            width: "100%",
+            width: "50%",
+        },
+        {
+            field: 'settings',
+            width: "50%",
         },
     ];
 

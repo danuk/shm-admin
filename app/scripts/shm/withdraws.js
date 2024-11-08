@@ -56,13 +56,24 @@ angular
         {
             field: 'user_id',
             displayName: "UID",
-            width: 80,
+            width: 65,
             filter: { term: $scope.user.user_id },
         },
-        {field: 'name', displayName: "Услуга"},
-        {field: 'create_date', displayName: "Дата создания"},
-        {field: 'withdraw_date', displayName: "Дата списания"},
-        {field: 'total', displayName: "Итого"},
+        {
+            field: 'service_id',
+            displayName: "USI",
+            width: 65,
+        },
+        {
+            field: 'name',
+            displayName: "Услуга",
+        },
+        {field: 'withdraw_date', displayName: "Оплачена",width: 140},
+        {field: 'cost', displayName: "Цена", width: 90},
+        {field: 'qnt', displayName: "Кол-во", width: 90},
+        {field: 'bonus', displayName: "Бонусы", width: 90},
+        {field: 'discount', displayName: "Скидка", width: 90},
+        {field: 'total', displayName: "Итого", width: 90},
     ];
 
     $scope.row_dbl_click = function(row) {

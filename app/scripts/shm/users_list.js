@@ -11,11 +11,13 @@ angular
         {
             field: 'user_id',
             displayName: 'UID',
+            width: 65,
             filter: {},
         },
         {
             field: 'login',
             displayName: 'Логин',
+            width: 150,
             filter: {},
         },
         {
@@ -26,7 +28,22 @@ angular
         {
             field: 'balance',
             displayName: 'Баланс',
+            width: 100,
             filter: {},
+        },
+        {
+            field: 'bonus',
+            displayName: 'Бонусы',
+            width: 100,
+            filter: {},
+        },
+        {
+            field: 'settings',
+            displayName: 'Settings',
+            width: 300,
+            filter: {
+                condition: function() { return true },
+            },
         },
     ];
 

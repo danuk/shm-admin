@@ -1,7 +1,7 @@
 angular
   .module('shm_storage', [
   ])
-  .service('shm_storage', [ '$q', '$modal', 'shm_request', function( $q, $modal, shm_request ) {
+  .service('shm_storage', [ '$q', '$modal', '$window', 'shm_request', function( $q, $modal, $window, shm_request ) {
     this.editor = function (title, row, size) {
         return $modal.open({
             templateUrl: 'views/storage_view.html',
@@ -27,6 +27,9 @@ angular
                     $modalInstance.dismiss('cancel');
                 };
 
+                $scope.download = function () {
+                    $window.open('shm/v1/storage/manage/' + row.name + '?format=other&user_id=' + row.user_id, '_blank');
+                }
             },
             size: size,
         });

@@ -24,13 +24,14 @@
         <div class="form-group" ng-show="!data.settings.json">
             <label class="col-sm-2 control-label">Данные</label>
             <div class="col-sm-9">
-                <textarea rows=10 class="form-control" ng-model="data.data"></textarea>
+                <textarea rows=10 class="form-control" ng-model="data.data" readonly="readonly"></textarea>
             </div>
         </div>
     </div> <!-- modal-body -->
 
     <div class="modal-footer">
         <button class="btn btn-primary" ng-disabled="!data.settings.json" ng-click="save()">Save</button>
+        <button class="btn btn-primary" ng-click="download()">Скачать</button>
         <button class="btn btn-warning" ng-click="close()">Close</button>
         <button class="btn btn-danger pull-left" ng-click="delete()">Delete</button>
     </div>

@@ -41,6 +41,10 @@ angular
             label: 'Хранилище',
             url: '#!/storage',
           },
+          {
+            label: 'Промокоды',
+            url: '#!/promo',
+          },
       ]
     },
     {

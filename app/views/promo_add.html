@@ -1,0 +1,48 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Количество</label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="data.count" class="form-control">
+            </div>
+
+            <label class="col-sm-2 control-label">Длина</label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="data.length" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Префикс</label>
+            <div class="col-sm-3">
+                <input type="text" ng-model="data.prefix" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Шаблон</label>
+            <div class="col-sm-8">
+                <templates-list id="data.settings.template_id" required></templates-list >
+            </div>
+            <div class="col-sm-2">
+                <templates-list-add></templates-list-add>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Settings</label>
+            <div class="col-sm-8">
+                <input type="text" value="{{ data.settings }}" readonly="readonly" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <json-editor data="data.settings"></json-editor>
+            </div>
+        </div>
+
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="generate()">Save</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

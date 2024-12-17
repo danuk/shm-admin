@@ -5,7 +5,7 @@
 >
 <head>
   <meta charset="utf-8">
-  <title>SHM Admin</title>
+  <title>{{ title }}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="SHM Admin">
@@ -109,7 +109,7 @@
                 </a>
             </span>
 
-            <a class="navbar-brand" href="#/">SHM Admin</a>
+            <a class="navbar-brand" href="#/">{{ title }}</a>
         </div>
 
         <div class="yamm navbar-left navbar-collapse collapse in">
@@ -355,6 +355,7 @@
     <!-- endbuild -->
 
       <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/shm/env.js"></script>
     <script src="scripts/core/controllers/mainController.js"></script>
     <script src="scripts/core/controllers/signupPage.js"></script>
     <script src="scripts/core/controllers/navigationController.js"></script>

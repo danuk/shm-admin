@@ -1,4 +1,5 @@
 angular.module('theme.core.main_controller', ['theme.core.services','ngCookies'])
+  .constant('ENV', window.env || { NAME: 'SHM Admin' })
   .controller('MainController', [
     '$rootScope',
     '$scope',
@@ -10,7 +11,8 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
     '$route',
     '$cookies',
     'shm_request',
-    function($rootScope, $scope, $theme, $timeout, progressLoader, wijetsService, $location, $route, $cookies, shm_request ) {
+    'ENV',
+    function($rootScope, $scope, $theme, $timeout, progressLoader, wijetsService, $location, $route, $cookies, shm_request, ENV ) {
     'use strict';
     $scope.layoutFixedHeader = $theme.get('fixedHeader');
     $scope.layoutPageTransitionStyle = $theme.get('pageTransitionStyle');
@@ -50,6 +52,8 @@ angular.module('theme.core.main_controller', ['theme.core.services','ngCookies']
 
     $scope.user = {};
 
+    $scope.title = ENV.NAME;
+	    
     $scope.layoutLoading = true;
 
     $scope.getLayoutOption = function(key) {

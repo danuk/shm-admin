@@ -10,10 +10,11 @@ angular
         'ui.grid.cellNav',
         'ui.grid.edit',
         'ui.grid.rowEdit',
+        'ui.grid.saveState',
     ])
     .controller('ShmTableController',
-        ['$scope', '$q', '$filter', '$timeout', 'shm_request',
-            function($scope, $q, $filter, $timeout, shm_request) {
+        ['$scope', '$q', '$filter', '$timeout', 'shm_request', '$window', 
+            function($scope, $q, $filter, $timeout, shm_request, $window) {
         'use strict';
 
         window.onresize = function(event) {
@@ -83,13 +84,38 @@ angular
             });
 
             gridApi.pagination.on.paginationChanged($scope, function (pageNum, pageSize) {
+                saveState();
                 paginationOptions.offset = ( pageNum -1 ) * pageSize ;
                 paginationOptions.limit = pageSize;
                 $scope.load_data($scope.url);
             });
 
-            gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+            gridApi.pinning.pinColumn($scope, saveState);
+            gridApi.core.on.sortChanged($scope, saveState);
+            gridApi.core.on.filterChanged($scope, saveState);
+            gridApi.pinning.on.columnPinned($scope, saveState);
+            gridApi.core.on.columnVisibilityChanged($scope, saveState);
+            gridApi.colResizable.on.columnSizeChanged($scope, saveState);
+            gridApi.colMovable.on.columnPositionChanged($scope, saveState);
+
+            restoreState();
         };
+
+        function saveState() {
+            if ($scope.gridOptions.columnDefs && $scope.gridOptions.columnDefs.length > 0) {
+                var state = $scope.gridApi.saveState.save();
+                $window.localStorage[$scope.url] = JSON.stringify(state);
+            }
+        }
+        function restoreState() {
+            $timeout(function() {
+                var state = JSON.parse($window.localStorage[$scope.url] || '{}');
+        
+                if (state && state.columns && state.columns.length > 0 && $scope.gridOptions.columnDefs) {
+                    $scope.gridApi.saveState.restore($scope, state);
+                }
+            }, 0);
+        }
 
         if ( $scope.row_dbl_click ) {
             $scope.gridOptions.rowTemplate = '<div ng-dblclick="grid.appScope.row_dbl_click(row.entity)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div>';
@@ -136,7 +162,7 @@ angular
                     }
                     $scope.gridOptions.columnDefs = $scope.columnDefs;
                 }
-
+                restoreState();
                 $scope.setPagingData(largeLoad, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize );
                 $scope.gridOptions.totalItems = response.data.items;
             })
@@ -196,7 +222,7 @@ angular
     .directive('shmTable', function() {
         return {
             controller: 'ShmTableController',
-            template: '<div ng-style="{height: shmTableHeight + \'px\'}" ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-move-columns ui-grid-pinning ui-grid-pagination></div>',
+            template: '<div ng-style="{height: shmTableHeight + \'px\'}" ui-grid="gridOptions" ui-grid-edit ui-grid-row-edit ui-grid-selection ui-grid-resize-columns ui-grid-auto-resize ui-grid-move-columns ui-grid-pinning ui-grid-pagination ui-grid-save-state></div>',
         }
     });
 

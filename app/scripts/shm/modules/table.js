@@ -108,7 +108,6 @@ angular
                 var state = $scope.gridApi.saveState.save();
                 $window.localStorage[$scope.url] = JSON.stringify(state);
             }
-            console.log('saveState');
         }
         function restoreState() {
             $timeout(function() {
@@ -125,7 +124,6 @@ angular
                     $scope.gridApi.saveState.restore($scope, state);
                 }
             }, 0);
-            console.log('restoreState');
         }
 
         if ( $scope.row_dbl_click ) {

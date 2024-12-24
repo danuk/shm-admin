@@ -16,6 +16,8 @@ angular
         ['$scope', '$q', '$filter', '$timeout', 'shm_request', '$window', 
             function($scope, $q, $filter, $timeout, shm_request, $window) {
         'use strict';
+        
+        let restore = false
 
         window.onresize = function(event) {
             $scope.shmTableHeight = window.innerHeight - 250;
@@ -106,22 +108,31 @@ angular
                 var state = $scope.gridApi.saveState.save();
                 $window.localStorage[$scope.url] = JSON.stringify(state);
             }
+            console.log('saveState');
         }
         function restoreState() {
             $timeout(function() {
                 var state = JSON.parse($window.localStorage[$scope.url] || '{}');
-        
+                if (state && state.columns) {
+                    state.columns = state.columns.map(function(column) {
+                        if (column.name === 'user_id') {
+                            column.filters = [{}];
+                        }
+                        return column;
+                    });
+                }                
                 if (state && state.columns && state.columns.length > 0 && $scope.gridOptions.columnDefs) {
                     $scope.gridApi.saveState.restore($scope, state);
                 }
             }, 0);
+            console.log('restoreState');
         }
 
         if ( $scope.row_dbl_click ) {
             $scope.gridOptions.rowTemplate = '<div ng-dblclick="grid.appScope.row_dbl_click(row.entity)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div>';
         }
 
-        $scope.load_data = function(url) {
+        $scope.load_data = function(url, restore) {
 
             var filteringData = {};
             if ( $scope.defaultFilter ) { filteringData = angular.copy( $scope.defaultFilter ); $scope.defaultFilter = {} };
@@ -162,7 +173,9 @@ angular
                     }
                     $scope.gridOptions.columnDefs = $scope.columnDefs;
                 }
-                restoreState();
+                if ( restore ){
+                    restoreState();
+                }
                 $scope.setPagingData(largeLoad, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize );
                 $scope.gridOptions.totalItems = response.data.items;
             })
@@ -206,7 +219,7 @@ angular
         };
 
         //$scope.getPagedDataAsync($scope.url, $scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-        $scope.load_data($scope.url);
+        $scope.load_data($scope.url, restore = true);
 
         $scope.$watch('pagingOptions', function(newVal, oldVal) {
             if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {

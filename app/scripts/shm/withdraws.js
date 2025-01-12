@@ -60,7 +60,7 @@ angular
             filter: { term: $scope.user.user_id },
         },
         {
-            field: 'service_id',
+            field: 'user_service_id',
             displayName: "USI",
             width: 65,
         },

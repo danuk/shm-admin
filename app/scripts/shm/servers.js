@@ -77,6 +77,7 @@ angular
                         angular.merge(
                             args,
                             {
+                                server_id: $scope.data.server_id,
                                 host: $scope.data.host,
                             }
                         );

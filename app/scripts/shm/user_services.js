@@ -71,6 +71,7 @@ angular
                 $scope.block = function(data) {
                     shm_request('POST','v1/admin/user/service/stop', {
                         user_id: data.user_id,
+                        auto_bill: 0,
                         user_service_id: data.user_service_id
                     }).then(function(response) {
                         angular.extend( row, response.data.data[0] );
@@ -81,6 +82,7 @@ angular
                 $scope.unblock = function(data) {
                     shm_request('POST','v1/admin/user/service/activate', {
                         user_id: data.user_id,
+                        auto_bill: 1,
                         user_service_id: data.user_service_id
                     }).then(function(response) {
                         angular.extend( row, response.data.data[0] );

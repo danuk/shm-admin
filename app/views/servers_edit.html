@@ -125,9 +125,9 @@
     </div> <!-- modal-body -->
 
     <div class="modal-footer">
-        <button class="btn btn-info" ng-disabled="userForm.$invalid" ng-click="test_ssh()" ng-if="data.server.transport=='ssh'">Test SSH</button>
-        <button class="btn btn-success" ng-disabled="userForm.$invalid" ng-click="template_init()" ng-if="data.server_id && data.server.transport=='ssh' && data.mode=='template'">Init</button>
-        <button class="btn btn-info" ng-disabled="userForm.$invalid" ng-click="test_mail()" ng-if="data.server.transport=='mail'">Test mail</button>
+        <button class="btn btn-info" ng-disabled="userForm.$invalid" ng-click="test_ssh()" ng-if="data.server.transport=='ssh'">TEST SSH</button>
+        <button class="btn btn-success" ng-disabled="userForm.$invalid" ng-click="template_init()" ng-if="data.server_id && data.server.transport=='ssh' && data.mode=='template'">INIT</button>
+        <button class="btn btn-info" ng-disabled="userForm.$invalid" ng-click="test_mail()" ng-if="data.server.transport=='mail'">TEST MAIL</button>
         <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Save</button>
         <button class="btn btn-danger pull-left" ng-show="data.server_id" ng-click="delete()">Delete</button>
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>

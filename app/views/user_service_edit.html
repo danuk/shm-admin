@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Статус</label>
-            <div class="col-sm-3">
+            <div class="col-sm-1">
                 <div class="btn-group" ng-if="row.status=='NOT PAID'">
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">Не оплачена</button>
                 </div>
@@ -55,6 +55,16 @@
                         <li><a ng-click="set_status(data,'BLOCK')">Ручная блокировка</a></li>
                         <li><a ng-click="set_status(data,'ACTIVE')">Ручная активация</a></li>
                     </ul>
+                </div>
+            </div>
+            <label class="col-sm-2 control-label">Биллинг</label>
+            <div class="col-sm-1">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-true-value=1 ng-false-value=0 ng-model="data.auto_bill">
+                        <span class="text-success" ng-if="data.auto_bill==1"><b>Включен</b></span>
+                        <span class="text-danger" ng-if="data.auto_bill==0"><b>Выключен</b></span>
+                    </label>
                 </div>
             </div>
         </div>

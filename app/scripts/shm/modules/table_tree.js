@@ -15,7 +15,7 @@ angular
         ['$scope', '$filter', '$timeout', '$interval', 'shm_request', 'uiGridConstants', '$window',
             function($scope, $filter, $timeout, $interval, shm_request, uiGridConstants, $window) {
         'use strict';
-        
+
         let restore = false;
 
         window.onresize = function(event) {
@@ -53,7 +53,7 @@ angular
                 }
             ],
             useExternalPagination: true,
-            paginationPageSizes: [50, 500, 1000, 2000, 5000],
+            paginationPageSizes: [50, 100, 500, 1000, 2000, 5000],
             paginationPageSize: paginationOptions.limit,
         };
 
@@ -137,6 +137,7 @@ angular
         function restoreState() {
             $timeout(function() {
                 var state = JSON.parse($window.localStorage[$scope.url] || '{}');
+
                 if (state && state.columns) {
                     state.columns = state.columns.map(function(column) {
                         if (column.name === 'user_id') {
@@ -145,6 +146,7 @@ angular
                         return column;
                     });
                 }
+
                 if (state && state.columns && state.columns.length > 0 && $scope.gridOptions.columnDefs) {
                     $scope.gridApi.saveState.restore($scope, state);
                 }

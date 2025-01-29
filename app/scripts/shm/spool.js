@@ -66,9 +66,6 @@ angular
                    options: { mode: 'code' },
                 }
 
-                $scope.show_user_service = 0;
-                if ( $scope.data.settings ) $scope.show_user_service = $scope.data.settings.user_service_id;
-
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                 };

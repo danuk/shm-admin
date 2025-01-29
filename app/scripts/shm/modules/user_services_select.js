@@ -4,14 +4,20 @@ angular.module('shm_user_services_select', [
     return {
         restrict: 'E',
         scope: {
-            data: '=?data',
-            id: '=?id',
+            uid: '=', // required
+            data: '=?', // optional
+            id: '=?', // optional
         },
         link: function ($scope, $element, $attrs) {
+            // don't load a data when id is present but not defined
+            // if you want to load all user services, don't use the id
+            if ( $scope.hasOwnProperty('id') && ! $scope.id ) return;
+
             $scope.readonly = 'readonly' in $attrs;
 
             var request = 'v1/admin/user/service';
             var args = {
+                user_id: $scope.uid,
                 limit: 0,
             };
             var key_field = 'user_service_id';

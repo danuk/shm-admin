@@ -46,77 +46,141 @@ body.dark input[type="number"].ui-grid-pager-control-input{-moz-appearance: text
 .dark .grid {color: rgba(255,255,255,0.85)}
 
 /* json editor */
-body.dark div.jsoneditor,
-body.dark div.jsoneditor-menu {
 
+body.dark table.jsoneditor-search input {
+  background-color: #20272b !important;
+  color: #dddddd !important;
 }
+
 body.dark div.jsoneditor,
 body.dark div.jsoneditor-menu {
   border-color: #4b4b4b !important;
 }
+
 body.dark div.jsoneditor-menu {
   background-color: #4b4b4b !important;
+  color: #afabab !important;
 }
-body.dark div.jsoneditor-tree, body.dark div.jsoneditor textarea.jsoneditor-text {
-  background-color: #666666 !important;
-  color: #ffffff !important;
+
+body.dark div.jsoneditor-tree, 
+body.dark div.jsoneditor textarea.jsoneditor-text {
+  background-color: #20272b !important;
+  color: #afabab !important;
 }
-body.dark div.jsoneditor-field, body.dark div.jsoneditor-value {
-  color: #ffffff !important;
-}
+
 body.dark table.jsoneditor-search div.jsoneditor-frame {
-  background: #808080 !important;
+  background: #464a4d !important;
 }
-body.dark tr.jsoneditor-highlight, body.dark tr.jsoneditor-selected {
-  background-color: #808080 !important;
+
+body.dark tr.jsoneditor-highlight, 
+body.dark tr.jsoneditor-selected {
+  background-color: #20272b !important;
 }
+
+body.dark div.jsoneditor-field {
+  color: #afabab !important;
+}
+
 body.dark div.jsoneditor-field[contenteditable=true]:focus,
 body.dark div.jsoneditor-field[contenteditable=true]:hover,
 body.dark div.jsoneditor-value[contenteditable=true]:focus,
-body.dark div.jsoneditor-value[contenteditable=true]:hover,
-body.dark div.jsoneditor-field.jsoneditor-highlight,
-body.dark div.jsoneditor-value.jsoneditor-highlight {
-  background-color: #808080 !important;
-  border-color: #808080 !important;
-  color: #fff !important;
+body.dark div.jsoneditor-value[contenteditable=true]:hover {
+  background-color: #464a4d !important;
+  border-color: #20272b !important;
+  color: #ffffff !important;
 }
+
 body.dark div.jsoneditor-field.highlight-active,
-body.dark div.jsoneditor-field.highlight-active:focus,
-body.dark div.jsoneditor-field.highlight-active:hover,
-body.dark div.jsoneditor-value.highlight-active,
-body.dark div.jsoneditor-value.highlight-active:focus,
-body.dark div.jsoneditor-value.highlight-active:hover {
+body.dark div.jsoneditor-value.highlight-active {
   background-color: #b1b1b1 !important;
-  border-color: #b1b1b1 !important;
+  border-color: #ff8048 !important;
 }
+
 body.dark div.jsoneditor-tree button:focus {
   background-color: #868686 !important;
 }
-body.dark div.jsoneditor-readonly {
-  color: #acacac !important;
-}
-body.dark div.jsoneditor td.jsoneditor-separator {
-  color: #acacac !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-string {
-  color: #fff !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-object,
-body.dark div.jsoneditor-value.jsoneditor-array {
-  color: #bababa !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-number {
-  color: #ff4040 !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-boolean {
-  color: #ff8048 !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-null {
-  color: #041422 !important;
-}
+
 body.dark div.jsoneditor-value.jsoneditor-invalid {
   color: white !important;
 }
+
+/* ace_editor */
+body.dark div.ace-jsoneditor .ace_scroller {
+  background: #20272b;
+  color: #afabab !important;
+}
+
+body.dark div.ace_gutter {
+  background: #20272b;
+  color: #afabab !important;
+}
+
+body.dark div.ace_print-margin {
+  width: 1px;
+  background: #e8e8e8;
+}
+
+body.dark div.ace-github-dark {
+  background-color: #20272b;
+  color: #dddddd;
+}
+
+body.dark div.ace_cursor {
+  color: #afabab !important;
+}
+
+body.dark div.ace_marker-layer .ace_selection {
+  background: #832563;
+}
+
+body.dark div.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px #20272b;
+  border-radius: 2px;
+}
+
+body.dark div.ace_marker-layer .ace_step {
+  background: rgb(198, 219, 174);
+}
+
+body.dark div.ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid #6e7880;
+}
+
+body.dark div.ace_marker-layer .ace_active-line {
+  background: #464a4d;
+}
+
+body.dark div.ace_gutter-active-line {
+  background-color: #464a4d;
+}
+
+body.dark div.ace_marker-layer .ace_selected-word {
+  border: 1px solid #832563;
+}
+
+body.dark div.ace_fold {
+  background-color: #cc2372;
+  border-color: #dddddd;
+}
+
+body.dark div.ace_invalid.ace_illegal {
+  text-decoration: underline;
+  font-style: italic;
+  color: #afabab !important;
+  background-color: #e63525;
+}
+
+body.dark div.ace_invalid.ace_deprecated {
+  text-decoration: underline;
+  font-style: italic;
+  color: #e63525;
+}
+
+body.dark div.ace-jsoneditor .ace_variable {
+  color: #afabab !important;
+}
+
 
 body.dark input[type="number"]::-webkit-inner-spin-button,
 body.dark input[type="number"]::-webkit-outer-spin-button {

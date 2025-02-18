@@ -144,7 +144,7 @@ angular
                         if ( user && column.name === 'user_id') {
                             column.filters = [{ term: user.user_id }];
                         } else if (column.name === 'user_id') {
-                            column.filters = [{ term: user.user_id }];
+                            column.filters = [{ }];
                         }
                         return column;
                     });

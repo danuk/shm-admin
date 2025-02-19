@@ -112,11 +112,16 @@ angular
         function restoreState() {
             $timeout(function() {
                 var state = JSON.parse($window.localStorage[$scope.url] || '{}');
+                let user = $scope.user;
 
                 if (state && state.columns) {
                     state.columns = state.columns.map(function(column) {
-                        if (column.name === 'user_id') {
+                        if ( user && column.name === 'user_id' && $scope.url === 'v1/admin/user') {
                             column.filters = [{}];
+                        } else if ( user && column.name === 'user_id') {
+                            column.filters = [{ term: user.user_id }];
+                        } else if (column.name === 'user_id') {
+                            column.filters = [{ }];
                         }
                         return column;
                     });

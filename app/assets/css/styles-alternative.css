@@ -46,77 +46,141 @@ body.dark input[type="number"].ui-grid-pager-control-input{-moz-appearance: text
 .dark .grid {color: rgba(255,255,255,0.85)}
 
 /* json editor */
-body.dark div.jsoneditor,
-body.dark div.jsoneditor-menu {
 
+body.dark table.jsoneditor-search input {
+  background-color: #20272b !important;
+  color: #dddddd !important;
 }
+
 body.dark div.jsoneditor,
 body.dark div.jsoneditor-menu {
   border-color: #4b4b4b !important;
 }
+
 body.dark div.jsoneditor-menu {
   background-color: #4b4b4b !important;
+  color: #afabab !important;
 }
-body.dark div.jsoneditor-tree, body.dark div.jsoneditor textarea.jsoneditor-text {
-  background-color: #666666 !important;
-  color: #ffffff !important;
+
+body.dark div.jsoneditor-tree, 
+body.dark div.jsoneditor textarea.jsoneditor-text {
+  background-color: #20272b !important;
+  color: #afabab !important;
 }
-body.dark div.jsoneditor-field, body.dark div.jsoneditor-value {
-  color: #ffffff !important;
-}
+
 body.dark table.jsoneditor-search div.jsoneditor-frame {
-  background: #808080 !important;
+  background: #464a4d !important;
 }
-body.dark tr.jsoneditor-highlight, body.dark tr.jsoneditor-selected {
-  background-color: #808080 !important;
+
+body.dark tr.jsoneditor-highlight, 
+body.dark tr.jsoneditor-selected {
+  background-color: #20272b !important;
 }
+
+body.dark div.jsoneditor-field {
+  color: #afabab !important;
+}
+
 body.dark div.jsoneditor-field[contenteditable=true]:focus,
 body.dark div.jsoneditor-field[contenteditable=true]:hover,
 body.dark div.jsoneditor-value[contenteditable=true]:focus,
-body.dark div.jsoneditor-value[contenteditable=true]:hover,
-body.dark div.jsoneditor-field.jsoneditor-highlight,
-body.dark div.jsoneditor-value.jsoneditor-highlight {
-  background-color: #808080 !important;
-  border-color: #808080 !important;
-  color: #fff !important;
+body.dark div.jsoneditor-value[contenteditable=true]:hover {
+  background-color: #464a4d !important;
+  border-color: #20272b !important;
+  color: #ffffff !important;
 }
+
 body.dark div.jsoneditor-field.highlight-active,
-body.dark div.jsoneditor-field.highlight-active:focus,
-body.dark div.jsoneditor-field.highlight-active:hover,
-body.dark div.jsoneditor-value.highlight-active,
-body.dark div.jsoneditor-value.highlight-active:focus,
-body.dark div.jsoneditor-value.highlight-active:hover {
+body.dark div.jsoneditor-value.highlight-active {
   background-color: #b1b1b1 !important;
-  border-color: #b1b1b1 !important;
+  border-color: #ff8048 !important;
 }
+
 body.dark div.jsoneditor-tree button:focus {
   background-color: #868686 !important;
 }
-body.dark div.jsoneditor-readonly {
-  color: #acacac !important;
-}
-body.dark div.jsoneditor td.jsoneditor-separator {
-  color: #acacac !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-string {
-  color: #fff !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-object,
-body.dark div.jsoneditor-value.jsoneditor-array {
-  color: #bababa !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-number {
-  color: #ff4040 !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-boolean {
-  color: #ff8048 !important;
-}
-body.dark div.jsoneditor-value.jsoneditor-null {
-  color: #041422 !important;
-}
+
 body.dark div.jsoneditor-value.jsoneditor-invalid {
   color: white !important;
 }
+
+/* ace_editor */
+body.dark div.ace-jsoneditor .ace_scroller {
+  background: #20272b;
+  color: #afabab !important;
+}
+
+body.dark div.ace_gutter {
+  background: #20272b;
+  color: #afabab !important;
+}
+
+body.dark div.ace_print-margin {
+  width: 1px;
+  background: #e8e8e8;
+}
+
+body.dark div.ace-github-dark {
+  background-color: #20272b;
+  color: #dddddd;
+}
+
+body.dark div.ace_cursor {
+  color: #afabab !important;
+}
+
+body.dark div.ace_marker-layer .ace_selection {
+  background: #832563;
+}
+
+body.dark div.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px #20272b;
+  border-radius: 2px;
+}
+
+body.dark div.ace_marker-layer .ace_step {
+  background: rgb(198, 219, 174);
+}
+
+body.dark div.ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid #6e7880;
+}
+
+body.dark div.ace_marker-layer .ace_active-line {
+  background: #464a4d;
+}
+
+body.dark div.ace_gutter-active-line {
+  background-color: #464a4d;
+}
+
+body.dark div.ace_marker-layer .ace_selected-word {
+  border: 1px solid #832563;
+}
+
+body.dark div.ace_fold {
+  background-color: #cc2372;
+  border-color: #dddddd;
+}
+
+body.dark div.ace_invalid.ace_illegal {
+  text-decoration: underline;
+  font-style: italic;
+  color: #afabab !important;
+  background-color: #e63525;
+}
+
+body.dark div.ace_invalid.ace_deprecated {
+  text-decoration: underline;
+  font-style: italic;
+  color: #e63525;
+}
+
+body.dark div.ace-jsoneditor .ace_variable {
+  color: #afabab !important;
+}
+
 
 body.dark input[type="number"]::-webkit-inner-spin-button,
 body.dark input[type="number"]::-webkit-outer-spin-button {
@@ -3902,7 +3966,7 @@ tbody.collapse.in {
   height: 1px;
   margin: 9px 0;
   overflow: hidden;
-  background-color: #eeeeee;
+  background-color: var(--background-color);
 }
 .dropdown-menu > li > a,
 .tt-dropdown-menu > li > a,
@@ -3920,8 +3984,8 @@ tbody.collapse.in {
 .tt-dropdown-menu > li > a:hover,
 .tt-dropdown-menu > li > a:focus {
   text-decoration: none;
-  color: #212121;
-  background-color: #f5f5f5;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
@@ -3935,7 +3999,7 @@ tbody.collapse.in {
   color: #fff;
   text-decoration: none;
   outline: 0;
-  background-color: #f5f5f5;
+  background-color: var(--background-color);
 }
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -7249,11 +7313,11 @@ fieldset[disabled] .btn {
   box-shadow: none !important;
 }
 .btn-default {
-  border-color: #e1e1e1 !important;
+  border-color: var(--border-color) !important;
 }
 .btn-default:hover {
-  background-color: #fff !important;
-  border-color: #e0e0e0 !important;
+  background-color: var(--background-color) !important;
+  border-color: var(--border-color) !important;
 }
 .btn-inverse {
   background-color: #757575 !important;
@@ -13931,10 +13995,11 @@ body.topnav-collapsed header.navbar.navbar-default .navbar-collapse .open .tt-dr
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .input-group-addon {
-  background-color: #f7f7f7 !important;
+  background-color: var(--background-color) !important;
+  border-color: var(--border-color);
   padding: 7px 10px 5px;
   min-width: 40px;
-  color: #616161;
+  color: var(--text-color);
 }
 .input-group-btn > .btn + .dropdown-toggle {
   padding-left: 5px;
@@ -21823,9 +21888,9 @@ body.error .error-wrapper h1 {
 }
 #topnav .dropdown-menu,
 #topnav .tt-dropdown-menu {
-  background-color: #fff;
+  background-color: var(--background-color);
   border: 0px solid #ccc;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   border-radius: 1px;
   box-shadow: none;
 }
@@ -21913,11 +21978,11 @@ body.error .error-wrapper h1 {
 }
 #topnav .userinfo li a:hover,
 #topnav .userinfo li a:focus {
-  color: #212121;
+  color: var(--text-color);
 }
 #topnav .userinfo li a:hover i,
 #topnav .userinfo li a:focus i {
-  color: #9e9e9e;
+  color: var(--text-color);
 }
 #topnav .navbar-nav {
   margin: 0;
@@ -22907,29 +22972,29 @@ body.sidebar-collapsed .sidebar nav.widget-body > ul.acc-menu li.hasChild:hover 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #212121;
-  background-color: #fafafa;
+    background-color: var(--background-color);
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #212121;
-  background-color: #fafafa;
+  background-color: var(--background-color);
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus {
   color: #bdbdbd;
-  background-color: transparent;
+  background-color: var(--background-color);
 }
 .navbar-default .navbar-toggle {
-  border-color: #e0e0e0;
+  border-color: var(--border-color);
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #fafafa;
+  background-color: var(--background-color);
 }
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #fafafa;
+  background-color: var(--background-color);
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
@@ -22938,7 +23003,7 @@ body.sidebar-collapsed .sidebar nav.widget-body > ul.acc-menu li.hasChild:hover 
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: #fafafa;
+  background-color: var(--background-color);
   color: #212121;
 }
 @media (max-width: 767px) {
@@ -22951,7 +23016,7 @@ body.sidebar-collapsed .sidebar nav.widget-body > ul.acc-menu li.hasChild:hover 
   .navbar-default .navbar-nav .open .tt-dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .tt-dropdown-menu > li > a:focus {
     color: #212121;
-    background-color: #fafafa;
+    background-color: var(--background-color);
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
@@ -22960,7 +23025,7 @@ body.sidebar-collapsed .sidebar nav.widget-body > ul.acc-menu li.hasChild:hover 
   .navbar-default .navbar-nav .open .tt-dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .tt-dropdown-menu > .active > a:focus {
     color: #212121;
-    background-color: #fafafa;
+    background-color: var(--background-color);
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,

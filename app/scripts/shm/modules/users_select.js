@@ -19,7 +19,9 @@ angular.module('shm_users_select', [
             });
 
             if ( $scope.readonly ) {
-                request = request + '?' + key_field + '=' + $scope.id;
+                if ( $scope.id ) {
+                    request = request + '?' + key_field + '=' + $scope.id;
+                } else return;
             }
 
             shm_request('GET', request, { limit: 0, filter: '{"block":0}' }).then(function(response) {

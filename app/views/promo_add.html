@@ -1,29 +1,67 @@
 <form name="userForm" class="form-horizontal row-border">
     <div class="modal-header">
-        <h4 class="modal-title">{{ title }}</h4>
+        <h4 class="modal-title">Создание промокодов</h4>
     </div>
     <div class="modal-body">
         <div class="form-group">
-            <label class="col-sm-2 control-label">Количество</label>
-            <div class="col-sm-3">
-                <input type="text" ng-model="data.count" class="form-control">
+            <label class="col-sm-2 control-label">Тип промокода</label>
+            <div class="col-sm-4">
+                <select class="form-control" ng-model="data.settings.reusable">
+                    <option ng-value=0>Одноразовый</option>
+                    <option ng-value=1>Многоразовый</option>
+                </select>
             </div>
-
-            <label class="col-sm-2 control-label">Длина</label>
-            <div class="col-sm-3">
-                <input type="text" ng-model="data.length" class="form-control">
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="data.settings.status">
+                        <span class="text-success" ng-if="data.settings.status"><b>Активный</b></span>
+                        <span class="text-danger" ng-if="!data.settings.status"><b>Неактивный</b></span>
+                    </label>
+                </div>
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-2 control-label">Срок истечения:</label>
+            <div class="col-sm-4">
+                <input type="datetime-local" ng-model="data.expire" class="form-control" ng-model-options="{ timezone: 'UTC' }">
+            </div>
+            <div class="col-sm-4">
+                <div style="float:left;">
+                    <label class="control-label">Не обязательно</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-if="data.settings.reusable">
+            <label class="col-sm-2 control-label">Промокод</label>
+            <div class="col-sm-5">
+                <input type="text" ng-model="data.code" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label">Количество</label>
+            <div class="col-sm-1">
+                <input type="number" min="1" max="1000" ng-model="data.settings.quantity" class="form-control">
+            </div>
+        </div>
+        <div class="form-group" ng-if="!data.settings.reusable">
+            <label class="col-sm-2 control-label">Количество</label>
+            <div class="col-sm-3">
+                <input type="number" min="1" max="1000" ng-model="data.settings.count" class="form-control">
+            </div>
+            <label class="col-sm-2 control-label">Длина</label>
+            <div class="col-sm-3">
+                <input type="number" min="1" max="30" ng-model="data.settings.length" class="form-control">
+            </div>
+        </div>
+        <div class="form-group" ng-if="!data.settings.reusable">
             <label class="col-sm-2 control-label">Префикс</label>
             <div class="col-sm-3">
-                <input type="text" ng-model="data.prefix" class="form-control">
+                <input type="text" ng-model="data.settings.prefix" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Шаблон</label>
             <div class="col-sm-8">
-                <templates-list id="data.settings.template_id" required></templates-list >
+                <templates-list id="data.template_id" required></templates-list >
             </div>
             <div class="col-sm-2">
                 <templates-list-add></templates-list-add>

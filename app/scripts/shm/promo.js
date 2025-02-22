@@ -1,18 +1,47 @@
 angular
     .module('shm_promo', [
     ])
-    .service('shm_promo', [ '$modal', 'shm_request', function( $modal, shm_request ) {
+    .service('shm_promo', [ '$modal', 'shm_request', '$window', function( $modal, shm_request, $window ) {
+        this.add = function(scope) {
+            return $modal.open({
+                templateUrl: 'views/promo_add.html',
+                controller: function ($scope, $modalInstance, $modal) {
+                    $scope.data = {
+                        settings: {
+                            reusable: 0,
+                            count: 1,
+                            length: 10,
+                            status: 1,
+                            quantity: 1,
+                            prefix: 'PROMO_',
+                        },
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
+                    $scope.generate = function () {
+                        shm_request('PUT_JSON', 'v1/admin/promo', $scope.data ).then(function(response) {
+                            angular.extend( $scope.data, response.data.data[0] );
+                            $modalInstance.close( response.data.data[0] );
+                        });
+                    };
+                },
+                size: 'lg',
+            });
+        };
         this.edit = function(row) {
             return $modal.open({
                 templateUrl: 'views/promo_view.html',
-                controller: function ($scope, $modalInstance, $modal) {
+                controller: function ($scope, $modalInstance ) {
                     $scope.title = 'Просмотр промокода';
                     $scope.data = angular.copy(row);
-                    $scope.obj = {
-                        options: { mode: 'code' },
+
+                    if ( $scope.data.used_by) {
+                        $scope.title += ' (использован)';
                     }
+
                     $scope.save = function () {
-                        shm_request('POST_JSON', 'v1/admin/promo/' + $scope.data.id, $scope.data).then(function (response) {
+                        shm_request('POST_JSON', 'v1/admin/promo/' + $scope.data.id, $scope.data ).then(function (response) {
                             angular.extend($scope.data, response.data);
                             $modalInstance.close(response.data);
                         }).catch(function (error) {
@@ -21,44 +50,14 @@ angular
                     };
                     $scope.delete = function () {
                         if ( confirm('Удалить промокод?') ) {
-                            shm_request('DELETE', 'v1/admin/promo/'+ $scope.data.id ).then(function() {
+                            var data = $scope.data.id + '?user_id=' + $scope.data.user_id;
+                            shm_request('DELETE', 'v1/admin/promo/'+ data ).then(function() {
                                 $modalInstance.dismiss('delete');
                             })
                         }
                     };
                     $scope.close = function () {
                         $modalInstance.close( $scope.data );
-                    };
-
-                },
-                size: 'lg',
-            });
-        };
-
-        this.add = function(scope) {
-            return $modal.open({
-                templateUrl: 'views/promo_add.html',
-                controller: function ($scope, $modalInstance, $modal) {
-                    $scope.title = 'Генерировать промокод';
-                    $scope.data = {
-                        count: 1,
-                        length: 10,
-                    };
-                    $scope.cancel = function () {
-                        $modalInstance.dismiss('cancel');
-                    };
-                    $scope.generate = function () {
-                        var args = {
-                            template_id: $scope.data.settings.template_id,
-                            count: $scope.data.count,
-                            length: $scope.data.length,
-                            prefix: $scope.data.prefix,
-                            settings: $scope.data.settings,
-                        };
-                        shm_request('PUT_JSON', 'v1/admin/promo', args, { withCredentials: true } ).then(function(response) {
-                            angular.extend( $scope.data, response.data.data[0] );
-                            $modalInstance.close( response.data.data[0] );
-                        });
                     };
                 },
                 size: 'lg',
@@ -84,7 +83,7 @@ angular
             {
                 field: 'template_id',
                 displayName: 'Шаблон',
-                width: 100,
+                width: 150,
             },
             {
                 field: 'created',
@@ -92,21 +91,28 @@ angular
                 width: 150,
             },
             {
-                field: 'settings',
+                field: 'used_by',
+                width: 150,
+            },
+            {
+                field: 'expire',
             },
         ];
 
         $scope.row_dbl_click = function(row) {
             shm_promo.edit(row).result.then(function(data){
                 angular.extend( row, data );
+                $scope.load_data($scope.url);
             }, function(resp) {
                 if ( resp === 'delete' ) {
                     $scope.gridOptions.data.splice( $scope.gridOptions.data.indexOf( row ), 1 );
                 }
             });
-        }
+        };
 
         $scope.add = function() {
-            shm_promo.add($scope);
+            shm_promo.add().result.then(function() {
+                $scope.load_data($scope.url);
+            });
         };
     }]);

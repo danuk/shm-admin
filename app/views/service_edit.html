@@ -68,11 +68,6 @@
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" toggle-int toggle-model="data.once_service" ng-click="data.period==0 ? data.period=1 : data.period=0">Разовая услуга
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
                         <input type="checkbox" ng-disabled="!data.allow_to_order" toggle-int toggle-model="data.config.order_only_once">Можно заказать только один раз
                     </label>
                 </div>
@@ -99,6 +94,11 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" toggle-int toggle-model="data.pay_always">Всегда платная услуга
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" toggle-int toggle-model="data.once_service" ng-click="data.period==0 ? data.period=1 : data.period=0">Мгновенная услуга
                     </label>
                 </div>
             </div>

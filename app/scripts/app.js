@@ -1,6 +1,8 @@
 angular
   .module('themesApp', [
     'theme',
+    'ngMaterial',
+    'ngMessages',
     'shm_table',
     'shm_table_tree',
     'shm_user',

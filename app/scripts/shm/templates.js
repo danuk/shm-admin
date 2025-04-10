@@ -21,10 +21,17 @@ angular
             templateUrl: 'views/template_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = title;
-                $scope.data = angular.copy(row);
+                $scope.data = {};
                 $scope.data.is_add = row.id ? 0 : 1;
 
-                $scope.id_pattern = '[A-Za-z0-9-_]+';
+                if ( row.id ) {
+                    // reload opened template
+                    shm_request( 'GET', 'v1/admin/template?id='+ row.id ).then(function(response) {
+                        angular.extend( $scope.data, response.data.data[0] );
+                    });
+                };
+
+                $scope.id_pattern = '[A-Za-z0-9-_/]+';
 
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
@@ -105,10 +112,8 @@ angular
 
     $scope.row_dbl_click = function(row) {
         shm_templates.edit('Редактирование шаблона',row, $scope).result.then(function(data){
-            shm_request('POST_JSON', url, data ).then(function(response) {
-                angular.extend( row, response.data.data[0] );
-                delete row.$$treeLevel;
-            });
+            angular.extend( row, data );
+            delete row.$$treeLevel;
         }, function(resp) {
             if ( resp === 'delete' ) {
                 $scope.gridOptions.data.splice( $scope.gridOptions.data.indexOf( row ), 1 );

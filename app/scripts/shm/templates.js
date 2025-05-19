@@ -46,9 +46,11 @@ angular
                 };
 
                 $scope.delete = function () {
-                    shm_request('DELETE', url, { id: row.id } ).then(function() {
-                        $modalInstance.dismiss('delete');
-                    })
+                    if ( confirm('Удалить шаблон?') ) {
+                        shm_request('DELETE', url, { id: row.id } ).then(function() {
+                            $modalInstance.dismiss('delete');
+                        })
+                    }
                 };
 
                 $scope.test = function (template_id) {

@@ -41,7 +41,7 @@ angular
                     }
 
                     $scope.save = function () {
-                        shm_request('POST_JSON', 'v1/admin/promo/' + $scope.data.id, $scope.data ).then(function (response) {
+                        shm_request('POST_JSON', 'v1/admin/promo', $scope.data ).then(function (response) {
                             angular.extend($scope.data, response.data);
                             $modalInstance.close(response.data);
                         }).catch(function (error) {
@@ -50,8 +50,7 @@ angular
                     };
                     $scope.delete = function () {
                         if ( confirm('Удалить промокод?') ) {
-                            var data = $scope.data.id + '?user_id=' + $scope.data.user_id;
-                            shm_request('DELETE', 'v1/admin/promo/'+ data ).then(function() {
+                            shm_request('DELETE', 'v1/admin/promo', { user_id: $scope.data.user_id, id: $scope.data.id } ).then(function() {
                                 $modalInstance.dismiss('delete');
                             })
                         }

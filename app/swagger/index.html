@@ -10,11 +10,21 @@
 <body>
 <div id="swagger-ui"></div>
 <script src="https://unpkg.com/swagger-ui-dist@5.24.1/swagger-ui-bundle.js" crossorigin></script>
+<script src="https://unpkg.com/swagger-ui-dist@5.24.1/swagger-ui-standalone-preset.js" crossorigin></script>
 <script>
   window.onload = () => {
     window.ui = SwaggerUIBundle({
-      url: '/swagger/openapi.json',
+      urls: [
+        {url: '/shm/v1/swagger.json', name: 'Client API'},
+        {url: '/shm/v1/swagger_admin.json', name: 'Admin API'},
+      ],
+      "urls.primaryName": "Client API",
       dom_id: '#swagger-ui',
+      presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIStandalonePreset
+      ],
+      layout: "StandaloneLayout",
     });
   };
 </script>

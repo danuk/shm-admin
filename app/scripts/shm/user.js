@@ -48,7 +48,7 @@ angular
         shm_request('GET','/v1/admin/config/cli' ).then(function(response) {
             var url = response.data.data[0].url;
             shm_request('PUT','v1/admin/user/session', { user_id: $scope.user.user_id } ).then(function(response) {
-                var session_id = response.data.data[0].id;
+                var session_id = response.data.id;
                 $window.open( url + '/shm/user/auth.cgi?session_id=' + session_id, '_blank');
             })
         })

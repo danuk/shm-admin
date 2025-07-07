@@ -116,6 +116,7 @@ angular
         {field: 'server_id'},
         {field: 'name', displayName: 'Имя' },
         {field: 'services_count', displayName: 'Кол-во услуг'},
+        {field: 'settings.max_services', displayName: 'Макс. услуг'},
         {field: 'host'},
         {field: 'transport'},
     ];

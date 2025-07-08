@@ -34,7 +34,7 @@
     </div> <!-- modal-body -->
 
     <div class="modal-footer">
-        <button class="btn btn-info" ng-disabled="userForm.$invalid" ng-click="render()">Render</button>
+        <button class="btn btn-info" ng-disabled="userForm.$invalid || !data.user_id" ng-click="render()">Render</button>
         <button class="btn btn-warning" ng-click="close()">Close</button>
     </div>
 </form>

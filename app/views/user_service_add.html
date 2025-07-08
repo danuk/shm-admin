@@ -39,7 +39,7 @@
     </div> <!-- modal-body -->
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="save()">Create</button>
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid || !data.user_id" ng-click="save()">Create</button>
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
 </form>

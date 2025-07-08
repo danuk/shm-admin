@@ -55,7 +55,7 @@
     </div> <!-- modal-body -->
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="create()">Создать</button>
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid || (data.mode=='selected_user' && !data.settings.user_id)" ng-click="create()">Создать</button>
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
 </form>

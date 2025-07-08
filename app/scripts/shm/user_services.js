@@ -11,7 +11,7 @@ angular
             controller: function ($scope, $modalInstance, $modal) {
                 $scope.title = 'Создание услуги пользователя';
                 $scope.data = {
-                    user_id: scope.user.user_id || "-1",
+                    user_id: scope.user.user_id,
                 };
                 $scope.service = {
                     service_id: "-1",

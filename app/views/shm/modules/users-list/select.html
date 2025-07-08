@@ -1,5 +1,13 @@
-<select class="form-control" ng-model="data" ng-disabled="!items||readonly" required>
-    <option ng-value="item" ng-repeat="item in items">
-    {{ item.user_id }}# {{ item.login }}: {{ item.full_name }}
-    </option>
-</select>
+<div ng-if="!readonly">
+  <input type="text" ng-model="model.search" ng-focus="model.onSearchFocus()" ng-keydown="model.onKeyDown($event)" placeholder="... начните вводить имя, логин или id пользователя" autocomplete="off" class="form-control" />
+  <ul class="dropdown-menu" style="display:block; position:static; float:none;" ng-if="model.dropdownVisible && model.items.length">
+    <li ng-repeat="item in model.items track by $index" ng-click="model.selectUser(item)" ng-class="{'active': $index === model.selectedIndex}" style="cursor:pointer;">
+      <a style="display:block; padding:3px 20px; color:inherit; text-decoration:none; background:none;">
+        {{item.user_id}}# ({{item.login}}) {{item.full_name}}
+      </a>
+    </li>
+  </ul>
+</div>
+<div ng-if="readonly && data">
+    <input type="text" value="{{data.user_id}}# ({{data.login}}) {{data.full_name}}" readonly="readonly" class="form-control">
+</div>

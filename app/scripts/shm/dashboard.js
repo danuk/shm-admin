@@ -6,7 +6,6 @@ angular
     
     shm_request('GET_JSON', '/stats.cgi' ).then(function(response) {
        $scope.data = response.data.data;
-       $scope.loading = true;
     });
 
     $scope.selectedPeriod = 'all';

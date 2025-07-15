@@ -4,7 +4,7 @@ angular
   .controller('DashboardController', ['$scope', 'shm_request', function($scope, shm_request) {
     'use strict';
     
-    shm_request('GET_JSON', '/metrics.cgi' ).then(function(response) {
+    shm_request('GET_JSON', '/stats.cgi' ).then(function(response) {
        $scope.data = response.data.data;
        $scope.loading = true;
     });

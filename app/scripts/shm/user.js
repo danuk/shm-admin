@@ -2,7 +2,7 @@ angular
     .module('shm_user', [
 ])
 .controller('ShmUserController',
-    ['$scope','$location','$window','$route','shm_request', function($scope, $location, $window, $route, shm_request) {
+    ['$scope','$location','$window','$route','shm_request', 'shm_bonuses', 'shm_pays', function($scope, $location, $window, $route, shm_request, shm_bonuses, shm_pays) {
     'use strict';
 
     if ( !$scope.user.user_id ) {
@@ -18,6 +18,34 @@ angular
             $location.path('/users');
         })
     }
+
+    $scope.add_bonus = function() {
+        var row = {
+            next: null,
+            user_id: $scope.user.user_id || null,
+        };
+        
+        shm_bonuses.make_bonus('Начислить бонусы', row, 'lg').result.then(function(data){
+            shm_request('PUT_JSON','/v1/admin/user/bonus', data ).then(function(response) {
+                $scope.data.bonus = response.data.data[0].bonus;
+            });
+        }, function(cancel) {
+        });
+    }
+
+    $scope.make_pay = function() {
+        var row = {
+            next: null,
+            user_id: $scope.user.user_id || null,
+        };
+
+        shm_pays.make_pay('Принять платеж', row, 'lg').result.then(function(data){
+            shm_request('PUT_JSON','/v1/admin/user/payment', data ).then(function(response) {
+                $scope.data.balance = response.data.data[0].money;
+            });
+        }, function(cancel) {
+        });
+    };
 
     $scope.passwd = function () {
         var new_password = prompt("Enter new password:");

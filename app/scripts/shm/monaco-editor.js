@@ -374,11 +374,11 @@ angular
           window.monacoLoading = true;
 
           var script = document.createElement('script');
-          script.src = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js';
+          script.src = '/node_modules/monaco-editor/min/vs/loader.js';
           script.onload = function() {
             require.config({ 
               paths: { 
-                'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' 
+                'vs': '/node_modules/monaco-editor/min/vs' 
               } 
             });
             

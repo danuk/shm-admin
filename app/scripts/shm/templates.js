@@ -1,6 +1,6 @@
 angular
-  .module('shm_templates', [
-  ])
+  .module('shm_templates', ['template_variables']
+  )
   .service('shm_templates', ['$q', '$modal', 'shm', 'shm_request', function($q, $modal, shm, shm_request) {
     var url = 'v1/admin/template';
 
@@ -19,16 +19,156 @@ angular
     this.edit = function(title, row, scope) {
         return $modal.open({
             templateUrl: 'views/template_edit.html',
-            controller: function ($scope, $modalInstance, $modal) {
+            controller: ['$scope', '$modalInstance', '$modal', '$window', '$document', 'TemplateVariables', function ($scope, $modalInstance, $modal, $window, $document, TemplateVariables) {
                 $scope.title = title;
                 $scope.data = {};
                 $scope.data.is_add = row.id ? 0 : 1;
 
+                $scope.editorOptions = {
+                    fontSize: 14,
+                    tabSize: 2,
+                    insertSpaces: true,
+                    wordWrap: 'on',
+                    minimap: { enabled: true },
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    lineNumbers: 'on',
+                    folding: true,
+                    find: {
+                        addExtraSpaceOnTop: false,
+                        autoFindInSelection: 'never'
+                    }
+                };
+
+                function detectCurrentTheme() {
+        var themeClass = $window.localStorage['theme.settings.ThemeClass'];
+        if (themeClass === 'dark') {
+          return 'vs-dark';
+        } else if (themeClass === 'light') {
+          return 'vs';
+        }
+        
+        var computed = $window.getComputedStyle($document[0].documentElement);
+        var bgColor = computed.getPropertyValue('--background-color').trim();
+        
+        if (bgColor === '#212121' || bgColor.includes('21212')) {
+          return 'vs-dark';
+        }
+        
+        if ($document[0].body.classList.contains('dark')) {
+          return 'vs-dark';
+        }
+        
+        return 'vs';
+      }
+
+                $scope.detectCurrentTheme = detectCurrentTheme;
+
+                $scope.editorTheme = $scope.detectCurrentTheme();
+
+                $scope.updateEditorTheme = function() {
+                    var baseTheme = $scope.detectCurrentTheme();
+                    
+                    if ($scope.editorLanguage === 'template-toolkit') {
+                        $scope.editorTheme = baseTheme === 'vs-dark' ? 'vs-dark-template-toolkit' : 'vs-template-toolkit';
+                    } else {
+                        $scope.editorTheme = baseTheme;
+                    }
+                };
+
+                var storageListener = function(e) {
+                    if (e.key === 'theme.settings.ThemeClass') {
+                        $scope.$apply(function() {
+                            $scope.updateEditorTheme();
+                        });
+                    }
+                };
+
+                window.addEventListener('storage', storageListener);
+
+                $scope.$on('$destroy', function() {
+                    window.removeEventListener('storage', storageListener);
+                });
+                $scope.detectLanguage = function(templateId, content) {
+                    if (!content) return 'plaintext';
+                    
+                    var trimmedContent = content.trim();
+                    
+                    if (trimmedContent.startsWith('{') || trimmedContent.startsWith('[')) {
+
+                        return 'json';
+                    } else if (content.includes('#!/bin/bash') || 
+                               content.includes('#!/bin/sh') || 
+                               content.includes('#!/usr/bin/bash') ||
+                               content.includes('#!/usr/bin/sh') ||
+                               content.includes('set -e') ||
+                               content.includes('echo ') ||
+                               (content.includes('if [') && content.includes('then')) ||
+                               content.includes('for i in') ||
+                               content.includes('while [')) {
+
+                        return 'shell';
+                    } else if (content.includes('#!/usr/bin/perl') || 
+                               content.includes('use strict;') || 
+                               content.includes('package ') ||
+                               content.includes('my $')) {
+
+                        return 'perl';
+                    } else if (content.includes('[%') || content.includes('%]') || 
+                               content.includes('<%') || content.includes('%>') || 
+                               content.includes('{{') || content.includes('}}')) {
+
+                        return 'template-toolkit';
+                    } else if (content.includes('<html') || content.includes('<!DOCTYPE') ||
+                               content.includes('<head>') || content.includes('<body>') ||
+                               content.includes('<div') || content.includes('<span')) {
+
+                        return 'html';
+                    }
+                    
+                    return 'plaintext';
+                };
+
+                $scope.currentLanguage = null;
+                $scope.editorLanguage = 'plaintext';
+
+                $scope.setLanguage = function(language) {
+                    $scope.currentLanguage = language;
+                    if (language) {
+                        $scope.editorLanguage = language;
+                    } else {
+                        $scope.updateEditorLanguage();
+                    }
+                };
+
+                $scope.updateEditorLanguage = function() {
+                    var detectedLang = $scope.detectLanguage($scope.data.id, $scope.data.data);
+                    $scope.editorLanguage = $scope.currentLanguage || detectedLang;
+                };
+
+                $scope.$watch('data.id', function() {
+                    if (!$scope.currentLanguage) {
+                        $scope.updateEditorLanguage();
+                    }
+                });
+
+                $scope.$watch('data.data', function() {
+                    if (!$scope.currentLanguage) {
+                        $scope.updateEditorLanguage();
+                    }
+                });
+
+                $scope.$watch('editorLanguage', function() {
+                    $scope.updateEditorTheme();
+                });
+
                 if ( row.id ) {
-                    // reload opened template
                     shm_request( 'GET', 'v1/admin/template?id='+ row.id ).then(function(response) {
                         angular.extend( $scope.data, response.data.data[0] );
+                        $scope.editorLanguage = $scope.detectLanguage($scope.data.id, $scope.data.data);
                     });
+                } else {
+                    $scope.editorLanguage = 'plaintext';
                 };
 
                 $scope.id_pattern = '[A-Za-z0-9-_/]+';
@@ -80,7 +220,7 @@ angular
                         },
                     });
                 };
-            },
+            }],
             size: 'lg',
         });
     };

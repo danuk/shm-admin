@@ -27,6 +27,8 @@ angular
     'shm_request',
     'shm_console',
     'shm_json_editor',
+    'shm_monaco_editor',
+    'monaco_custom_languages',
     'shm_identities',
     'shm_withdraws',
     'shm_pays',
@@ -34,6 +36,7 @@ angular
     'shm_storage',
     'shm_promo',
     'shm_dashboard',
+    'shm_tickets',
   ])
   .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';

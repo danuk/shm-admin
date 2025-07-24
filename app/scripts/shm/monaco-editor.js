@@ -82,6 +82,115 @@ angular
             wordPattern: /[\w\.\-_${}]+/
           });
 
+          monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+            validate: true,
+            allowComments: false,
+            schemas: [],
+            enableSchemaRequest: false,
+            schemaRequest: 'ignore',
+            schemaValidation: 'error',
+            comments: 'error',
+            trailingCommas: 'error'
+          });
+
+          monaco.languages.registerDocumentFormattingEditProvider('template-toolkit', {
+            provideDocumentFormattingEdits: function() {
+              return [];
+            }
+          });
+
+          function validateTemplateToolkit(model) {
+            var markers = [];
+            var text = model.getValue();
+            var lines = text.split('\n');
+            var inTTDirective = false;
+            var betweenDirectives = false;
+            var jsonBlockDepth = 0;
+
+            for (var i = 0; i < lines.length; i++) {
+              var originalLine = lines[i];
+              var line = originalLine.trim();
+
+              if (line.includes('<%')) {
+                inTTDirective = true;
+                betweenDirectives = false;
+              }
+              if (line.includes('%>')) {
+                inTTDirective = false;
+                betweenDirectives = true;
+                jsonBlockDepth = 0;
+              }
+              
+              if (!line || inTTDirective) {
+                continue;
+              }
+              
+              if (betweenDirectives) {
+                var openBraces = (line.match(/\{/g) || []).length;
+                var closeBraces = (line.match(/\}/g) || []).length;
+                var openBrackets = (line.match(/\[/g) || []).length;
+                var closeBrackets = (line.match(/\]/g) || []).length;
+                
+                jsonBlockDepth += openBraces - closeBraces + openBrackets - closeBrackets;
+                
+                var isJsonProperty = line.match(/^\s*"[\w_]+"\s*:/);
+                var isArrayElement = line.match(/^\s*\]/);
+                var hasTTBlocks = line.includes('{{') || line.includes('}}');
+                
+                if (jsonBlockDepth > 0 && (isJsonProperty || isArrayElement) && !hasTTBlocks) {
+                  var nextLineIndex = i + 1;
+                  var needsComma = false;
+                  
+                  while (nextLineIndex < lines.length) {
+                    var nextLine = lines[nextLineIndex].trim();
+                    if (!nextLine) {
+                      nextLineIndex++;
+                      continue;
+                    }
+                    
+                    if (nextLine.match(/^\s*"[\w_]+"\s*:/)) {
+                      needsComma = true;
+                    }
+                    else if (nextLine.match(/^\s*[\}\]]/)) {
+                      needsComma = false;
+                    }
+                    else if (nextLine.match(/^\s*\[/)) {
+                      needsComma = true;
+                    }
+                    else if (nextLine.match(/^\s*\{/)) {
+                      needsComma = true;
+                    }
+                    break;
+                  }
+                  
+                  if (needsComma && !line.endsWith(',') && !line.endsWith('{') && !line.endsWith('[')) {
+                    var lineLength = originalLine.length;
+                    markers.push({
+                      severity: monaco.MarkerSeverity.Error,
+                      message: 'В JSON после свойства должна быть запятая',
+                      startLineNumber: i + 1,
+                      startColumn: lineLength,
+                      endLineNumber: i + 1,
+                      endColumn: lineLength + 1
+                    });
+                  }
+                }
+              }
+            }
+            monaco.editor.setModelMarkers(model, 'template-toolkit', markers);
+          }
+          scope.$watch('language', function(newLanguage) {
+            if (editor && newLanguage === 'template-toolkit') {
+              var model = editor.getModel();
+              if (model) {
+                validateTemplateToolkit(model);
+                model.onDidChangeContent(function() {
+                  validateTemplateToolkit(model);
+                });
+              }
+            }
+          });
+          
           function registerCompletionProviders() {
             
             function analyzeTemplateContext(textUntilPosition, model, position) {

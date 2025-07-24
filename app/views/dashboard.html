@@ -1,0 +1,190 @@
+    <ol class="breadcrumb">
+        <li><a href="#/">Главная</a></li>
+        <li class="active">Дашборд</li>
+    </ol>
+<div class="container-fluid" ng-controller="DashboardController">
+    <div class="row">
+      <div class="col-md-12">
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <h2>Дашборд</h2>
+                    <div class="btn-group pull-right">
+						<a class="btn btn-lg btn-primary" data-toggle="dropdown">Данные за {{ getPeriodName().name }}</a>
+						<a class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown"><i class="caret"></i></a>
+						<ul class="dropdown-menu">
+                            <li ng-class="{'active': getPeriodName().p === 'day'}"><a ng-click="selectPeriod('day')">Day</a></li>
+                            <li ng-class="{'active': getPeriodName().p === 'month'}"><a ng-click="selectPeriod('month')">1 Month</a></li>
+                            <li ng-class="{'active': getPeriodName().p === 'month_3'}"><a ng-click="selectPeriod('month_3')">3 Month</a></li>
+                            <li ng-class="{'active': getPeriodName().p === 'year'}"><a ng-click="selectPeriod('year')">Year</a></li>
+                            <li ng-class="{'active': getPeriodName().p === 'all'}"><a ng-click="selectPeriod('all')">Show All</a></li>
+						</ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h4>Пользователи</h4>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-teal">
+                            <div class="tile-icon"><i class="ti ti-check-box"></i></div>
+                            <div class="tile-heading"><span>Пользователи</span></div>
+                            <div class="tile-body"><span>{{ data.users.items || '0' }}</span></div>
+                            <div class="tile-footer"><span>Активных {{ (data.users[selectedPeriod] || {}).last_login || '0' }}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-success">
+                            <div class="tile-icon"><i class="ti ti-thumb-up"></i></div>
+                            <div class="tile-heading"><span>Зарегистрировались за {{ getPeriodName().name }}</span></div>
+                            <div class="tile-body"><span>{{ (data.users[selectedPeriod] || {}).registered || '0' }}</span></div>
+                            <div class="tile-footer">
+                                <span ng-if="selectedPeriod === 'all'" class="text-muted">100%</span>
+                                <span ng-if="selectedPeriod !== 'all'">
+                                    {{ getSign('users') }}{{ getDelta('users') }}%
+                                    <i class="ti" ng-class="{
+                                        'ti-stats-up': getDelta('users') > 0,
+                                        'ti-stats-down': getDelta('users') < 0
+                                    }"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-danger">
+                            <div class="tile-icon"><i class="ti ti-control-stop"></i></div>
+                            <div class="tile-heading"><span>Заблокированные</span></div>
+                            <div class="tile-body"><span>{{ data.users.blocked || '0' }}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h4>Услуги пользователей</h4>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-indigo">
+                            <div class="tile-icon"><i class="ti ti-check-box"></i></div>
+                            <div class="tile-heading"><span>Общее количество услуг у пользователей</span></div>
+                            <div class="tile-body"><span>{{ data.user_services.items || '0' }}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-success">
+                            <div class="tile-icon"><i class="ti ti-control-play"></i></div>
+                            <div class="tile-heading"><span>Активированные услуги за {{ getPeriodName().name }}</span></div>
+                            <div class="tile-body"><span>{{ (data.user_services[selectedPeriod] || {}).active || '0' }}</span></div>
+                            <div class="tile-footer">
+                                <span ng-if="selectedPeriod === 'all'" class="text-muted">100%</span>
+                                <span ng-if="selectedPeriod !== 'all'">
+                                    {{ getSign('user_services') }}{{ getDelta('user_services') }}%
+                                    <i class="ti" ng-class="{
+                                        'ti-stats-up': getDelta('user_services') > 0,
+                                        'ti-stats-down': getDelta('user_services') < 0
+                                    }"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-danger">
+                            <div class="tile-icon"><i class="ti ti-control-stop"></i></div>
+                            <div class="tile-heading"><span>Заблокированные услуги за {{ getPeriodName().name }}</span></div>
+                            <div class="tile-body"><span>{{ (data.user_services[selectedPeriod] || {}).block || '0' }}</span></div>
+                            <div class="tile-footer">
+                                <span ng-if="selectedPeriod === 'all'" class="text-muted">100%</span>
+                                <span ng-if="selectedPeriod !== 'all'">
+                                    {{ getSign('user_services') }}{{ getDelta('user_services') }}%
+                                    <i class="ti" ng-class="{
+                                        'ti-stats-up': getDelta('user_services') > 0,
+                                        'ti-stats-down': getDelta('user_services') < 0
+                                    }"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-info">
+                            <div class="tile-icon"><i class="ti ti-control-pause"></i></div>
+                            <div class="tile-heading"><span>Неоплаченные услуги за {{ getPeriodName().name }}</span></div>
+                            <div class="tile-body"><span>{{ (data.user_services[selectedPeriod] || {})["not paid"] || '0' }}</span></div>
+                            <div class="tile-footer">
+                                <span ng-if="selectedPeriod === 'all'" class="text-muted">100%</span>
+                                <span ng-if="selectedPeriod !== 'all'">
+                                    {{ getSign('user_services') }}{{ getDelta('user_services') }}%
+                                    <i class="ti" ng-class="{
+                                        'ti-stats-up': getDelta('user_services') > 0,
+                                        'ti-stats-down': getDelta('user_services') < 0
+                                    }"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h4>Платежи</h4>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-teal">
+                            <div class="tile-icon"><i class="ti ti-check-box"></i></div>
+                            <div class="tile-heading"><span>Количество платежей</span></div>
+                            <div class="tile-body"><span>{{ data.pays.items || '0' }}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-indigo">
+                            <div class="tile-icon"><i class="ti ti-wallet"></i></div>
+                            <div class="tile-heading"><span>Общая Сумма платежей</span></div>
+                            <div class="tile-body"><span>{{ data.pays.total_sum || '0' }}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-success">
+                            <div class="tile-icon"><i class="ti ti-thumb-up"></i></div>
+                            <div class="tile-heading"><span>Платежи за {{ getPeriodName().name }}</span></div>
+                            <div class="tile-body"><span>{{ (data.pays[selectedPeriod] || {}).amount || '0' }}</span></div>
+                            <div class="tile-footer">
+                                <span ng-if="selectedPeriod === 'all'" class="text-muted">100%</span>
+                                <span ng-if="selectedPeriod !== 'all'">
+                                    {{ getSign('pays') }}{{ getDelta('pays') }}%
+                                    <i class="ti" ng-class="{
+                                        'ti-stats-up': getDelta('pays') > 0,
+                                        'ti-stats-down': getDelta('pays') < 0
+                                    }"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <h4>Бонусы</h4>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-teal">
+                            <div class="tile-icon"><i class="ti ti-check-box"></i></div>
+                            <div class="tile-heading"><span>Колиество зачислений</span></div>
+                            <div class="tile-body"><span>{{ data.bonus.items || '0' }}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-indigo">
+                            <div class="tile-icon"><i class="ti ti-gift"></i></div>
+                            <div class="tile-heading"><span>Общая Сумма бонусов</span></div>
+                            <div class="tile-body"><span>{{ data.bonus.total_sum || '0' }}</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-tile info-tile-alt tile-success">
+                            <div class="tile-icon"><i class="ti ti-gift"></i></div>
+                            <div class="tile-heading"><span>Начисления за {{ getPeriodName().name }}</span></div>
+                            <div class="tile-body"><span>{{ (data.bonus[selectedPeriod] || {}).amount || '0' }}</span></div>
+                            <div class="tile-footer">
+                                <span ng-if="selectedPeriod === 'all'" class="text-muted">100%</span>
+                                <span ng-if="selectedPeriod !== 'all'">
+                                    {{ getSign('bonus') }}{{ getDelta('bonus') }}%
+                                    <i class="ti" ng-class="{
+                                        'ti-stats-up': getDelta('bonus') > 0,
+                                        'ti-stats-down': getDelta('bonus') < 0
+                                    }"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container-fluid -->

@@ -8,6 +8,7 @@
     "angular-messages": "^1.8.3",
     "angular-resource": "^1.8.3",
     "angular-route": "^1.8.3",
-    "angular-ui-grid": "^4.12.7"
+    "angular-ui-grid": "^4.12.7",
+    "monaco-editor": "^0.45.0"
   }
 }

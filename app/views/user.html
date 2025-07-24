@@ -57,11 +57,13 @@
                             <label class="col-sm-2 control-label">Баланс</label>
                             <div class="col-sm-3">
                                 <input type="number" step="0.01" ng-model="data.balance" class="form-control" readonly="readonly">
+                                <button class="btn btn-primary" ng-click="make_pay()">Пополнить</button>
                             </div>
                             <div class="col-sm-1"></div>
                             <label class="col-sm-2 control-label">Бонусы</label>
                             <div class="col-sm-3">
                                 <input type="number" step="0.01" ng-model="data.bonus" class="form-control" readonly="readonly">
+                                <button class="btn btn-primary" ng-click="add_bonus()">Начислить</button>
                             </div>
                         </div>
                         <div class="form-group">

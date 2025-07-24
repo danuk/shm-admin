@@ -16,6 +16,78 @@ angular
         return deferred.promise;
     };
 
+    this.uploadFile = function($scope) {
+        var deferred = $q.defer();
+
+        this.uploadDialog('Загрузка шаблона из файла', $scope).result.then(function(new_data){
+            deferred.resolve(new_data);
+        }, function(cancel) {
+            deferred.reject();
+        });
+
+        return deferred.promise;
+    };
+
+    this.uploadDialog = function(title, scope) {
+        return $modal.open({
+            templateUrl: 'views/template_upload.html',
+            controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+                $scope.title = title;
+                $scope.data = {
+                    id: '',
+                    data: '',
+                    settings: {}
+                };
+                $scope.uploadedFile = null;
+                $scope.is_add = 1;
+
+                $scope.id_pattern = '[A-Za-z0-9-_/]+';
+
+                $scope.onFileSelect = function(files) {
+                    if (files && files.length > 0) {
+                        $scope.uploadedFile = files[0];
+                        var reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            $scope.$apply(function() {
+                                $scope.data.data = e.target.result;
+                                
+                                // Автоматически генерируем ID из имени файла
+                                var fileName = $scope.uploadedFile.name;
+                                var fileNameWithoutExt = fileName.replace(/\.[^/.]+$/, ""); // Убираем расширение
+                                $scope.data.id = fileNameWithoutExt.replace(/[^A-Za-z0-9-_]/g, '_'); // Заменяем недопустимые символы
+                            });
+                        };
+                        
+                        reader.readAsText($scope.uploadedFile);
+                    }
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+
+                $scope.save = function () {
+                    if (!$scope.data.id || !$scope.data.data) {
+                        alert('Заполните все обязательные поля');
+                        return;
+                    }
+                    
+                    // Добавляем is_add в данные для отправки
+                    var requestData = angular.copy($scope.data);
+                    requestData.is_add = $scope.is_add;
+                    
+                    shm_request('PUT_JSON', url, requestData).then(function(response) {
+                        $modalInstance.close(response.data.data[0]);
+                    }).catch(function(error) {
+                        alert('Ошибка при сохранении шаблона');
+                    });
+                };
+            }],
+            size: 'md',
+        });
+    };
+
     this.edit = function(title, row, scope) {
         return $modal.open({
             templateUrl: 'views/template_edit.html',
@@ -246,6 +318,14 @@ angular
 
     $scope.add = function() {
         shm_templates.add($scope).then(function(data) {
+            data.$$treeLevel = 0;
+            $scope.gridOptions.data.push( data );
+        }, function(cancel) {
+        });
+    };
+
+    $scope.uploadFile = function() {
+        shm_templates.uploadFile($scope).then(function(data) {
             data.$$treeLevel = 0;
             $scope.gridOptions.data.push( data );
         }, function(cancel) {

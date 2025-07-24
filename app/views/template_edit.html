@@ -14,7 +14,7 @@
                     <button type="button" class="btn btn-default" ng-class="{'btn-primary': currentLanguage === 'shell'}" ng-click="setLanguage('shell')">Shell</button>
                     <button type="button" class="btn btn-default" ng-class="{'btn-primary': currentLanguage === 'perl'}" ng-click="setLanguage('perl')">Perl</button>
                     <button type="button" class="btn btn-default" ng-class="{'btn-primary': currentLanguage === 'template-toolkit'}" ng-click="setLanguage('template-toolkit')">TT2</button>
-                    <button type="button" class="btn btn-default" ng-click="setLanguage(null); updateEditorLanguage()" title="Автоопределение"><i class="fa fa-refresh"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="setLanguage(null); updateEditorLanguage()" title="Автоопределение"><i class="fa fa-refresh"></i> AUTO</button>
                     {{ editorLanguage }} ({{ currentLanguage ? 'ручной' : 'авто' }})
                 </div>
             </div>

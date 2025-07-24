@@ -42,6 +42,14 @@ angular
             renderWhitespace: 'boundary',
             showUnused: false,
             contextmenu: true,
+            'bracketPairColorization.enabled': true,
+            'bracketPairColorization.independentColorPoolPerBracketType': true,
+            guides: {
+              bracketPairs: true,
+              bracketPairsHorizontal: true,
+              highlightActiveIndentation: true,
+              indentation: true
+            },
             suggest: {
               showDetails: true,
               showDocumentation: true,

@@ -27,6 +27,8 @@ angular
     'shm_request',
     'shm_console',
     'shm_json_editor',
+    'shm_monaco_editor',
+    'monaco_custom_languages',
     'shm_identities',
     'shm_withdraws',
     'shm_pays',

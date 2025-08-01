@@ -2334,11 +2334,11 @@ th {
   padding: 10px 10px;
   line-height: 1.54;
   vertical-align: top;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid var(--border-color);
 }
 .table > thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid var(--border-color);
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -2349,10 +2349,10 @@ th {
   border-top: 0;
 }
 .table > tbody + tbody {
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid var(--border-color);
 }
 .table .table {
-  background-color: #fafafa;
+  background-color: var(--background-color);
 }
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
@@ -2364,7 +2364,7 @@ th {
 }
 .table-bordered,
 .fc .fc-view > table {
-  border: 1px solid #eeeeee;
+  border: 1px solid var(--border-color);
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -2378,7 +2378,7 @@ th {
 .fc .fc-view > table > thead > tr > td,
 .fc .fc-view > table > tbody > tr > td,
 .fc .fc-view > table > tfoot > tr > td {
-  border: 1px solid #eeeeee;
+  border: 1px solid var(--border-color);
 }
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td,
@@ -2387,10 +2387,10 @@ th {
   border-bottom-width: 1px;
 }
 .table-striped > tbody > tr:nth-child(odd) {
-  background-color: #fcfcfc;
+  background-color: var(--background-color);
 }
 .table-hover > tbody > tr:hover {
-  background-color: #fafafa;
+  background-color: var(--background-color);
 }
 table col[class*="col-"] {
   position: static;
@@ -4271,8 +4271,8 @@ a.list-group-item-danger.active:focus {
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: #eeeeee;
-  border: 1px solid #e0e0e0;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
   border-radius: 1px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -5433,11 +5433,11 @@ a.label:focus {
   background-color: #0286c2;
 }
 .label-success {
-  background-color: #8bc34a;
+  background-color: var(--success);
 }
 .label-success[href]:hover,
 .label-success[href]:focus {
-  background-color: #71a436;
+  background-color: var(--success-active);
 }
 .label-info {
   background-color: #00bcd4;
@@ -5454,11 +5454,11 @@ a.label:focus {
   background-color: #d39e00;
 }
 .label-danger {
-  background-color: #e51c23;
+  background-color: var(--danger-active);
 }
 .label-danger[href]:hover,
 .label-danger[href]:focus {
-  background-color: #b9151b;
+  background-color: var(--danger-active);
 }
 .badge {
   display: inline-block;
@@ -6723,7 +6723,7 @@ pre.prettyprint {
 .tabe-responsive .fc .fc-view > table,
 .fc .fc-view > table {
   -webkit-box-shadow: 0 0 0 1px #e3e3e3;
-  box-shadow: 0 0 0 1px #e3e3e3;
+  box-shadow: 0 0 0 1px var(--border-color);
   border-radius: 1px;
   border-style: none;
 }
@@ -24579,7 +24579,7 @@ body.extrabar-show .extrabar-underlay {
 }
 .info-tile .tile-footer {
   text-align: left;
-  font-size: 11px;
+  font-size: 15px;
   position: absolute;
   left: 16px;
   bottom: 8px;

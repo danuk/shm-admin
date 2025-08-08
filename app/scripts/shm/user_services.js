@@ -204,7 +204,7 @@ angular
             },
         },
         {field: 'expire', displayName: 'Истекает', width: 200},
-        {field: 'withdraws.total', displayName: 'Стоимость', width: 120},
+        {field: 'withdraws.cost', displayName: 'Цена', width: 120},
         {field: 'next', displayName: 'Следующая', width: 130},
         {
             field: 'settings',

@@ -2,12 +2,12 @@ angular
   .module('shm_withdraws', [
       'shm_services',
   ])
-  .service('shm_withdraws', [ '$q', '$modal', 'shm_request', 'shm_services', function( $q, $modal, shm_request, shm_services ) {
-    this.edit = function (row) {
+  .service('shm_withdraws', [ '$q', '$modal', 'shm_request', 'shm_services', '$location', function( $q, $modal, shm_request, shm_services, $location ) {
+    this.edit = function (row, $root_scope) {
         return $modal.open({
             templateUrl: 'views/withdraw_edit.html',
             controller: function ($scope, $modalInstance, $modal) {
-                $scope.title = 'Редактирование списания';
+                $scope.title = 'Редактирование списания: ' + row.withdraw_id;
                 $scope.data = row;
                 $scope.wd = angular.copy( row );
 
@@ -40,6 +40,18 @@ angular
                     })
                 };
 
+                $scope.edit_service = function() {
+                    shm_services.edit( $scope.data ).result.then(function(data){
+                        angular.extend( $scope.data, data );
+                    }, function(resp) {
+                    });
+                };
+
+                $scope.show_user = function(user) {
+                    angular.extend($root_scope.user, user);
+                    $location.path('/user');
+                    $modalInstance.dismiss('cancel');
+                };
             },
             size: 'lg',
         });
@@ -77,7 +89,7 @@ angular
     ];
 
     $scope.row_dbl_click = function(row) {
-        shm_withdraws.edit(row).result.then(function(data){
+        shm_withdraws.edit(row, $scope).result.then(function(data){
             angular.extend( row, data );
         }, function(resp) {
         });

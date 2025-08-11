@@ -15,7 +15,7 @@
                 <input type="text" ng-model="data.status" class="form-control" readonly>
             </div>
             <span ng-if="!history_mode">
-            <span ng-show="data.status!='PAUSED'">
+            <span ng-show="data.status=='FAIL' || data.status=='NEW' || data.status=='SUCCESS'">
                 <button class="btn btn-warning" ng-click="pause()">Пауза</button>
             </span>
             <span ng-show="data.status=='PAUSED'">
@@ -24,7 +24,7 @@
             <span ng-show="data.status=='STUCK' || data.status=='FAIL'">
                 <button class="btn btn-danger" ng-click="retry()">Повторить</button>
             </span>
-            <span ng-show="data.status=='STUCK' || data.status=='FAIL'">
+            <span ng-show="data.status=='STUCK' || data.status=='FAIL' || data.status=='PAUSED'">
                 <button class="btn btn-success" ng-click="force_success()">Считать успешным</button>
             </span>
             </span>

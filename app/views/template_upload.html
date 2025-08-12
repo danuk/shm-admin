@@ -1,0 +1,62 @@
+<form name="uploadForm" class="form-horizontal row-border" novalidate>
+   <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="modal-title">{{ title }}</h4>
+   </div>
+   <div class="modal-body">
+      <div class="form-group">
+         <label class="col-sm-3 control-label">ID</label>
+         <div class="col-sm-6">
+            <input type="text" 
+               class="form-control" 
+               id="templateId"
+               ng-model="data.id" 
+               ng-pattern="id_pattern"
+               required
+               maxlength="32">
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="fileInput" class="col-sm-3 control-label">Выберите файл *</label>
+         <div class="col-sm-6">
+            <input type="file" 
+               class="form-control" 
+               id="fileInput"
+               accept=".txt,.json,.html,.js,.css,.sh,.pl,.py,.tpl,.tt"
+               onchange="angular.element(this).scope().onFileSelect(this.files)">
+            <small class="form-text text-muted">
+            Поддерживаемые форматы: .txt, .json, .html, .js, .css, .sh, .pl, .py, .tpl, .tt
+            </small>
+         </div>
+      </div>
+      <div class="form-group" ng-if="uploadedFile">
+         <label class="col-sm-3 control-label">Информация о файле:</label>
+         <div class="col-sm-6">
+            <div class="well well-sm">
+               <strong>Имя файла:</strong> {{ uploadedFile.name }}<br>
+               <strong>Размер:</strong> {{ (uploadedFile.size / 1024).toFixed(2) }} KB<br>
+               <strong>Тип:</strong> {{ uploadedFile.type || 'неизвестен' }}
+            </div>
+         </div>
+      </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Settings</label>
+        <div class="col-sm-6">
+            <input type="text" value="{{ data.settings }}" readonly="readonly" class="form-control">
+        </div>
+        <div class="col-sm-2">
+            <json-editor data="data.settings"></json-editor>
+        </div>
+    </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-warning" ng-click="cancel()">Close</button>
+      <button type="button" 
+         class="btn btn-primary" 
+         ng-click="save()"
+         ng-disabled="!data.id || !data.data">
+        <i class="fa fa-upload"></i> Upload</button>
+   </div>
+</form>

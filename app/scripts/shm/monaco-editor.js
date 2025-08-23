@@ -1,6 +1,10 @@
 angular
   .module('shm_monaco_editor', ['monaco_custom_languages', 'template_variables'])
   .directive('monacoEditor', ['$timeout', 'MonacoLanguageLoader', 'TemplateVariables', function($timeout, MonacoLanguageLoader, TemplateVariables) {
+
+    var globalCompletionProviders = [];
+    var globalProvidersRegistered = false;
+
     return {
       restrict: 'E',
       template: '<div style="height: 400px; border: 1px solid #ccc;"></div>',
@@ -192,6 +196,9 @@ angular
           });
           
           function registerCompletionProviders() {
+            if (globalProvidersRegistered) {
+              return;
+            }
             
             function analyzeTemplateContext(textUntilPosition, model, position) {
               var isInCurlyBraces = textUntilPosition.lastIndexOf('{{') > textUntilPosition.lastIndexOf('}}');
@@ -234,7 +241,7 @@ angular
               };
             }
             
-            monaco.languages.registerCompletionItemProvider('template-toolkit', {
+            var ttProvider = monaco.languages.registerCompletionItemProvider('template-toolkit', {
               provideCompletionItems: function(model, position) {
                 return new Promise(function(resolve) {
                   var textUntilPosition = model.getValueInRange({
@@ -262,8 +269,9 @@ angular
                 });
               }
             });
+            globalCompletionProviders.push(ttProvider);
             
-            monaco.languages.registerCompletionItemProvider('html', {
+            var htmlProvider = monaco.languages.registerCompletionItemProvider('html', {
               provideCompletionItems: function(model, position) {
                 return new Promise(function(resolve) {
                   var textUntilPosition = model.getValueInRange({
@@ -295,8 +303,9 @@ angular
                 });
               }
             });
+            globalCompletionProviders.push(htmlProvider);
 
-            monaco.languages.registerCompletionItemProvider('shell', {
+            var shellProvider = monaco.languages.registerCompletionItemProvider('shell', {
               triggerCharacters: ['.', '_', '$', '{'],
               provideCompletionItems: function(model, position) {
                 return new Promise(function(resolve) {
@@ -354,8 +363,9 @@ angular
                 });
               }
             });
+            globalCompletionProviders.push(shellProvider);
 
-            monaco.languages.registerCompletionItemProvider('json', {
+            var jsonProvider = monaco.languages.registerCompletionItemProvider('json', {
               triggerCharacters: ['.', '"', '{', '['],
               provideCompletionItems: function(model, position) {
                 return new Promise(function(resolve) {
@@ -388,8 +398,9 @@ angular
                 });
               }
             });
+            globalCompletionProviders.push(jsonProvider);
 
-            monaco.languages.registerCompletionItemProvider('plaintext', {
+            var plaintextProvider = monaco.languages.registerCompletionItemProvider('plaintext', {
               triggerCharacters: ['.', '_', '{'],
               provideCompletionItems: function(model, position) {
                 return new Promise(function(resolve) {
@@ -422,6 +433,8 @@ angular
                 });
               }
             });
+            globalCompletionProviders.push(plaintextProvider);
+            globalProvidersRegistered = true;
           }
 
           editor.onDidChangeModelContent(function() {

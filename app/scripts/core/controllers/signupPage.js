@@ -11,7 +11,7 @@ angular
     });
 
     $scope.logIn = function() {
-        $scope.$parent.logIn( $scope.login, $scope.password );
+        $scope.$parent.logIn( $scope.login, $scope.password, $scope.otp_token );
     }
 
   }]

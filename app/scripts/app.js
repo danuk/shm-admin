@@ -35,12 +35,13 @@ angular
     'shm_bonuses',
     'shm_storage',
     'shm_promo',
+    'shm_stats',
   ])
   .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';
     $routeProvider
       .when('/', {
-        templateUrl: 'views/users.html',
+        templateUrl: 'views/dashboard.html',
       })
       .when('/:templateFile', {
         templateUrl: function(param) {
@@ -48,7 +49,7 @@ angular
         }
       })
       .when('#', {
-        templateUrl: 'views/users.html',
+        templateUrl: 'views/dashboard.html',
       })
       .otherwise({
         redirectTo: '/'

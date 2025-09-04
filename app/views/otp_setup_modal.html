@@ -1,0 +1,45 @@
+<form name="userForm" class="form-horizontal row-border">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-6 control-label">Секретный ключ (для ввода вручную):</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" ng-model="otp_setup.secret" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-6 control-label">Резервные коды (сохраните в безопасном месте):</label>
+            <div class="col-sm-4">
+                <div class="well">
+                    <div ng-repeat="code in otp_setup.backup_codes" class="col-md-6">
+                        <code>{{code}}</code>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-6 control-label">Отсканируйте QR код или введите секретный ключ:</label>
+            <div class="col-sm-4">
+                <div class="text-center" ng-show="otp_setup.qr_url">
+                    <div id="qrcode" style="max-width: 200px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" ng-show="otp_setup_step == 2">
+            <label class="col-sm-6 control-label">Введите 6-значный код из приложения для подтверждения настройки:</label>
+            <div class="col-sm-4">
+                <input type="number" class="form-control" ng-model="otp_setup.otp_verify_token" placeholder="123456" maxlength="6" pattern="[0-9]{6}">
+                <label ng-show="otp_error" class="col-sm-8 control-label text-danger"> {{ otp_error }}</label>
+            </div>
+        </div>
+    </div> <!-- modal-body -->
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-hide="otp_setup_step == 2" ng-click="otp_setup_step = 2">Далее</button>
+        <button class="btn btn-primary" ng-show="otp_setup_step == 2" ng-click="verifyOtp()">Включить OTP</button>
+        <button class="btn btn-warning" ng-click="cancel()">Отмена</button>
+    </div>
+</form>

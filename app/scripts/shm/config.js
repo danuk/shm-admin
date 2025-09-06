@@ -95,7 +95,7 @@ angular
         });
     };
   }])
-  .controller('ShmConfigController', ['$scope', 'shm_config', 'shm_request', function($scope, shm_config, shm_request) {
+  .controller('ShmConfigController', ['$scope', '$window', '$http', 'shm_config', 'shm_request', function($scope, $window, $http, shm_config, shm_request) {
     'use strict';
 
     var url = 'v1/admin/config';
@@ -135,11 +135,25 @@ angular
         });
     };
 
+    $scope.otp = false;
+    $scope.otp_enabled = false;
+
     function status() {
-      shm_request('GET','v1/user/otp/status').then(function(response) {
-          var status = response.data.data[0];
-          $scope.otp_enabled = status.enabled;
-        });
+        $http({ method: 'GET', url: 'shm/v1/user/otp/status', withCredentials: true, }).then(
+            function successCallback(response) {
+                var status = response.data.data[0];
+                if ( status.enabled == 1 ) {
+                    $scope.otp = true;
+                    $scope.otp_enabled = true;
+                }
+            }, function errorCallback(response) {
+                if ( response.data && response.data.error ) {
+                    $scope.otp = false;
+                    $scope.otp_enabled = false;
+                    $window.localStorage['theme.settings.otp'] = 'off';
+                }
+            }
+        );
     };
 
     $scope.setupOTP = function() {
@@ -162,6 +176,8 @@ angular
         }
     };
 
-    status();
+    if ($window.localStorage['theme.settings.otp'] !== 'off') {
+        status();
+    }
 
   }]);

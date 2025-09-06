@@ -13,10 +13,13 @@
                     <div class="btn-group pull-right">
                         <button class="btn btn-primary" ng-click="add()">Add</button>
                     </div>
-                    <div class="btn-group pull-right">
-                        <button class="btn btn-green" ng-show="!otp_enabled" ng-click="setupOTP()">{{ 'Setup OTP' }}</button>
-                        <button class="btn btn-danger" ng-show="otp_enabled" ng-click="disableOTP()">{{ 'Disable OTP' }}</button>
-                    </div>
+					<div ng-show="otp" class="btn-group pull-right">
+						<button class="btn" 
+								ng-class="otp_enabled ? 'btn-danger' : 'btn-green'" 
+								ng-click="otp_enabled ? disableOTP() : setupOTP()">
+							{{ otp_enabled ? 'Disable OTP' : 'Setup OTP' }}
+						</button>
+					</div>
 				</div>
 				<div class="panel-body">
 					<div class="panel">

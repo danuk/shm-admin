@@ -142,16 +142,19 @@ angular
         $http({ method: 'GET', url: 'shm/v1/user/otp/status', withCredentials: true, }).then(
             function successCallback(response) {
                 var status = response.data.data[0];
-                if ( status.enabled == 1 ) {
+                if ( status ) {
                     $scope.otp = true;
-                    $scope.otp_enabled = true;
-                }
-            }, function errorCallback(response) {
-                if ( response.data && response.data.error ) {
+                    if ( status.enabled == 1 ) {
+                        $scope.otp_enabled = true;
+                    }
+                } else {
                     $scope.otp = false;
-                    $scope.otp_enabled = false;
                     $window.localStorage['theme.settings.otp'] = 'off';
                 }
+            }, function errorCallback(response) {
+                $scope.otp = false;
+                $scope.otp_enabled = false;
+                $window.localStorage['theme.settings.otp'] = 'off';
             }
         );
     };

@@ -18,12 +18,33 @@
                         </button>
                     </div>
                     <div class="pull-right">
-                        <small class="text-muted">Последнее обновление: {{lastUpdate | date:'HH:mm:ss'}}</small>
-                        <button class="btn btn-sm btn-default" ng-click="loadStats()" ng-disabled="loading">
-                            <i class="fa fa-refresh" ng-class="{'fa-spin': loading}"></i>
+                        <button class="btn btn-sm btn-primary" 
+                                ng-click="forceRefresh()" 
+                                ng-disabled="refreshing">
+                            <i class="fa fa-refresh" ng-class="{'fa-spin': refreshing}"></i>
+                            {{ refreshing ? 'Обновляю...' : 'Сбросить кеш' }}
                         </button>
+                        <label>
+                            <input type="checkbox" ng-model="autoRefresh" value="{{ autoRefresh }}" ng-click="toggleAutoRefresh()">
+                            <small style="margin-left: 5px;">Автообновление</small>
+                        </label>
+                        <div class="form-group" style="display: inline-block; margin: 0 15px 0 0;" ng-show="autoRefresh == true">
+                            <select class="form-control input-sm" 
+                                    ng-model="refreshInterval" 
+                                    ng-change="changeRefreshInterval()"
+                                    style="width: 80px;">
+                                <option ng-repeat="interval in refreshIntervals" 
+                                        ng-value="{{ interval.value }}">
+                                    {{ interval.label }}
+                                </option>
+                            </select>
+                        </div>
+                        <label>
+                            <small>
+                                (обновлено: {{ lastUpdate | date:'HH:mm:ss' }})
+                            </small>
+                        </label>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ angular
     .module('shm_user', [
 ])
 .controller('ShmUserController',
-    ['$scope','$location','$window','$route','shm_request', function($scope, $location, $window, $route, shm_request) {
+    ['$scope','$location','$window','$route','$rootScope','shm_request', function($scope, $location, $window, $route, $rootScope, shm_request) {
     'use strict';
 
     if ( !$scope.user.user_id ) {
@@ -33,16 +33,20 @@ angular
     }
 
     $scope.delete = function () {
-        var str = prompt("Type 'delete' to confirm delete user:");
-        if ( str == 'delete' ) {
-            var data = {
-                user_id: $scope.user.user_id,
-            };
-            shm_request('DELETE','/v1/admin/user', data ).then(function() {
-                $location.path('/users');
-            })
-        }
-    }
+        $rootScope.requireOTP().then(function(allowed) {
+            if (allowed) {
+                var str = prompt("Type 'delete' to confirm delete user:");
+                if ( str == 'delete' ) {
+                    var data = {
+                        user_id: $scope.user.user_id,
+                    };
+                    shm_request('DELETE','/v1/admin/user', data ).then(function() {
+                        $location.path('/users');
+                    })
+                }
+            }
+        });
+    };
 
     $scope.cli_login = function () {
         shm_request('GET','/v1/admin/config/cli' ).then(function(response) {

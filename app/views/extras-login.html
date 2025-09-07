@@ -33,6 +33,18 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group mb-md"  ng-show="otp_required">
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-key"></i>
+                                        </span>
+                                        <input type="text" id="otp_token" class="form-control" placeholder="Код из приложения (6 цифр)" ng-model="otp_token" maxlength="6" pattern="[0-9]{6}">
+                                    </div>
+                                    <small ng-show="error_message" class="text-danger">{{ error_message }}</small>
+                                </div>
+                            </div>
                        </form>
                     </div>
                     <div class="panel-footer">

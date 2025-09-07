@@ -7,7 +7,7 @@ angular
       label: 'Главная',
       iconClasses: 'ti ti-home',
       /*html: '<span class="badge badge-info">2</span>',*/
-      url: '#!/',
+      url: '#!/dashboard',
     },
     {
       label: 'Пользователи',

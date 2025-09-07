@@ -17,13 +17,16 @@ function build_and_push {
     done
 }
 
-# Set tag from git
+GIT_BR=$(git rev-parse --abbrev-ref HEAD)
 GIT_TAG=$(git describe --abbrev=0 --tags)
-LABELS=("$GIT_TAG")
 
-# Add minor tag
-VERSION_MINOR=$(echo $GIT_TAG | cut -d '.' -f 1,2)
-LABELS+=("$VERSION_MINOR")
+if [ $GIT_BR == "master" ]; then
+    LABELS=("$GIT_TAG")
+    VERSION_MINOR=$(echo $GIT_TAG | cut -d '.' -f 1,2)
+    LABELS+=("$VERSION_MINOR")
+else
+    LABELS=("$GIT_BR")
+fi
 
 # Add custom tags
 LABELS+=("$@")

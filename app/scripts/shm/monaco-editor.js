@@ -71,13 +71,13 @@ angular
           };
 
           var editorOptions = angular.extend({}, defaultOptions, scope.options || {});
-          
+
           editor = monaco.editor.create(editorElement, editorOptions);
 
           monaco.languages.setLanguageConfiguration('template-toolkit', {
             wordPattern: /[\w\.\-]+/
           });
-          
+
           monaco.languages.setLanguageConfiguration('html', {
             wordPattern: /[\w\.\-]+/
           });
@@ -124,34 +124,34 @@ angular
                 betweenDirectives = true;
                 jsonBlockDepth = 0;
               }
-              
+
               if (!line || inTTDirective) {
                 continue;
               }
-              
+
               if (betweenDirectives) {
                 var openBraces = (line.match(/\{/g) || []).length;
                 var closeBraces = (line.match(/\}/g) || []).length;
                 var openBrackets = (line.match(/\[/g) || []).length;
                 var closeBrackets = (line.match(/\]/g) || []).length;
-                
+
                 jsonBlockDepth += openBraces - closeBraces + openBrackets - closeBrackets;
-                
+
                 var isJsonProperty = line.match(/^\s*"[\w_]+"\s*:/);
                 var isArrayElement = line.match(/^\s*\]/);
                 var hasTTBlocks = line.includes('{{') || line.includes('}}');
-                
+
                 if (jsonBlockDepth > 0 && (isJsonProperty || isArrayElement) && !hasTTBlocks) {
                   var nextLineIndex = i + 1;
                   var needsComma = false;
-                  
+
                   while (nextLineIndex < lines.length) {
                     var nextLine = lines[nextLineIndex].trim();
                     if (!nextLine) {
                       nextLineIndex++;
                       continue;
                     }
-                    
+
                     if (nextLine.match(/^\s*"[\w_]+"\s*:/)) {
                       needsComma = true;
                     }
@@ -166,7 +166,7 @@ angular
                     }
                     break;
                   }
-                  
+
                   if (needsComma && !line.endsWith(',') && !line.endsWith('{') && !line.endsWith('[')) {
                     var lineLength = originalLine.length;
                     markers.push({
@@ -194,16 +194,16 @@ angular
               }
             }
           });
-          
+
           function registerCompletionProviders() {
             if (globalProvidersRegistered) {
               return;
             }
-            
+
             function analyzeTemplateContext(textUntilPosition, model, position) {
               var isInCurlyBraces = textUntilPosition.lastIndexOf('{{') > textUntilPosition.lastIndexOf('}}');
               var isInAngleBrackets = textUntilPosition.lastIndexOf('<%') > textUntilPosition.lastIndexOf('%>');
-              
+
               var patterns = [
                 /"[^"]*\{\{[^}]*$/,
                 /'[^']*\{\{[^}]*$/,
@@ -214,33 +214,33 @@ angular
                 /"[^"]*<%[^%]*$/,
                 /=[^=]*<%[^%]*$/
               ];
-              
+
               var isInQuotedContext = patterns.some(function(pattern) {
                 return pattern.test(textUntilPosition);
               });
-              
+
               var textAfterPosition = '';
               var needsClosing = '';
-              
+
               if (model && position) {
                 var lineContent = model.getLineContent(position.lineNumber);
                 textAfterPosition = lineContent.substring(position.column - 1);
-                
+
                 if (isInCurlyBraces && !textAfterPosition.startsWith('}}')) {
                   needsClosing = '}}';
                 } else if (isInAngleBrackets && !textAfterPosition.startsWith('%>')) {
                   needsClosing = '%>';
                 }
               }
-              
+
               var context = (isInCurlyBraces || isInAngleBrackets || isInQuotedContext) ? 'inside_braces' : 'full';
-              
+
               return {
                 context: context,
                 needsClosing: needsClosing
               };
             }
-            
+
             var ttProvider = monaco.languages.registerCompletionItemProvider('template-toolkit', {
               provideCompletionItems: function(model, position) {
                 return new Promise(function(resolve) {
@@ -250,9 +250,9 @@ angular
                     endLineNumber: position.lineNumber,
                     endColumn: position.column
                   });
-                  
+
                   var contextInfo = analyzeTemplateContext(textUntilPosition, model, position);
-                  
+
                   TemplateVariables.getContextualCompletions(contextInfo.context).then(function(suggestions) {
                     if (contextInfo.needsClosing) {
                       suggestions = suggestions.map(function(suggestion) {
@@ -261,7 +261,7 @@ angular
                         });
                       });
                     }
-                    
+
                     resolve({ suggestions: suggestions });
                   }).catch(function(error) {
                     resolve({ suggestions: [] });
@@ -270,7 +270,7 @@ angular
               }
             });
             globalCompletionProviders.push(ttProvider);
-            
+
             var htmlProvider = monaco.languages.registerCompletionItemProvider('html', {
               provideCompletionItems: function(model, position) {
                 return new Promise(function(resolve) {
@@ -280,9 +280,9 @@ angular
                     endLineNumber: position.lineNumber,
                     endColumn: position.column
                   });
-                  
+
                   var contextInfo = analyzeTemplateContext(textUntilPosition, model, position);
-                  
+
                   if (contextInfo.context !== 'none') {
                     TemplateVariables.getContextualCompletions(contextInfo.context).then(function(suggestions) {
                       if (contextInfo.needsClosing) {
@@ -292,7 +292,7 @@ angular
                           });
                         });
                       }
-                      
+
                       resolve({ suggestions: suggestions });
                     }).catch(function(error) {
                       resolve({ suggestions: [] });
@@ -315,9 +315,9 @@ angular
                     endLineNumber: position.lineNumber,
                     endColumn: position.column
                   });
-                  
+
                   var contextInfo = analyzeTemplateContext(textUntilPosition, model, position);
-                  
+
                   TemplateVariables.getContextualCompletions(contextInfo.context).then(function(suggestions) {
                     if (contextInfo.needsClosing) {
                       suggestions = suggestions.map(function(suggestion) {
@@ -326,7 +326,7 @@ angular
                         });
                       });
                     }
-                    
+
                     var shellSuggestions = [];
                     if (contextInfo.context === 'none') {
                       shellSuggestions = [
@@ -354,7 +354,7 @@ angular
                         }
                       ];
                     }
-                    
+
                     var allSuggestions = shellSuggestions.concat(suggestions);
                     resolve({ suggestions: allSuggestions });
                   }).catch(function(error) {
@@ -375,9 +375,9 @@ angular
                     endLineNumber: position.lineNumber,
                     endColumn: position.column
                   });
-                  
+
                   var contextInfo = analyzeTemplateContext(textUntilPosition, model, position);
-                  
+
                   if (contextInfo.context !== 'none') {
                     TemplateVariables.getContextualCompletions(contextInfo.context).then(function(suggestions) {
                       if (contextInfo.needsClosing) {
@@ -387,7 +387,7 @@ angular
                           });
                         });
                       }
-                      
+
                       resolve({ suggestions: suggestions });
                     }).catch(function(error) {
                       resolve({ suggestions: [] });
@@ -410,9 +410,9 @@ angular
                     endLineNumber: position.lineNumber,
                     endColumn: position.column
                   });
-                  
+
                   var contextInfo = analyzeTemplateContext(textUntilPosition, model, position);
-                  
+
                   if (contextInfo.context !== 'none') {
                     TemplateVariables.getContextualCompletions(contextInfo.context).then(function(suggestions) {
                       if (contextInfo.needsClosing) {
@@ -422,7 +422,7 @@ angular
                           });
                         });
                       }
-                      
+
                       resolve({ suggestions: suggestions });
                     }).catch(function(error) {
                       resolve({ suggestions: [] });
@@ -504,25 +504,25 @@ angular
           window.monacoLoading = true;
 
           var script = document.createElement('script');
-          script.src = '/node_modules/monaco-editor/min/vs/loader.js';
+          script.src = 'node_modules/monaco-editor/min/vs/loader.js';
           script.onload = function() {
-            require.config({ 
-              paths: { 
-                'vs': '/node_modules/monaco-editor/min/vs' 
-              } 
+            require.config({
+              paths: {
+                'vs': 'node_modules/monaco-editor/min/vs'
+              }
             });
-            
+
             require(['vs/editor/editor.main'], function() {
               MonacoLanguageLoader.registerCustomLanguages();
               window.monacoLoading = false;
               $timeout(initializeEditor, 0);
             });
           };
-          
+
           script.onerror = function() {
             window.monacoLoading = false;
           };
-          
+
           document.head.appendChild(script);
         }
 

@@ -47,18 +47,22 @@ angular
                     if (files && files.length > 0) {
                         $scope.uploadedFile = files[0];
                         var reader = new FileReader();
-                        
+
                         reader.onload = function(e) {
                             $scope.$apply(function() {
-                                $scope.data.data = e.target.result;
-                                
-                                // Автоматически генерируем ID из имени файла
-                                var fileName = $scope.uploadedFile.name;
-                                var fileNameWithoutExt = fileName.replace(/\.[^/.]+$/, ""); // Убираем расширение
-                                $scope.data.id = fileNameWithoutExt.replace(/[^A-Za-z0-9-_]/g, '_'); // Заменяем недопустимые символы
+                                var content = e.target.result;
+
+                                content = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+                                $scope.data.data = content;
+
+                                if (!$scope.data.id && $scope.uploadedFile.name) {
+                                    var fileName = $scope.uploadedFile.name.replace(/\.[^/.]+$/, "");
+                                    fileName = fileName.replace(/[^A-Za-z0-9-_/]/g, '_');
+                                    $scope.data.id = fileName;
+                                }
                             });
                         };
-                        
+
                         reader.readAsText($scope.uploadedFile);
                     }
                 };
@@ -72,11 +76,10 @@ angular
                         alert('Заполните все обязательные поля');
                         return;
                     }
-                    
-                    // Добавляем is_add в данные для отправки
+
                     var requestData = angular.copy($scope.data);
                     requestData.is_add = $scope.is_add;
-                    
+
                     shm_request('PUT_JSON', url, requestData).then(function(response) {
                         $modalInstance.close(response.data.data[0]);
                     }).catch(function(error) {
@@ -112,6 +115,17 @@ angular
                     }
                 };
 
+                $scope.autoConvertToUnixLineEndings = function() {
+                    if ($scope.data.data) {
+                        var hasWindowsLineEndings = $scope.data.data.includes('\r');
+                        if (hasWindowsLineEndings) {
+                            $scope.data.data = $scope.data.data.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+                            return true;
+                        }
+                    }
+                    return false;
+                };
+
                 function detectCurrentTheme() {
                     var themeClass = $window.localStorage['theme.settings.ThemeClass'];
                     if (themeClass === 'dark') {
@@ -119,18 +133,18 @@ angular
                     } else if (themeClass === 'light') {
                     return 'vs';
                     }
-                    
+
                     var computed = $window.getComputedStyle($document[0].documentElement);
                     var bgColor = computed.getPropertyValue('--background-color').trim();
-                    
+
                     if (bgColor === '#212121' || bgColor.includes('21212')) {
                     return 'vs-dark';
                     }
-                    
+
                     if ($document[0].body.classList.contains('dark')) {
                     return 'vs-dark';
                     }
-                    
+
                     return 'vs';
                 }
 
@@ -140,7 +154,7 @@ angular
 
                 $scope.updateEditorTheme = function() {
                     var baseTheme = $scope.detectCurrentTheme();
-                    
+
                     if ($scope.editorLanguage === 'template-toolkit') {
                         $scope.editorTheme = baseTheme === 'vs-dark' ? 'vs-dark-template-toolkit' : 'vs-template-toolkit';
                     } else {
@@ -163,14 +177,14 @@ angular
                 });
                 $scope.detectLanguage = function(templateId, content) {
                     if (!content) return 'plaintext';
-                    
+
                     var trimmedContent = content.trim();
-                    
+
                     if (trimmedContent.startsWith('{') || trimmedContent.startsWith('[')) {
 
                         return 'json';
-                    } else if (content.includes('#!/bin/bash') || 
-                               content.includes('#!/bin/sh') || 
+                    } else if (content.includes('#!/bin/bash') ||
+                               content.includes('#!/bin/sh') ||
                                content.includes('#!/usr/bin/bash') ||
                                content.includes('#!/usr/bin/sh') ||
                                content.includes('set -e') ||
@@ -180,14 +194,14 @@ angular
                                content.includes('while [')) {
 
                         return 'shell';
-                    } else if (content.includes('#!/usr/bin/perl') || 
-                               content.includes('use strict;') || 
+                    } else if (content.includes('#!/usr/bin/perl') ||
+                               content.includes('use strict;') ||
                                content.includes('package ') ||
                                content.includes('my $')) {
 
                         return 'perl';
-                    } else if (content.includes('[%') || content.includes('%]') || 
-                               content.includes('<%') || content.includes('%>') || 
+                    } else if (content.includes('[%') || content.includes('%]') ||
+                               content.includes('<%') || content.includes('%>') ||
                                content.includes('{{') || content.includes('}}')) {
 
                         return 'template-toolkit';
@@ -197,7 +211,7 @@ angular
 
                         return 'html';
                     }
-                    
+
                     return 'plaintext';
                 };
 
@@ -211,6 +225,7 @@ angular
                     } else {
                         $scope.updateEditorLanguage();
                     }
+                    $scope.autoConvertToUnixLineEndings();
                 };
 
                 $scope.updateEditorLanguage = function() {
@@ -234,10 +249,17 @@ angular
                     $scope.updateEditorTheme();
                 });
 
+                $scope.$watch('data.data', function(newValue, oldValue) {
+                    if (newValue && newValue !== oldValue && newValue.includes('\r')) {
+                        $scope.autoConvertToUnixLineEndings();
+                    }
+                });
+
                 if ( row.id ) {
                     shm_request( 'GET', 'v1/admin/template?id='+ row.id ).then(function(response) {
                         angular.extend( $scope.data, response.data.data[0] );
                         $scope.editorLanguage = $scope.detectLanguage($scope.data.id, $scope.data.data);
+                        $scope.autoConvertToUnixLineEndings();
                     });
                 } else {
                     $scope.editorLanguage = 'plaintext';
@@ -250,6 +272,8 @@ angular
                 };
 
                 $scope.save = function (is_test) {
+                    $scope.autoConvertToUnixLineEndings();
+
                     shm_request( $scope.data.is_add ? 'PUT_JSON' : 'POST_JSON', url, $scope.data ).then(function(response) {
                         $scope.data.is_add = 0;
                         angular.extend( row, response.data.data[0] );

@@ -10,6 +10,8 @@ angular
                 $scope.data = {
                     title: 'Пользовательская задача',
                     mode: 'selected_user',
+                    prio: 1000,
+                    period: 0,
                     settings: {
                         user_id: scope.user.user_id,
                     },
@@ -32,13 +34,15 @@ angular
                     }
 
                     var args = {
-                        'event': {
+                        event: {
+                            name: 'TASK',
                             kind: 'Jobs',
                             method: 'job_users',
                             title: $scope.data.title,
-                            //period: $scope.data.period || 0,
+                            period: $scope.data.period || 0,
                             server_gid: $scope.data.server_gid,
                         },
+                        prio: $scope.data.prio || 1000,
                         settings: $scope.data.settings,
                     };
 
@@ -105,6 +109,12 @@ angular
                 $scope.save = function () {
                     shm_request('POST_JSON', 'v1/admin/spool', $scope.data ).then(function(response) {
                         angular.extend( $scope.data, response.data );
+                        $modalInstance.close( response.data.data[0] );
+                    });
+                };
+
+                $scope.delete = function () {
+                    shm_request('DELETE', 'v1/admin/spool', { id: $scope.data.id } ).then(function(response) {
                         $modalInstance.close( response.data.data[0] );
                     });
                 };

@@ -92,5 +92,6 @@
     <div class="modal-footer">
         <button class="btn btn-primary" ng-show="data.status=='STUCK' || data.status=='PAUSED'" ng-click="save()">Save</button>
         <button class="btn btn-warning" ng-click="close()">Close</button>
+        <button class="btn btn-danger pull-left" ng-show="data.event.name=='TASK' && data.event.period" ng-click="delete()">Delete</button>
     </div>
 </form>

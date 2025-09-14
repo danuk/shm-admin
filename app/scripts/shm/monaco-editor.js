@@ -74,6 +74,12 @@ angular
 
           editor = monaco.editor.create(editorElement, editorOptions);
 
+          // Принудительно устанавливаем переводы строк в формат LF (Linux)
+          var model = editor.getModel();
+          if (model) {
+            model.setEOL(monaco.editor.EndOfLineSequence.LF);
+          }
+
           monaco.languages.setLanguageConfiguration('template-toolkit', {
             wordPattern: /[\w\.\-]+/
           });
@@ -449,6 +455,11 @@ angular
           scope.$watch('ngModel', function(newValue) {
             if (editor && newValue !== editor.getValue()) {
               editor.setValue(newValue || '');
+              // Принудительно устанавливаем LF после установки нового значения
+              var model = editor.getModel();
+              if (model) {
+                model.setEOL(monaco.editor.EndOfLineSequence.LF);
+              }
             }
           });
 
@@ -457,6 +468,8 @@ angular
               var model = editor.getModel();
               if (model) {
                 monaco.editor.setModelLanguage(model, newLanguage);
+                // Принудительно устанавливаем LF при смене языка
+                model.setEOL(monaco.editor.EndOfLineSequence.LF);
               }
             }
           });
@@ -513,6 +526,11 @@ angular
             });
 
             require(['vs/editor/editor.main'], function() {
+              // Глобальная настройка для принуждения к использованию LF во всех моделях
+              monaco.editor.onDidCreateModel(function(model) {
+                model.setEOL(monaco.editor.EndOfLineSequence.LF);
+              });
+
               MonacoLanguageLoader.registerCustomLanguages();
               window.monacoLoading = false;
               $timeout(initializeEditor, 0);

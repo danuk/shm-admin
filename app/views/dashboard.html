@@ -62,14 +62,14 @@
     <div ng-hide="loading">
         <div class="row">
             <div class="col-md-6">
-                <div class="panel panel-default" style="visibility: visible;">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4><i class="fa fa-server"></i>Общая статистика</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="info-tile tile-default" style="visibility: visible;">
+                                <div class="info-tile tile-default">
                                     <div class="tile-icon"><i class="fa fa-users"></i></div>
                                     <div class="tile-body">
                                         <div class="tile-heading">Всего пользователей</div>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="info-tile tile-info" style="visibility: visible;">
+                                <div class="info-tile tile-info">
                                     <div class="tile-icon"><i class="fa fa-server"></i></div>
                                     <div class="tile-body">
                                         <div class="tile-heading">Всего услуг</div>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="info-tile tile-success" style="visibility: visible;">
+                                <div class="info-tile tile-success">
                                     <div class="tile-icon"><i class="fa fa-money"></i></div>
                                     <div class="tile-body">
                                         <div class="tile-heading">Общий баланс</div>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="info-tile tile-info" style="visibility: visible;">
+                                <div class="info-tile tile-info">
                                     <div class="tile-body">
                                         <div class="tile-heading">Общий бонусный баланс</div>
                                         <div class="tile-number ng-binding">{{stats.financial.total_bonus }}</div>
@@ -110,26 +110,26 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-default" style="visibility: visible;">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4><i class="fa fa-users"></i> Пользователи</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="info-tile tile-default" style="visibility: visible;">
+                                <div class="info-tile tile-default">
                                     <div class="tile-heading">Всего</div>
                                     <div class="tile-body ng-binding">{{stats.users.total}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-tile tile-success" style="visibility: visible;">
+                                <div class="info-tile tile-success">
                                     <div class="tile-heading">Активных</div>
                                     <div class="tile-body ng-binding">{{stats.users.active}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-tile tile-danger" style="visibility: visible;">
+                                <div class="info-tile tile-danger">
                                     <div class="tile-heading">Заблокированных</div>
                                     <div class="tile-body ng-binding">{{stats.users.blocked}}</div>
                                 </div>
@@ -137,14 +137,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="info-tile tile-info" style="visibility: visible;">
+                                <div class="info-tile tile-info">
                                     <div class="tile-heading">Новых за период</div>
                                     <div class="tile-body ng-binding">{{stats.users.new_period}}</div>
                                     <div class="tile-footer ng-binding">{{getPeriodLabel()}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="info-tile tile-primary" style="visibility: visible;">
+                                <div class="info-tile tile-primary">
                                     <div class="tile-heading">Активность за период</div>
                                     <div class="tile-body ng-binding">{{stats.users.login_period}}</div>
                                     <div class="tile-footer ng-binding">{{getPeriodLabel()}}</div>
@@ -212,28 +212,28 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-default" style="visibility: visible;">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4><i class="fa fa-minus-circle"></i>Списания</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="info-tile tile-default" style="visibility: visible;">
+                                <div class="info-tile tile-default">
                                     <div class="tile-heading">Всего</div>
                                     <div class="tile-body">{{stats.withdraws.total || 0}}</div>
                                     <div class="tile-footer">{{stats.withdraws.total_amount | currency:'₽' || '0 ₽'}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-tile tile-success" style="visibility: visible;">
+                                <div class="info-tile tile-success">
                                     <div class="tile-heading">Оплачено</div>
                                     <div class="tile-body">{{stats.withdraws.paid || 0}}</div>
                                     <div class="tile-footer">{{stats.withdraws.paid_amount | currency:'₽' || '0 ₽'}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-tile tile-danger" style="visibility: visible;">
+                                <div class="info-tile tile-danger">
                                     <div class="tile-heading">Не оплачено</div>
                                     <div class="tile-body">{{stats.withdraws.unpaid || 0}}</div>
                                     <div class="tile-footer">{{stats.withdraws.unpaid_amount | currency:'₽' || '0 ₽'}}</div>
@@ -242,7 +242,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="info-tile tile-info" style="visibility: visible;">
+                                <div class="info-tile tile-info">
                                     <div class="tile-heading ng-binding">За {{getPeriodLabel()}}</div>
                                     <div class="tile-body ng-binding">{{stats.withdraws.total || 0}}</div>
                                     <div class="tile-footer ng-binding">{{stats.withdraws.total_amount | currency:'₽' || '0 ₽'}}</div>
@@ -280,7 +280,7 @@
                                 <div class="table-responsive">
                                     <div style="overflow-x: auto; max-width: 100%;">
                                         <div style="max-height: 93px; overflow-y: auto;">
-                                            <table class="table table-condensed" style="min-width: 400px;">
+                                            <table class="table table-condensed">
                                                 <thead>
                                                     <tr>
                                                         <th>Система</th>

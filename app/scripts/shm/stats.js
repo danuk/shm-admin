@@ -18,11 +18,11 @@ angular
     $scope.stats = {};
     $scope.selectedPeriod = 'all';
     $scope.lastUpdate = new Date();
-    
-    $scope.autoRefresh = $window.localStorage['dashboard.autoRefresh'] === 'true' || 
-                        $window.localStorage['dashboard.autoRefresh'] === null || 
+
+    $scope.autoRefresh = $window.localStorage['dashboard.autoRefresh'] === 'true' ||
+                        $window.localStorage['dashboard.autoRefresh'] === null ||
                         $window.localStorage['dashboard.autoRefresh'] === undefined;
-    
+
     $scope.refreshInterval = parseInt($window.localStorage['dashboard.refreshInterval']) || 30;
 
     $scope.periods = [
@@ -48,23 +48,13 @@ angular
         return period ? period.label.toLowerCase() : 'период';
     };
 
-    $scope.getStatusClass = function(status) {
-        var classes = {
-            'ACTIVE': 'progress-bar-success',
-            'BLOCK': 'progress-bar-danger',
-            'NOT PAID': 'progress-bar-warning',
-            'DISABLED': 'progress-bar-default'
-        };
-        return classes[status] || 'progress-bar-info';
-    };
-
     $scope.loadStats = function(forceRefresh) {
         if (forceRefresh) {
             $scope.refreshing = true;
         } else {
             $scope.loading = true;
         }
-        
+
         shm_stats.getDashboard($scope.selectedPeriod, forceRefresh).then(function(response) {
             $scope.stats = response.data.data[0];
             $scope.lastUpdate = new Date();
@@ -119,7 +109,7 @@ angular
             refreshIntervalHandle = null;
         }
     };
-    
+
     $scope.$on('$destroy', function() {
         $scope.stopAutoRefresh();
     });

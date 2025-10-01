@@ -8,8 +8,8 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="btn-group" role="group">
-                        <button type="button" 
-                                class="btn" 
+                        <button type="button"
+                                class="btn"
                                 ng-class="{'btn-primary': selectedPeriod === period.key, 'btn-default': selectedPeriod !== period.key}"
                                 ng-repeat="period in periods"
                                 ng-click="changePeriod(period.key)"
@@ -18,8 +18,8 @@
                         </button>
                     </div>
                     <div class="pull-right">
-                        <button class="btn btn-sm btn-primary" 
-                                ng-click="forceRefresh()" 
+                        <button class="btn btn-sm btn-primary"
+                                ng-click="forceRefresh()"
                                 ng-disabled="refreshing">
                             <i class="fa fa-refresh" ng-class="{'fa-spin': refreshing}"></i>
                             {{ refreshing ? 'Обновляю...' : 'Сбросить кеш' }}
@@ -29,11 +29,11 @@
                             <small style="margin-left: 5px;">Автообновление</small>
                         </label>
                         <div class="form-group" style="display: inline-block; margin: 0 15px 0 0;" ng-show="autoRefresh == true">
-                            <select class="form-control input-sm" 
-                                    ng-model="refreshInterval" 
+                            <select class="form-control input-sm"
+                                    ng-model="refreshInterval"
                                     ng-change="changeRefreshInterval()"
                                     style="width: 80px;">
-                                <option ng-repeat="interval in refreshIntervals" 
+                                <option ng-repeat="interval in refreshIntervals"
                                         ng-value="{{ interval.value }}">
                                     {{ interval.label }}
                                 </option>
@@ -61,187 +61,100 @@
     </div>
     <div ng-hide="loading">
         <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
+            <div class="col-md-6">
+                <div class="panel panel-default" style="visibility: visible;">
                     <div class="panel-heading">
-                        <h4>Общая статистика</h4>
+                        <h4><i class="fa fa-server"></i>Общая статистика</h4>
                     </div>
                     <div class="panel-body">
-                        
-            <div class="col-md-3">
-                <div class="info-tile tile-primary">
-                    <div class="tile-icon"><i class="fa fa-users"></i></div>
-                    <div class="tile-body">
-                        <div class="tile-heading">Всего пользователей</div>
-                        <div class="tile-number">{{stats.users.total}}</div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-tile tile-default" style="visibility: visible;">
+                                    <div class="tile-icon"><i class="fa fa-users"></i></div>
+                                    <div class="tile-body">
+                                        <div class="tile-heading">Всего пользователей</div>
+                                        <div class="tile-number ng-binding">{{stats.users.total}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-tile tile-info" style="visibility: visible;">
+                                    <div class="tile-icon"><i class="fa fa-server"></i></div>
+                                    <div class="tile-body">
+                                        <div class="tile-heading">Всего услуг</div>
+                                        <div class="tile-number ng-binding">{{stats.services.total}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-tile tile-success" style="visibility: visible;">
+                                    <div class="tile-icon"><i class="fa fa-money"></i></div>
+                                    <div class="tile-body">
+                                        <div class="tile-heading">Общий баланс</div>
+                                        <div class="tile-number ng-binding">{{stats.financial.total_balance | currency:'₽'}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-tile tile-info" style="visibility: visible;">
+                                    <div class="tile-body">
+                                        <div class="tile-heading">Общий бонусный баланс</div>
+                                        <div class="tile-number ng-binding">{{stats.financial.total_bonus }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="info-tile tile-success">
-                    <div class="tile-icon"><i class="fa fa-money"></i></div>
-                    <div class="tile-body">
-                        <div class="tile-heading">Общий баланс</div>
-                        <div class="tile-number">{{stats.financial.total_balance | currency:'₽'}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="info-tile tile-info">
-                    <div class="tile-icon"><i class="fa fa-server"></i></div>
-                    <div class="tile-body">
-                        <div class="tile-heading">Всего услуг</div>
-                        <div class="tile-number">{{stats.services.total}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="info-tile tile-warning">
-                    <div class="tile-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                    <div class="tile-body">
-                        <div class="tile-heading">Неоплачено</div>
-                        <div class="tile-number">{{stats.financial.unpaid_withdraws | currency:'₽'}}</div>
-                    </div>
-                </div>
-            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
+            <div class="col-md-6">
+                <div class="panel panel-default" style="visibility: visible;">
                     <div class="panel-heading">
                         <h4><i class="fa fa-users"></i> Пользователи</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-2">
-                                <div class="info-tile tile-default">
+                            <div class="col-md-4">
+                                <div class="info-tile tile-default" style="visibility: visible;">
                                     <div class="tile-heading">Всего</div>
-                                    <div class="tile-body">{{stats.users.total}}</div>
+                                    <div class="tile-body ng-binding">{{stats.users.total}}</div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="info-tile tile-success">
+                            <div class="col-md-4">
+                                <div class="info-tile tile-success" style="visibility: visible;">
                                     <div class="tile-heading">Активных</div>
-                                    <div class="tile-body">{{stats.users.active}}</div>
+                                    <div class="tile-body ng-binding">{{stats.users.active}}</div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="info-tile tile-danger">
+                            <div class="col-md-4">
+                                <div class="info-tile tile-danger" style="visibility: visible;">
                                     <div class="tile-heading">Заблокированных</div>
-                                    <div class="tile-body">{{stats.users.blocked}}</div>
+                                    <div class="tile-body ng-binding">{{stats.users.blocked}}</div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="info-tile tile-info">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-tile tile-info" style="visibility: visible;">
                                     <div class="tile-heading">Новых за период</div>
-                                    <div class="tile-body">{{stats.users.new_period}}</div>
-                                    <div class="tile-footer">{{getPeriodLabel()}}</div>
+                                    <div class="tile-body ng-binding">{{stats.users.new_period}}</div>
+                                    <div class="tile-footer ng-binding">{{getPeriodLabel()}}</div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="info-tile tile-primary">
+                            <div class="col-md-6">
+                                <div class="info-tile tile-primary" style="visibility: visible;">
                                     <div class="tile-heading">Активность за период</div>
-                                    <div class="tile-body">{{stats.users.login_period}}</div>
-                                    <div class="tile-footer">{{getPeriodLabel()}}</div>
+                                    <div class="tile-body ng-binding">{{stats.users.login_period}}</div>
+                                    <div class="tile-footer ng-binding">{{getPeriodLabel()}}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-money"></i> Финансы</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="info-tile tile-success">
-                                    <div class="tile-heading">Общий баланс</div>
-                                    <div class="tile-body">{{stats.financial.total_balance | currency:'₽'}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-tile tile-info">
-                                    <div class="tile-heading">Бонусы</div>
-                                    <div class="tile-body">{{stats.financial.total_bonus | currency:'₽'}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="info-tile tile-warning">
-                                    <div class="tile-heading">Неоплачено</div>
-                                    <div class="tile-body">{{stats.financial.unpaid_withdraws | currency:'₽'}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-tile tile-default">
-                                    <div class="tile-heading">Коэффициент долга</div>
-                                    <div class="tile-body">{{stats.financial.debt_ratio}}%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-credit-card"></i> Платежи</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="info-tile tile-primary">
-                                    <div class="tile-heading">Всего платежей</div>
-                                    <div class="tile-body">{{stats.payments.total_count}}</div>
-                                    <div class="tile-footer">{{stats.payments.total_amount | currency:'₽'}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-tile tile-success">
-                                    <div class="tile-heading">За период</div>
-                                    <div class="tile-body">{{stats.payments.period_count}}</div>
-                                    <div class="tile-footer">{{stats.payments.period_amount | currency:'₽'}}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" ng-if="stats.payments.by_system">
-                            <div class="col-md-12">
-                                <h5>По платежным системам:</h5>
-                                <div class="table-responsive">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <th>Система</th>
-                                                <th>Количество</th>
-                                                <th>Сумма</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="(system, data) in stats.payments.by_system">
-                                                <td>{{system}}</td>
-                                                <td>{{data.count}}</td>
-                                                <td>{{data.amount | currency:'₽'}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4><i class="fa fa-server"></i> Услуги пользователей</h4>
@@ -298,54 +211,29 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-pie-chart"></i> Статусы услуг</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div ng-repeat="(status, count) in stats.services.by_status" class="row" style="margin-bottom: 10px;">
-                            <div class="col-md-6">
-                                <strong>{{status}}</strong>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="progress-lg">
-                                    <div class="progress-bar" 
-                                         ng-class="getStatusClass(status)"
-                                         style="width: {{( count / stats.services.total ) * 100}}%">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Списания -->
-        <div class="row">
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-default" style="visibility: visible;">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-minus-circle"></i> Списания</h4>
+                        <h4><i class="fa fa-minus-circle"></i>Списания</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="info-tile tile-default">
+                                <div class="info-tile tile-default" style="visibility: visible;">
                                     <div class="tile-heading">Всего</div>
                                     <div class="tile-body">{{stats.withdraws.total || 0}}</div>
                                     <div class="tile-footer">{{stats.withdraws.total_amount | currency:'₽' || '0 ₽'}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-tile tile-success">
+                                <div class="info-tile tile-success" style="visibility: visible;">
                                     <div class="tile-heading">Оплачено</div>
                                     <div class="tile-body">{{stats.withdraws.paid || 0}}</div>
                                     <div class="tile-footer">{{stats.withdraws.paid_amount | currency:'₽' || '0 ₽'}}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-tile tile-danger">
+                                <div class="info-tile tile-danger" style="visibility: visible;">
                                     <div class="tile-heading">Не оплачено</div>
                                     <div class="tile-body">{{stats.withdraws.unpaid || 0}}</div>
                                     <div class="tile-footer">{{stats.withdraws.unpaid_amount | currency:'₽' || '0 ₽'}}</div>
@@ -354,10 +242,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="info-tile tile-info">
-                                    <div class="tile-heading">За период {{getPeriodLabel()}}</div>
-                                    <div class="tile-body">{{stats.withdraws.period_count || 0}}</div>
-                                    <div class="tile-footer">{{stats.withdraws.period_amount | currency:'₽' || '0 ₽'}}</div>
+                                <div class="info-tile tile-info" style="visibility: visible;">
+                                    <div class="tile-heading ng-binding">За {{getPeriodLabel()}}</div>
+                                    <div class="tile-body ng-binding">{{stats.withdraws.total || 0}}</div>
+                                    <div class="tile-footer ng-binding">{{stats.withdraws.total_amount | currency:'₽' || '0 ₽'}}</div>
                                 </div>
                             </div>
                         </div>
@@ -367,97 +255,48 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-info-circle"></i> Сводка по долгам</h4>
+                        <h4><i class="fa fa-credit-card"></i> Платежи</h4>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="info-tile tile-warning">
-                                    <div class="tile-heading">Коэффициент долга</div>
-                                    <div class="tile-body">{{stats.financial.debt_ratio}}%</div>
+                                <div class="info-tile tile-primary">
+                                    <div class="tile-heading">Всего платежей</div>
+                                    <div class="tile-body">{{stats.payments.total_count}}</div>
+                                    <div class="tile-footer">{{stats.payments.total_amount | currency:'₽'}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="info-tile" ng-class="{'tile-success': stats.financial.debt_ratio < 10, 'tile-warning': stats.financial.debt_ratio >= 10 && stats.financial.debt_ratio < 50, 'tile-danger': stats.financial.debt_ratio >= 50}">
-                                    <div class="tile-heading">Статус</div>
-                                    <div class="tile-body" style="font-size: 14px;">
-                                        <span ng-if="stats.financial.debt_ratio < 10">Хорошо</span>
-                                        <span ng-if="stats.financial.debt_ratio >= 10 && stats.financial.debt_ratio < 50">Внимание</span>
-                                        <span ng-if="stats.financial.debt_ratio >= 50">Критично</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="progress-lg">
-                                    <div class="progress-bar" 
-                                         ng-class="{'progress-bar-success': stats.financial.debt_ratio < 10, 'progress-bar-warning': stats.financial.debt_ratio >= 10 && stats.financial.debt_ratio < 50, 'progress-bar-danger': stats.financial.debt_ratio >= 50}"
-                                         style="width: {{Math.min(stats.financial.debt_ratio, 100)}}%">
-                                    </div>
-                                </div>
-                                <small class="text-muted">Отношение долгов к общему балансу</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-server"></i> Серверы</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="info-tile tile-default">
-                                    <div class="tile-heading">Всего</div>
-                                    <div class="tile-body">{{stats.servers.total}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
                                 <div class="info-tile tile-success">
-                                    <div class="tile-heading">Включено</div>
-                                    <div class="tile-body">{{stats.servers.enabled}}</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="info-tile tile-danger">
-                                    <div class="tile-heading">Отключено</div>
-                                    <div class="tile-body">{{stats.servers.disabled}}</div>
+                                    <div class="tile-heading">За {{getPeriodLabel()}}</div>
+                                    <div class="tile-body">{{stats.payments.period_count}}</div>
+                                    <div class="tile-footer">{{stats.payments.period_amount | currency:'₽'}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-if="stats.servers.by_transport">
+                        <div class="row" ng-if="stats.payments.by_system">
                             <div class="col-md-12">
-                                <h5>По типам транспорта:</h5>
-                                <div ng-repeat="(transport, count) in stats.servers.by_transport" class="row">
-                                    <div class="col-md-6"><strong>{{transport}}</strong></div>
-                                    <div class="col-md-6">{{count}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-bar-chart"></i> Загрузка серверов</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div ng-repeat="server in stats.servers.load_stats" class="row" style="margin-bottom: 15px;">
-                            <div class="col-md-12">
-                                <div class="clearfix">
-                                    <strong class="pull-left">{{server.name}}</strong>
-                                    <span class="pull-right">{{server.services_count}}/{{server.max_services || '∞'}} - {{server.load_percent}}%</span>
-                                </div>
-                                <div class="progress-lg" style="margin-top: 5px;">
-                                    <div class="progress-bar" 
-                                         ng-class="{'progress-bar-success': server.load_percent < 70, 'progress-bar-warning': server.load_percent >= 70 && server.load_percent < 90, 'progress-bar-danger': server.load_percent >= 90}"
-                                         style="width: {{server.load_percent}}%">
+                                <h5>По платежным системам:</h5>
+                                <div class="table-responsive">
+                                    <div style="overflow-x: auto; max-width: 100%;">
+                                        <div style="max-height: 93px; overflow-y: auto;">
+                                            <table class="table table-condensed" style="min-width: 400px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Система</th>
+                                                        <th>Количество</th>
+                                                        <th>Сумма</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="(system, data) in stats.payments.by_system">
+                                                        <td>{{system}}</td>
+                                                        <td>{{data.count}}</td>
+                                                        <td>{{data.amount | currency:'₽'}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

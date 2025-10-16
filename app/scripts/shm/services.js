@@ -40,6 +40,14 @@ angular
                     });
                 };
 
+                $scope.dublicate = function () {
+                    $scope.title = 'Создание услуги';
+                    var data = $scope.data;
+                    delete data.service_id;
+                    data.allow_to_order = 0;
+                    data.cost = null;
+                };
+
                 $scope.delete = function () {
                     shm_request('DELETE', url, { service_id: row.service_id } ).then(function() {
                         $modalInstance.dismiss('delete');

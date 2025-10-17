@@ -15,7 +15,7 @@
                 <input type="text" ng-model="data.status" class="form-control" readonly>
             </div>
             <span ng-if="!history_mode">
-            <span ng-show="data.status=='FAIL' || data.status=='NEW' || data.status=='SUCCESS'">
+            <span ng-show="data.status=='FAIL' || data.status=='NEW' || data.status=='DELAYED' || data.status=='SUCCESS'">
                 <button class="btn btn-warning" ng-click="pause()">Пауза</button>
             </span>
             <span ng-show="data.status=='PAUSED'">

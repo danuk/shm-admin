@@ -66,6 +66,17 @@ angular
                     },function(cancel) {
                     });
                 };
+                $scope.toggleBonusPercent = function() {
+                    if (!$scope.data.config) {
+                        $scope.data.config = {};
+                    }
+
+                    if ($scope.data.config.hasOwnProperty('limit_bonus_percent')) {
+                        delete $scope.data.config.limit_bonus_percent;
+                    } else {
+                        $scope.data.config.limit_bonus_percent = 50;
+                    }
+                };
             },
             size: 'lg',
         });

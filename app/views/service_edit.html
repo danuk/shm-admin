@@ -103,6 +103,11 @@
                 </div>
                 <div class="checkbox">
                     <label>
+                        <input type="checkbox" toggle-int toggle-model="data.config.no_auto_renew">Не продлять автоматически
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
                         <input type="checkbox"
                             ng-checked="data.config.hasOwnProperty('limit_bonus_percent')"
                             ng-click="toggleBonusPercent()">Ограничение оплаты бонусами
